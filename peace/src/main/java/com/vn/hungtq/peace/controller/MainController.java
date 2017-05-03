@@ -745,6 +745,7 @@ public class MainController {
 		 EbayProductToAdd ebayProductAdd = new EbayProductToAdd();
 
 		 String itemId = jsonObject.getAsJsonArray("itemId").get(0).getAsString();
+
 		 ebayProductAdd.setItemId(itemId);
 		 
 		 String title = jsonObject.getAsJsonArray("title").get(0).getAsString();
@@ -769,10 +770,11 @@ public class MainController {
 		 
 		 Boolean isAutoPay = jsonObject.getAsJsonArray("autoPay").get(0).getAsBoolean();
 		 ebayProductAdd.setAutoPay(isAutoPay);
-		 
-		 String postalCode = jsonObject.getAsJsonArray("postalCode").get(0).getAsString();
-		 ebayProductAdd.setPortalCode(postalCode);
-		 
+
+		 if(jsonObject.getAsJsonArray("postalCode") != null){
+			 String postalCode = jsonObject.getAsJsonArray("postalCode").get(0).getAsString();
+			 ebayProductAdd.setPortalCode(postalCode);
+		 }
 		 String location = jsonObject.getAsJsonArray("location").get(0).getAsString();
 		 ebayProductAdd.setLocation(location);
 		 

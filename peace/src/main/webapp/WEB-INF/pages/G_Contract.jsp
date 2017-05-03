@@ -75,6 +75,8 @@
 				-webkit-box-shadow: 0 2px 2px #CCC;
 				border-radius: 6px;
 				box-shadow: 0 2px 2px #CCC;
+				font-weight: bold;
+				background-color: rgba(88, 88, 88, 0.31);
 			}
 
 			.center-text {
@@ -169,13 +171,10 @@
 											<p class="center-text">
 												<input type="hidden" name="no" value="300342" />
 												<input type="hidden" name="action" value="kakunin" />
-												<input type="submit" name="submit" value="確定" class="formBtn" id="confirmBtn" />
+												<input type="submit" name="submit" value="送信" class="formBtn" id="save_contact" />
 											</p>
 										</fieldset>
 										<footer class="">
-										<button type="submit" id="save_contact" class="btn btn-primary">
-											送信
-										</button>
 									</footer>
 									</form>
 								</div>

@@ -1,29 +1,20 @@
 package com.vn.hungtq.peace.controller;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.vn.hungtq.peace.common.*;
+import com.vn.hungtq.peace.dto.AccountSettingDto;
+import com.vn.hungtq.peace.dto.EbayProductToAdd;
+import com.vn.hungtq.peace.dto.UserDto;
 import com.vn.hungtq.peace.dto.YahooProductSearch;
+import com.vn.hungtq.peace.entity.AccountSetting;
+import com.vn.hungtq.peace.entity.StockRegistorEntity;
+import com.vn.hungtq.peace.entity.User;
+import com.vn.hungtq.peace.service.AccountSettingDaoService;
+import com.vn.hungtq.peace.service.StockRegistorDaoService;
+import com.vn.hungtq.peace.service.UserDaoService;
+import org.apache.commons.collections.map.HashedMap;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -34,6 +25,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,41 +34,27 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriUtils;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.vn.hungtq.peace.common.AjaxResponseResult;
-import com.vn.hungtq.peace.common.AmazonProductSearch;
-import com.vn.hungtq.peace.common.AmazonSearchEngine;
-import com.vn.hungtq.peace.common.AmazonSearchResult;
-import com.vn.hungtq.peace.common.AmazonServiceInfo;
-import com.vn.hungtq.peace.common.ClientAmazonSearchDto;
-import com.vn.hungtq.peace.common.CommonUtils;
-import com.vn.hungtq.peace.common.EbayServiceInfo;
-import com.vn.hungtq.peace.common.ProductSearch;
-import com.vn.hungtq.peace.common.RakutenServiceInfo;
-import com.vn.hungtq.peace.common.StockRegistorItem;
-import com.vn.hungtq.peace.common.Tuple;
-import com.vn.hungtq.peace.common.YahooServiceInfo;
-import com.vn.hungtq.peace.dto.AccountSettingDto;
-import com.vn.hungtq.peace.dto.EbayProductToAdd;
-import com.vn.hungtq.peace.dto.UserDto;
-import com.vn.hungtq.peace.entity.AccountSetting;
-import com.vn.hungtq.peace.entity.StockRegistorEntity;
-import com.vn.hungtq.peace.entity.User;
-import com.vn.hungtq.peace.service.AccountSettingDaoService;
-import com.vn.hungtq.peace.service.StockRegistorDaoService;
-import com.vn.hungtq.peace.service.UserDaoService;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.MessageFormat;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class MainController {
@@ -496,6 +475,11 @@ public class MainController {
 
 	@RequestMapping(value ="/YahooProductSearchV2/{keyword}",method=RequestMethod.GET)
 	public @ResponseBody AjaxResponseResult<List<YahooProductSearch>> yahooSearchProductByKeywordV2(@PathVariable(value = "keyword") String keyword){
+		AjaxResponseResult<List<YahooProductSearch>> ajaxResponseResult = processYahooSearchV2(keyword);
+		return  ajaxResponseResult;
+	}
+
+	private AjaxResponseResult<List<YahooProductSearch>> processYahooSearchV2(String keyword) {
 		AjaxResponseResult<List<YahooProductSearch>> ajaxResponseResult = new AjaxResponseResult<List<YahooProductSearch>>();
 		String productSearchUrl = CommonUtils.buildYahooServiceUrl(keyword, yahooServiceInfo);
 		logger.debug("yahoo appid:"+yahooServiceInfo.getAppid());
@@ -503,7 +487,7 @@ public class MainController {
 		String xmlResponseContent =  CommonUtils.getHTMLContent(productSearchUrl);
 		List<YahooProductSearch> yahooProductSearchList = convertToListYahooProductSearch(xmlResponseContent);
 		ajaxResponseResult.setExtraData(yahooProductSearchList);
-		return  ajaxResponseResult;
+		return ajaxResponseResult;
 	}
 
 	private List<YahooProductSearch> convertToListYahooProductSearch(String xmlContent){
@@ -861,6 +845,64 @@ public class MainController {
 	    
 	    return authenticationTrustResolver.isAnonymous(authentication);
 	}
-	
+
+	@RequestMapping(value="/searchAll/{keyword}", method= RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> seachAll(@PathVariable("keyword") String keyword){
+		logger.info("====value key word: "+ keyword);
+		String amazonSearchURL = CommonUtils.buildAmazonServiceUrl(keyword, amazonServiceInfo);
+		AmazonSearchResult amzSearchResult = processAmazonSearchResult(amazonSearchURL);
+		String ebayResult = getEbaySearchProductResult(keyword);
+		AjaxResponseResult<List<YahooProductSearch>> ajaxResponseResult = processYahooSearchV2(keyword);
+		List<ProductSearch> rakutenResult = processRakutenSearch(keyword);
+		Map<String, Object> objectMap = new HashedMap();
+		objectMap.put("amazon", amzSearchResult);
+		objectMap.put("ebay", ebayResult);
+		objectMap.put("yahoo", ajaxResponseResult);
+		objectMap.put("rakuten", rakutenResult);
+
+		return new ResponseEntity(objectMap,HttpStatus.OK);
+	}
+
+
+	private List<ProductSearch> processRakutenSearch(String keyword){
+		String finalUrl = MessageFormat.format(rakutenServiceInfomation.getServiceUrl(),rakutenServiceInfomation.getAppid(),keyword);
+		String responseContent = CommonUtils.getHTMLContent(finalUrl);
+
+		List<ProductSearch> lstProductSearch;
+
+		if(!"".equals(responseContent)){
+			JsonParser jsonParser = new JsonParser();
+			JsonObject responseJsonObject = jsonParser.parse(responseContent).getAsJsonObject();
+			JsonArray itemJsonArrayObject = responseJsonObject.getAsJsonArray("Items");
+
+			int totalItem = itemJsonArrayObject.size();
+			lstProductSearch = new ArrayList<ProductSearch>(totalItem);
+
+			for (int itemIndex = 0; itemIndex < totalItem; itemIndex++) {
+				JsonObject itemJsonObject = (JsonObject)itemJsonArrayObject.get(itemIndex);
+				itemJsonObject = itemJsonObject.getAsJsonObject("Item");
+
+				String productName = itemJsonObject.get("itemName").getAsString();
+				String price = itemJsonObject.get("itemPrice").getAsString();
+				String exhibition = itemJsonObject.get("itemUrl").getAsString();
+				String stock ="";
+
+				JsonArray imageUrls = itemJsonObject.get("mediumImageUrls").getAsJsonArray();
+				if(imageUrls.size()==0){
+					imageUrls = itemJsonObject.get("smallImageUrls").getAsJsonArray();
+				}
+				//May be set default image here when product has not image -fix later
+				String image = imageUrls.size()==0?"":imageUrls.get(0).getAsJsonObject().get("imageUrl").getAsString();
+				lstProductSearch.add(new ProductSearch(image, productName, price, stock, exhibition,"rakuten",(itemIndex+"")));
+			}
+
+			return lstProductSearch;
+		}else{
+			logger.info("Empty response content!!!");
+		}
+
+		return Collections.emptyList();
+	}
 	
 }

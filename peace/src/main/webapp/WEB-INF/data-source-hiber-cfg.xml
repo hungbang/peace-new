@@ -8,7 +8,8 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations"> 
 			<list>
-				<value>classpath:database.properties</value> 
+				<value>classpath:database-${spring.profiles.active}.properties</value>
+				<value>classpath:message-${spring.profiles.active}.properties</value>
 				<value>classpath:gmail_configuration.properties</value>  
 				<value>classpath:contact_email_configuration.properties</value>  
 				<value>classpath:amazonservice_configuration.properties</value>  

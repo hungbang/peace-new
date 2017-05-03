@@ -103,9 +103,9 @@ public class User implements java.io.Serializable {
 	private Set<UserRole> userRoles = new HashSet<UserRole>();
 	
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "APP_USER_USER_ROLE", 
-             joinColumns = { @JoinColumn(name = "USER_ID") }, 
-             inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })
+	@JoinTable(name = "app_user_user_role",
+             joinColumns = { @JoinColumn(name = "user_id") },
+             inverseJoinColumns = { @JoinColumn(name = "role_id") })
 	public Set<UserRole> getUserRoles() {
 		return userRoles;
 	}

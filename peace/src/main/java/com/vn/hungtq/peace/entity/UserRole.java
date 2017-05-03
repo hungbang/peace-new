@@ -14,7 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="USER_ROLE")
+@Table(name="user_role")
 public class UserRole implements Serializable{
 
 	@Id
@@ -22,7 +22,7 @@ public class UserRole implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer roleId;	
 
-	@Column(name="TYPE", length=15, unique=true, nullable=false)
+	@Column(name="type", length=15, unique=true, nullable=false)
 	private String type = UserProfileType.USER.getUserProfileType();
 	
 //	private Set<User> users = new HashSet<User>(0);

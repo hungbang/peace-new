@@ -29,6 +29,9 @@
     text-align: center;
 }
 
+#panel_chinese {
+	display: none;
+}
 .ebay-fieldset legend{
 	color: black;
     font-size: 14px; 
@@ -61,7 +64,7 @@ ul.preview-image-list li {
 }
 
 input, textarea, button {
-	margin-top: 10px
+	margin-top: 10px;
 }
 
 /* Required field START */
@@ -133,7 +136,9 @@ input, textarea, button {
 label {
     font-weight: bold !important;
     font-size: medium !important;
+	line-height: 30px !important;
 }
+
 /* Required field END */
 <!--http://cgi5.ebay.com/ws/eBayISAPI.dll-->
 </style>
@@ -163,7 +168,7 @@ label {
 			<!-- MAIN CONTENT -->
 			<div id="content">
 				<!-- widget grid -->
-				<section id="widget-grid" class="row" style="margin-left:15px">
+				<section id="widget-grid" class="row" style="margin-left:15px; paa">
 					
 					<!-- widget content -->
 					<!-- end widget content -->
@@ -297,7 +302,7 @@ label {
 						<!-- End YouTube URL -->
 						
 						<!-- The listing type   part -->
-						<section class="col-xs-10 col-md-10"> 
+						<form name="radioForm" class="col-xs-10 col-md-10">
 							<label class="col-xs-6 col-md-3">
 							<input type="radio" name="rad_listing_type" value="CHINESE">
 							オークション
@@ -306,50 +311,88 @@ label {
 							<input type="radio" name="rad_listing_type" value="FIXED_PRICE_ITEM" checked="">
 							即決
 							</label>
-						</section>
+						</form>
+
 						<!-- End listing type URL -->
 						
 						<!-- The start price part -->
-						<section class="col-xs-10 col-md-10"> 
-							<label class="label">開始価格</label> 
-							<label class="input col-xs-6 col-md-4">  
-								<input type="text" class="input" id="txt_start_price">
-							</label>
-						</section> 
+
+						<section class="col-xs-10 col-md-10">
+						<label class="label">開始価格</label>
+						<br>
+						<input type="text" class="form-control" id="txt_start_price" style="width:250px; display:inline-block;">
+						</section>
 						<!-- End start price part -->
 						
 						<!-- The buy it now part -->
-						<section class="col-xs-10 col-md-10"> 
-							<label class="label">Buy It Now 価格</label> 
-							<label class="input col-xs-6 col-md-4">  
-								<input type="text" class="input" id="txt_buyitnow_priceA">
-							</label>
-						</section> 
+						<section id="panel_chinese"  class="col-xs-10 col-md-10">
+							<label>Buy It Now 価格</label>
+							<br>
+							<input type="text" class="form-control" id="txt_buyitnow_priceA" style="width:250px; display:inline-block;">
+							<br>
 						<!-- End buy it now part -->
 						
 						<!-- The listing duration part -->
-						<section class="col-xs-10 col-md-10"> 
-							<label class="label">出品日数</label> 
-							<label class="input col-xs-6 col-md-4"> 
-								<select class="form-control" id="sel_listing_durationA">
-									<option value="Days_1">1日</option>
-									<option value="Days_3">3日</option>
-									<option value="Days_5">5日</option>
-									<option value="Days_7">7日</option>
-									<option value="Days_10">10日</option>
-								</select>
-							</label>
-						</section>
+							<label class="label">出品日数</label>
+							<select class="form-control" id="sel_listing_durationA" style="width:250px;">
+								<option value="Days_1">1日</option>
+								<option value="Days_3">3日</option>
+								<option value="Days_5">5日</option>
+								<option value="Days_7">7日</option>
+								<option value="Days_10">10日</option>
+							</select>
 						<!-- End listing duration part -->
 						
 						<!-- The chk schedule datetime part -->
-						<section class="col-xs-10 col-md-10"> 
 							<label>
 								<input type="checkbox" id="chk_schedule_datetime">
 								出品日時指定
 							</label>
 						</section>
-						
+
+						<!-- The chk schedule datetime part - right radio  -->
+						<section id="panel_fixedPrice" class="col-xs-10 col-md-10">
+							<label>Buy It Now 価格</label>
+							<input type="text" class="form-control" id="txt_buyitnow_priceB" style="width:250px;">
+							<br>
+							<label>
+								<input type="checkbox" id="chk_best_offer">
+								Best Offer 価格
+							</label>
+							<br>
+							<input type="text" class="form-control" id="txt_best_offer_accept_price" style="width:250px; display:inline-block;">
+							これ以上の額は自動的に受け付ける
+							<br>
+							<input type="text" class="form-control" id="txt_best_offer_minimum_price" style="width:250px; display:inline-block;">
+							これ以下の額は自動的に拒否する
+							<br>
+							<br>
+							<label>出品数</label>
+							<select class="form-control" id="sel_quantity" style="width:250px; display:inline-block;">
+								<option value="1" selected="">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+							</select>
+							<br>
+							<label>出品日数</label>
+							<select class="form-control" id="sel_listing_durationB" style="width:250px; display:inline-block;">
+								<option value="Days_5">5日</option>
+								<option value="Days_7">7日</option>
+								<option value="Days_10" selected="">10日</option>
+								<option value="Days_30">30日</option>
+								<option value="GTC">売れるまで</option>
+							</select>
+							<br>
+						</section>
 						<!-- The chk chk_shipping_free part -->
 						<section class="col-xs-10 col-md-10"> 
 							<label>
@@ -360,10 +403,8 @@ label {
 						
 						<!-- The txt_sku part -->
 						<section class="col-xs-10 col-md-10"> 
-							<label class="label">SKU</label> 
-							<label class="input col-xs-6 col-md-4">  
-								<input type="text" class="input" id="txt_sku">
-							</label>
+							<label class="label">SKU</label>
+								<input type="text" class="form-control" id="txt_sku">
 						</section>
 						
 						<section class="col-xs-10 col-md-10"> 
@@ -375,10 +416,8 @@ label {
 						
 						<!-- The txt_sku part -->
 						<section class="col-xs-10 col-md-10"> 
-							<label class="label">在庫URL</label> 
-							<label class="input col-xs-6 col-md-4">  
-								<input type="text" class="input" id="txt_stockurl" maxlength="80">
-							</label>
+							<label class="label">在庫URL</label>
+								<input type="text" class="form-control" id="txt_stockurl" maxlength="80">
 						</section>
 						
 						<!-- The footer part -->
@@ -406,6 +445,19 @@ label {
 		<jsp:include page="../pages/common/footer2.jsp"/> 
 		<script type="text/javascript">
 		$(function() {
+            $("input[name=rad_listing_type]:radio").change(function () {
+                console.log(this.value);
+                toggleViewWhenChangeRadio(this.value);
+			});
+
+            function  toggleViewWhenChangeRadio(value) {
+                toggleDiv('#panel_fixedPrice');
+                toggleDiv('#panel_chinese');
+            }
+
+            function toggleDiv(idOrClass) {
+                $(idOrClass).css("display") == 'none'?$(idOrClass).fadeIn(200):$(idOrClass).fadeOut(100);
+            }
 			$('.required-icon').tooltip({
 				placement: 'left',
 				title: 'Required field'
@@ -782,7 +834,8 @@ label {
 		<!-- Thu vien xu ly picklist -->
 		<script type="text/javascript">
 		(function($) {
-	
+
+
 			  $.fn.pickList = function(options) {
 	
 			    var opts = $.extend({}, $.fn.pickList.defaults, options);

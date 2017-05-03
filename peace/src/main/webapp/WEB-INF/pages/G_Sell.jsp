@@ -139,6 +139,17 @@ label {
 	line-height: 30px !important;
 }
 
+
+button#btnPreview {
+	background-color: #009966;
+	color: white;
+}
+
+button#btnAddEbayItem {
+	background-color: #009965;
+	color: white;
+}
+
 /* Required field END */
 <!--http://cgi5.ebay.com/ws/eBayISAPI.dll-->
 </style>
@@ -367,7 +378,7 @@ label {
 							これ以下の額は自動的に拒否する
 							<br>
 							<br>
-							<label>出品数</label>
+							<div><label>出品数</label></div>
 							<select class="form-control" id="sel_quantity" style="width:250px; display:inline-block;">
 								<option value="1" selected="">1</option>
 								<option value="2">2</option>
@@ -383,7 +394,7 @@ label {
 								<option value="12">12</option>
 							</select>
 							<br>
-							<label>出品日数</label>
+							<div><label>出品日数</label></div>
 							<select class="form-control" id="sel_listing_durationB" style="width:250px; display:inline-block;">
 								<option value="Days_5">5日</option>
 								<option value="Days_7">7日</option>

@@ -90,6 +90,10 @@
 				color: red;
 				font-weight: bold;
 			}
+
+			h2{
+				text-align: center;
+			}
 			/* Required field END */
 
 		</style> 

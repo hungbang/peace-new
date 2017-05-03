@@ -207,7 +207,7 @@ label {
 									</section>
 									<section class="col-xs-10 col-md-10" style="margin-bottom: 10px"> 
 										<label class="label">商品説明用画像URL </label> 
-										<textarea id="imageDescription" style="width: 100%" rows="5"></textarea> 
+										<textarea id="imageDescription" style="width: 100%" rows="5"></textarea>
 									</section>
 								</fieldset>
 							</div>
@@ -250,25 +250,26 @@ label {
 			<!-- END MAIN CONTENT -->
 
 		</div>
-		<jsp:include page="../pages/common/footer.jsp"/>
-		<!--================================================== -->	
-		<jsp:include page="../pages/common/footer2.jsp"/> 
-	
+
 		<script src="${pageContext.request.contextPath}/resources/js/third-party/jquery/jquery.js"></script>
-	    <script src="${pageContext.request.contextPath}/resources/js/third-party/jquery/jquery.cookie.js"></script>
-	
-	    <script src="${pageContext.request.contextPath}/resources/js/lib/beautify.js"></script>
-	    <script src="${pageContext.request.contextPath}/resources/js/lib/beautify-css.js"></script>
-	    <script src="${pageContext.request.contextPath}/resources/js/lib/beautify-html.js"></script>
-	    <script src="${pageContext.request.contextPath}/resources/js/lib/unpackers/javascriptobfuscator_unpacker.js"></script>
-	    <script src="${pageContext.request.contextPath}/resources/js/lib/unpackers/urlencode_unpacker.js"></script>
-	    <script src="${pageContext.request.contextPath}/resources/js/lib/unpackers/p_a_c_k_e_r_unpacker.js"></script>
-	    <script src="${pageContext.request.contextPath}/resources/js/lib/unpackers/myobfuscate_unpacker.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/third-party/jquery/jquery.cookie.js"></script>
+
+		<script src="${pageContext.request.contextPath}/resources/js/lib/beautify.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/lib/beautify-css.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/lib/beautify-html.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/lib/unpackers/javascriptobfuscator_unpacker.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/lib/unpackers/urlencode_unpacker.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/lib/unpackers/p_a_c_k_e_r_unpacker.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/lib/unpackers/myobfuscate_unpacker.js"></script>
 		<!-- EMBED CKEDITOR(napt2017) -->
 		<script src="${pageContext.request.contextPath}/resources/js/plugin/ckeditor/ckeditor.js"></script>
+
+		<jsp:include page="../pages/common/footer.jsp"/>
+		<!--================================================== -->
+		<jsp:include page="../pages/common/footer2.jsp"/>
 		<script type="text/javascript">
-			$(function(){  
-				CKEDITOR.replace("ckEditorForDescription"); 
+			$(function(){
+				CKEDITOR.replace("ckEditorForDescription");
 			});
 	        var the = {
 	                use_codemirror: (!window.location.href.match(/without-codemirror/)),
@@ -354,21 +355,21 @@ label {
 
 		            the.beautify_in_progress = false;
 		        }
-				
+
 		        function looks_like_html(source) {
 		            // <foo> - looks like html
 		            var trimmed = source.replace(/^[ \t\n\r]+/, '');
 		            return trimmed && (trimmed.substring(0, 1) === '<');
 		        }
 		</script>
-		
-	
+
+
 		<!-- Your GOOGLE ANALYTICS CODE Below -->
 		<script type="text/javascript">
 			var _gaq = _gaq || [];
 				_gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
 				_gaq.push(['_trackPageview']);
-			
+
 			(function() {
 				var ga = document.createElement('script');
 				ga.type = 'text/javascript';
@@ -399,7 +400,7 @@ label {
 	            });
 				var token = $("meta[name='_csrf']").attr("content");
 			    var header = $("meta[name='_csrf_header']").attr("content");
-			    
+
 				$.ajax({
 					type : "POST",
 					contentType : "application/json",

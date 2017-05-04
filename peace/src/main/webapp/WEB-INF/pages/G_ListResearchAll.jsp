@@ -55,17 +55,17 @@
 								</div>
 								<section style="">
 									<div class="inline-group" style="padding-top: 30px">
-										<label class="radio "> <input type="radio"
+										<label class="radio "> <input type="radio" value="all"
 											name="radio-inline" id="all" checked="checked"> <i></i>All
-										</label> <label class="radio "> <input type="radio"
+										</label> <label class="radio "> <input type="radio" value="ebay"
 											name="radio-inline" id="ebay"> <i></i>Ebay
-										</label> <label class="radio "> <input type="radio"
+										</label> <label class="radio "> <input type="radio" value="yahooShopping"
 											name="radio-inline" id="yahoo_shopping"> <i></i>
 											Yahoo! Shopping
-										</label> <label class="radio "> <input type="radio"
+										</label> <label class="radio "> <input type="radio" value="yahooAuction"
 											name="radio-inline" id="yahoo_auction"> <i></i>
 											Yahoo! Auction
-										</label> <label class="radio "> <input type="radio"
+										</label> <label class="radio "> <input type="radio" value="rakuten"
 											name="radio-inline" id="rakuten_research"> <i></i>
 											Rakuten Research
 										</label>
@@ -77,7 +77,9 @@
 					<div class="row"
 						style="background-color: white; padding-right: 40px;">
 						<div class="col col-lg-12">
+							<label id="lbAmazonHeader" class="label labelHeader">Amazon</label>
 							<table
+									id="tbAmazon"
 							class="table table-bordered table-striped responsive-utilities"
 							style="margin-left: 25px">
 							<thead>
@@ -99,7 +101,7 @@
 									</th>
 								</tr>
 							</thead>
-							<tbody id="searchBody">
+							<tbody class="searchBody">
 								<!--
 								<tr dir-paginate ="product in listOfProduct |orderBy:sortKey:reverse |itemsPerPage:6">
 									<td class="col col-1" ng-cloak ><image width="64" height="64"
@@ -125,6 +127,180 @@
 						       boundary-links="true" >
 						</dir-pagination-controls>
 						-->
+							<label id="lbEbayHeader" class="label labelHeader">Ebay</label>
+							<table
+									id="tbEbay"
+									class="table table-bordered table-striped responsive-utilities"
+									style="margin-left: 25px">
+								<thead>
+								<tr>
+									<th ng-click="sort('image')">Image
+										<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('productName')">Product Name
+										<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('price')">Price
+										<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('stock')">Stock
+										<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('exhibition')">Exhibition
+										<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+								</tr>
+								</thead>
+								<tbody class="searchBody">
+								<!--
+								<tr dir-paginate ="product in listOfProduct |orderBy:sortKey:reverse |itemsPerPage:6">
+									<td class="col col-1" ng-cloak ><image width="64" height="64"
+											src="{{product.image}}" /></td>
+									<td ng-cloak class="is-visible"><p>{{product.productName}}</p></td>
+									<td ng-cloak class="is-hidden">{{product.price}}</td>
+									<td ng-cloak class="is-hidden">{{product.stock}}</td>
+									<td class="is-hidden" ng-cloak>
+										<!--
+										<a ng-if="isEbaySearch==true" ng-cloak ng-click="sendToAddProduct($event,product.itemId)" href="{{product.exhibition}}">Go to add ebay item</a>
+										<a ng-if="isEbaySearch==false" ng-cloak href="{{product.exhibition}}">{{product.exhibition}}</a>
+
+										<a ng-cloak ng-click="sendToAddProduct($event,product.itemId,product.searchSite)" href="{{product.exhibition}}">Go to add ebay item</a>
+									</td>
+								</tr>
+								-->
+								</tbody>
+							</table>
+
+							<table
+									id="tbYahooShopping"
+									class="table table-bordered table-striped responsive-utilities"
+									style="margin-left: 25px">
+								<thead>
+								<tr>
+									<th ng-click="sort('image')">Image
+										<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('productName')">Product Name
+										<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('price')">Price
+										<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('stock')">Stock
+										<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('exhibition')">Exhibition
+										<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+								</tr>
+								</thead>
+								<tbody class="searchBody">
+								<!--
+								<tr dir-paginate ="product in listOfProduct |orderBy:sortKey:reverse |itemsPerPage:6">
+									<td class="col col-1" ng-cloak ><image width="64" height="64"
+											src="{{product.image}}" /></td>
+									<td ng-cloak class="is-visible"><p>{{product.productName}}</p></td>
+									<td ng-cloak class="is-hidden">{{product.price}}</td>
+									<td ng-cloak class="is-hidden">{{product.stock}}</td>
+									<td class="is-hidden" ng-cloak>
+										<!--
+										<a ng-if="isEbaySearch==true" ng-cloak ng-click="sendToAddProduct($event,product.itemId)" href="{{product.exhibition}}">Go to add ebay item</a>
+										<a ng-if="isEbaySearch==false" ng-cloak href="{{product.exhibition}}">{{product.exhibition}}</a>
+
+										<a ng-cloak ng-click="sendToAddProduct($event,product.itemId,product.searchSite)" href="{{product.exhibition}}">Go to add ebay item</a>
+									</td>
+								</tr>
+								-->
+								</tbody>
+							</table>
+
+							<label id="lbYahooHeader" class="label labelHeader">Yahoo! Shopping</label>
+							<table
+									id="tbYahooAution"
+									class="table table-bordered table-striped responsive-utilities"
+									style="margin-left: 25px">
+								<thead>
+								<tr>
+									<th ng-click="sort('image')">Image
+										<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('productName')">Product Name
+										<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('price')">Price
+										<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('stock')">Stock
+										<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('exhibition')">Exhibition
+										<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+								</tr>
+								</thead>
+								<tbody class="searchBody">
+								<!--
+								<tr dir-paginate ="product in listOfProduct |orderBy:sortKey:reverse |itemsPerPage:6">
+									<td class="col col-1" ng-cloak ><image width="64" height="64"
+											src="{{product.image}}" /></td>
+									<td ng-cloak class="is-visible"><p>{{product.productName}}</p></td>
+									<td ng-cloak class="is-hidden">{{product.price}}</td>
+									<td ng-cloak class="is-hidden">{{product.stock}}</td>
+									<td class="is-hidden" ng-cloak>
+										<!--
+										<a ng-if="isEbaySearch==true" ng-cloak ng-click="sendToAddProduct($event,product.itemId)" href="{{product.exhibition}}">Go to add ebay item</a>
+										<a ng-if="isEbaySearch==false" ng-cloak href="{{product.exhibition}}">{{product.exhibition}}</a>
+
+										<a ng-cloak ng-click="sendToAddProduct($event,product.itemId,product.searchSite)" href="{{product.exhibition}}">Go to add ebay item</a>
+									</td>
+								</tr>
+								-->
+								</tbody>
+							</table>
+
+							<label id="lbRakutenHeader" class="label labelHeader">Rakuten</label>
+							<table
+									id="tbRakuten"
+									class="table table-bordered table-striped responsive-utilities"
+									style="margin-left: 25px">
+								<thead>
+								<tr>
+									<th ng-click="sort('image')">Image
+										<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('productName')">Product Name
+										<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('price')">Price
+										<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('stock')">Stock
+										<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('exhibition')">Exhibition
+										<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+								</tr>
+								</thead>
+								<tbody class="searchBody">
+								<!--
+								<tr dir-paginate ="product in listOfProduct |orderBy:sortKey:reverse |itemsPerPage:6">
+									<td class="col col-1" ng-cloak ><image width="64" height="64"
+											src="{{product.image}}" /></td>
+									<td ng-cloak class="is-visible"><p>{{product.productName}}</p></td>
+									<td ng-cloak class="is-hidden">{{product.price}}</td>
+									<td ng-cloak class="is-hidden">{{product.stock}}</td>
+									<td class="is-hidden" ng-cloak>
+										<!--
+										<a ng-if="isEbaySearch==true" ng-cloak ng-click="sendToAddProduct($event,product.itemId)" href="{{product.exhibition}}">Go to add ebay item</a>
+										<a ng-if="isEbaySearch==false" ng-cloak href="{{product.exhibition}}">{{product.exhibition}}</a>
+
+										<a ng-cloak ng-click="sendToAddProduct($event,product.itemId,product.searchSite)" href="{{product.exhibition}}">Go to add ebay item</a>
+									</td>
+								</tr>
+								-->
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
@@ -212,6 +388,12 @@ input, textarea, button {
 	font-size: 26px;
 	margin: -3px 0 0 12px;
 }
+#tbAmazon, #tbEbay, #tbRakuten, #tbYahooAution, #tbYahooShopping, #lbAmazonHeader, #lbEbayHeader, #lbRakutenHeader, #lbYahooHeader {
+	display: none;
+}
+.labelHeader {
+	font-size: 26px;
+}
 /* Required field END */
 </style>
 
@@ -258,7 +440,8 @@ input, textarea, button {
 	<script type="text/javascript">
 		$(function () {
 		    //Function bind search product to layout
-			function bindProductToLayout(listOfSearchProduct) {
+			function bindProductToLayout(listOfSearchProduct, idTable) {
+                $("#"+idTable+" .searchBody").html('');
 				listOfSearchProduct.forEach(function(product,index){
 					var template =
                     "<tr><td class='col col-1'><image width='64' height='64'src='"+product.image+"'/></td>"+
@@ -269,9 +452,12 @@ input, textarea, button {
                     "	<a ng-click='sendToAddProduct($event,product.itemId,product.searchSite)' href='"+product.exhibition+"'>Go to add ebay</a>"+
                     "	</td>"+
                     "</tr>";
-					$("#searchBody").append($(template));
+					$("#"+idTable+" .searchBody").append($(template));
 				});
 
+                if (!$('#tbAmazon .searchBody tr').length) {
+                    $("#"+idTable).hide();
+				}
 				$(".send-to-ebay").on("click","a",function(evt){
 				    evt.preventDefault();
 					var itemId = $(this).parent().attr("data-product-id");
@@ -295,7 +481,6 @@ input, textarea, button {
 
                     if ($("#all").prop("checked")) {
                         //Search all
-						console.log('all');
                         searchAllKeyword();
                     } else if ($("#amazon").prop("checked")) {
                         //Search amazon
@@ -353,6 +538,51 @@ input, textarea, button {
 //                });
                 convertDataForSearchAll({});
             }
+            $('input[type="radio"]').click(function () {
+                onChangeRadioBtn();
+			});
+
+            const tb = {
+                amazon: {
+                    tbId: 'tbAmazon',
+                    lbId: 'lbAmazonHeader'
+                },
+                ebay: {
+                    tbId: 'tbEbay',
+                    lbId: 'lbEbayHeader'
+                },
+                yahooShopping: {
+                    tbId: 'tbYahooAution',
+                    lbId: 'lbYahooHeader'
+                },
+                yahooAuction: {
+                    tbId: 'tbYahooAution',
+                    lbId: 'lbYahooHeader'
+                },
+                rakuten: {
+                    tbId: 'tbRakuten',
+                    lbId: 'lbRakutenHeader'
+                }
+            };
+            function onChangeRadioBtn () {
+
+
+				Object.keys(tb).map(function (data, index) {
+                    $('#'+tb[data].tbId).hide();
+                    $('#'+tb[data].lbId).hide();
+				});
+
+                switch ($('input[type="radio"]:checked').val()) {
+					case 'all':
+                        Object.keys(tb).map(function (data, index) {
+                            $('#'+tb[data].tbId+' .searchBody tr').length && $('#'+tb[data].tbId).show();
+                            $('#'+tb[data].tbId+' .searchBody tr').length && $('#'+tb[data].lbId).show();
+                        });
+					    break;
+					default:
+                        $('#'+tb[$('input[type="radio"]:checked').val()].tbId+' .searchBody tr').length && $('#'+tb[$('input[type="radio"]:checked').val()].tbId).show();
+				}
+			}
 
             function convertDataForSearchAll(data) {
                 data = {
@@ -946,16 +1176,25 @@ input, textarea, button {
                         "image": data.imageUrl,
                     };
                 }):[];
-                newData.all = newData['rakuten'].concat(newData['ebay']).concat(newData['yahoo']).concat(newData['amazon']);
+//                newData.all = newData['rakuten'].concat(newData['ebay']).concat(newData['yahoo']).concat(newData['amazon']);
+//
+//                console.log(newData);
 
-                console.log(newData);
-                bindProductToLayout(newData.all);
+                bindProductToLayout(newData.amazon, 'tbAmazon');
+                bindProductToLayout(newData.ebay, 'tbEbay');
+                bindProductToLayout(newData.yahoo, 'tbYahooAution');
+                bindProductToLayout(newData.rakuten, 'tbRakuten');
+                onChangeRadioBtn();
             }
 
             //Ebay search
             function ebaySearchProductByKeyword(keyWord) {
                 $.get("EbayProductSearch/"+keyWord,function(data,status){
-                    bindProductToLayout(findItemsByKeywords(JSON.parse(data)));
+                    bindProductToLayout([], 'tbAmazon');
+                    bindProductToLayout([], 'tbYahooAution');
+                    bindProductToLayout([], 'tbRakuten');
+                    bindProductToLayout(findItemsByKeywords(JSON.parse(data)), 'tbEbay');
+                    onChangeRadioBtn();
 				});
             }
 
@@ -965,7 +1204,11 @@ input, textarea, button {
                 if (keyWord.length > 1) {
                     //Send ajax to server to search product
                     $.get("RakutenProductSearch/"+ keyWord,function(data,status){
-                        bindProductToLayout(data);
+                        bindProductToLayout([], 'tbAmazon');
+                        bindProductToLayout([], 'tbEbay');
+                        bindProductToLayout([], 'tbYahooAution');
+                        bindProductToLayout(data, 'tbRakuten');
+                        onChangeRadioBtn();
                     });
                 }
             };
@@ -974,7 +1217,11 @@ input, textarea, button {
 			function yahooSearchProductByKeyword(keyWord){
 				//Send ajax to server to search product
 				$.get("YahooProductSearchV2/"+keyWord,function(data,status){
-					bindProductToLayout(data.extraData);
+                    bindProductToLayout([], 'tbAmazon');
+                    bindProductToLayout([], 'tbEbay');
+                    bindProductToLayout([], 'tbRakuten');
+                    bindProductToLayout(data.extraData, 'tbYahooAution');
+                    onChangeRadioBtn();
 				});
 			}
         })

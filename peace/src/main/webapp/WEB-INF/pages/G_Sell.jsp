@@ -194,7 +194,7 @@ button#btnAddEbayItem {
 							<div class="note">
 								<p>0 characters (max. 80 letters)</p>
 								<a href="#"> <i class="fa fa-hand-o-right" aria-hidden="true"></i>
-									<span>Translate English</span>
+									<span> <fmt:message key="translate" /> </span>
 								</a>
 							</div>
 						</section> 

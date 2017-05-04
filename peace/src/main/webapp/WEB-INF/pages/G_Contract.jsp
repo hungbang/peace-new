@@ -8,7 +8,7 @@
 	<jsp:include page="../pages/common/header.jsp"/>
 	<meta name="_csrf" content="${_csrf.token}"/>
  	<meta name="_csrf_header" content="${_csrf.headerName}"/>
-	<body class="fixed-page-footer">  
+	<body class="fixed-page-footer">
 		<jsp:include page="../pages/common/menu-top.jsp"/>
 		<jsp:include page="../pages/common/menu-left.jsp"/>
 	    <style>
@@ -65,23 +65,23 @@
 				padding: 3px;
 			}
 
-			.formBtn {
-				font-size: 140%;
-				padding: 4px;
-				padding-left: 8px;
-				padding-right: 8px;
-				width: 150px;
-				-webkit-border-radius: 6px;
-				-webkit-box-shadow: 0 2px 2px #CCC;
-				border-radius: 6px;
-				box-shadow: 0 2px 2px #CCC;
-				font-weight: bold;
-				background-color: rgba(88, 88, 88, 0.31);
-			}
+			/*.formBtn {*/
+				/*font-size: 140%;*/
+				/*padding: 4px;*/
+				/*padding-left: 8px;*/
+				/*padding-right: 8px;*/
+				/*width: 150px;*/
+				/*-webkit-border-radius: 6px;*/
+				/*-webkit-box-shadow: 0 2px 2px #CCC;*/
+				/*border-radius: 6px;*/
+				/*box-shadow: 0 2px 2px #CCC;*/
+				/*font-weight: bold;*/
+				/*background-color: rgba(88, 88, 88, 0.31);*/
+			/*}*/
 
 			.center-text {
-				text-align: center;
-				margin: 0;
+				text-align: right;
+				margin: 4%;
 			}
 
 			.error {
@@ -93,9 +93,6 @@
 				font-weight: bold;
 			}
 
-			h2{
-				text-align: center;
-			}
 			/* Required field END */
 
 		</style> 
@@ -175,11 +172,11 @@
 											<p class="center-text">
 												<input type="hidden" name="no" value="300342" />
 												<input type="hidden" name="action" value="kakunin" />
-												<input type="submit" name="submit" value="送信" class="formBtn" id="save_contact" />
+												<input type="submit" name="submit" value="送信" class="btn btn-primary" id="save_contact" />
 											</p>
 										</fieldset>
-										<footer class="">
-									</footer>
+										<%--<footer class="">--%>
+									<%--</footer>--%>
 									</form>
 								</div>
 							</div>

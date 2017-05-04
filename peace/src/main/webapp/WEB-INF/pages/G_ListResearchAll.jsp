@@ -258,7 +258,7 @@ input, textarea, button {
 	<script type="text/javascript">
 		$(function () {
 		    //Function bind search product to layout
-			function bindProductToLayout(listOfSearchProduct) {
+			function bindProductToLayout(listOfSearchProduct, keyword) {
 				listOfSearchProduct.forEach(function(product,index){
 					var template =
                     "<tr><td class='col col-1'><image width='64' height='64'src='"+product.image+"'/></td>"+
@@ -266,18 +266,10 @@ input, textarea, button {
                     "	<td class='is-hidden'>"+product.price +"</td>"+
                     "	<td class='is-hidden'>"+product.stock +"</td>"+
                     "	<td class='is-hidden send-to-ebay' data-product-id='"+product.itemId+"' data-search-site='"+product.searchSite+"'> "+
-                    "	<a ng-click='sendToAddProduct($event,product.itemId,product.searchSite)' href='"+product.exhibition+"'>Go to add ebay</a>"+
+                    "	<a href='"+"SendToSell/"+product.searchSite+"/"+product.itemId+"/"+keyword+"'>Go to add ebay</a>"+
                     "	</td>"+
                     "</tr>";
 					$("#searchBody").append($(template));
-				});
-
-				$(".send-to-ebay").on("click","a",function(evt){
-				    evt.preventDefault();
-					var itemId = $(this).parent().attr("data-product-id");
-					var searchSite= $(this).parent().attr("data-search-site");
-					var keyword = $("#productSearch").val();
-                    window.location.href = "SendToSell/"+searchSite+"/"+itemId+"/"+keyword;
 				});
             }
 
@@ -953,9 +945,9 @@ input, textarea, button {
             }
 
             //Ebay search
-            function ebaySearchProductByKeyword(keyWord) {
-                $.get("EbayProductSearch/"+keyWord,function(data,status){
-                    bindProductToLayout(findItemsByKeywords(JSON.parse(data)));
+            function ebaySearchProductByKeyword(keyword) {
+                $.get("EbayProductSearch/"+keyword,function(data,status){
+                    bindProductToLayout(findItemsByKeywords(JSON.parse(data)), keyword);
 				});
             }
 

@@ -604,7 +604,7 @@ input, textarea, button {
                     bindProductToLayout([], 'tbAmazon');
                     bindProductToLayout([], 'tbYahooAution');
                     bindProductToLayout([], 'tbRakuten');
-                    bindProductToLayout(findItemsByKeywords(JSON.parse(data)), 'tbEbay', keyword);
+                    bindProductToLayout(findItemsByKeywords(JSON.parse(data)), 'tbEbay', keyWord);
                     onChangeRadioBtn();
 				});
             }

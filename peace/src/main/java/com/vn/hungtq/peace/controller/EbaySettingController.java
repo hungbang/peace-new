@@ -6,6 +6,9 @@ import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -13,6 +16,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.vn.hungtq.peace.entity.EbayToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -294,8 +298,11 @@ public class EbaySettingController {
 	@RequestMapping(value ="/GetEbayToken",method=RequestMethod.POST)
 	public @ResponseBody AjaxResponseResult fetchTokenActionPerformed(
 			@CookieValue(value = COOKIE_EBAY_SESSION, defaultValue = "") String cachedSessionID,
-			HttpServletResponse response) {
-		
+			HttpServletResponse response, HttpServletRequest request) {
+
+		String user = request.getUserPrincipal().getName();
+		com.vn.hungtq.peace.entity.User userLogin = userService.findBySSO(user);
+
 		AjaxResponseResult ajaxResult = new AjaxResponseResult();
         FetchTokenCall call = null;
         
@@ -334,6 +341,15 @@ public class EbaySettingController {
             	System.out.println(call.getUsertoken());
             	// Add session Id to cookie
                 Cookie cookie = new Cookie(COOKIE_EBAY_TOKEN, call.getUsertoken());
+
+                logger.info("call.getUsertoken(): "+ call.getUsertoken());
+                logger.info("call.getTokenExpirationTime(): "+call.getTokenExpirationTime());
+
+                //Save token to database
+//				EbayToken ebayToken = new EbayToken();
+//				ebayToken.setUserId(userLogin.getId());
+//				ebayToken.setCreateDate(new Date());
+//				ebayToken.setExpiresDate();
                 response.addCookie(cookie);
             }
         }

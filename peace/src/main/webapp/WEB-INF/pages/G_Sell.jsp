@@ -534,6 +534,9 @@ button#btnAddEbayItem {
 				});
 				
 				$("#btnPreview").on("click",function(evt){
+                    var confirmFlg = confirm("現在の入力内容でプレビューを表示しますか？");
+                    if(!confirmFlg)
+                        return;
 				    //Csrf token
                     var token = $("meta[name='_csrf']").attr("content");
                     var header = $("meta[name='_csrf_header']").attr("content");
@@ -571,17 +574,18 @@ button#btnAddEbayItem {
                         beforeSend:function(xhr){
                             xhr.setRequestHeader(header, token);
                         },
-                        url: "GetDataTemplate",
+                        url: "/GetDataTemplate",
                         data:JSON.stringify(postData),
                         contentType: "application/json",
                         mimeType: 'application/json',
                         dataType: "json",
                         success: function(respData){
+                            console.log(respData.status);
                             if(respData.status==="OK"){
                                 var htmlTemplate =  respData.extraData.description;
-                                winpops=window.open('',"_blank","fullscreen=no,toolbar=yes,status=yes, " +
-                                    "menubar=yes,scrollbars=yes,resizable=yes,directories=yes,location=yes, " +
-                                    "width=500,height=400,left=100,top=100,screenX=100,screenY=100");
+                                var winpops=window.open('',"_blank","toolbar=yes,status=yes, " +
+                                    "scrollbars=yes,resizable=yes,directories=yes,location=yes, " +
+                                    "width=900,height=600,left=100,top=50,screenX=100,screenY=100");
                                 console.log(htmlTemplate);
                                 winpops.document.write( htmlTemplate);
                             }else{

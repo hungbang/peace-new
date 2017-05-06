@@ -483,7 +483,7 @@ public class MainController {
 	public @ResponseBody AjaxResponseResult<AmazonSearchResult> searchAmazonProduct(@RequestBody ClientAmazonSearchDto clientAmazonSearchModel){
 		AjaxResponseResult<AmazonSearchResult> result = new AjaxResponseResult<AmazonSearchResult>();
 		
-		AmazonSearchEngine asEngine = new AmazonSearchEngine("pagn");
+		AmazonSearchEngine asEngine = new AmazonSearchEngine("page");
 		Optional<AmazonSearchResult> optionSearchResult;
 		if(clientAmazonSearchModel.isAsinSearch()){
 			optionSearchResult = asEngine.searchByASIN(clientAmazonSearchModel.getSearchData());
@@ -493,6 +493,7 @@ public class MainController {
 				asEngine.setTotalPage(clientAmazonSearchModel.getTotalPage());
 				optionSearchResult = asEngine.goToPage(clientAmazonSearchModel.getPage());
 			}else{
+				System.out.println(clientAmazonSearchModel.getSearchData());
 				optionSearchResult = asEngine.searchByKeyWord(clientAmazonSearchModel.getSearchData());
 			}
 		}

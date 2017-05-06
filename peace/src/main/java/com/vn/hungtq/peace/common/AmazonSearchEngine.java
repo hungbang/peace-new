@@ -182,9 +182,9 @@ public class AmazonSearchEngine {
 
             //Get the paging tag
             if(totalPage==-1){
-                Elements pagingTags = htmlDocument.getElementById("pagn").select("span[class=pagnDisabled]");
+                Elements pagingTags = htmlDocument.getElementById("page").select("span[class=pageDisabled]");
                 if(pagingTags==null){
-                	pagingTags = htmlDocument.getElementById("pagn").select("span[class=pagnLink]");
+                	pagingTags = htmlDocument.getElementById("page").select("span[class=pageLink]");
                 }
                 
                 Element pagingTag = pagingTags.last();

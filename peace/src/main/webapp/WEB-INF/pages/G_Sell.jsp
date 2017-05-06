@@ -192,7 +192,7 @@ button#btnAddEbayItem {
 								<input type="text" class="input" id="product_title" value="<c:if test ="${ebayProductAdd !=null}"> ${ebayProductAdd.title}</c:if>"  maxlength="80">
 							</label>
 							<div class="note">
-								<p>0 characters (max. 80 letters)</p>
+								<p id ="titleSub" >0 characters (max. 80 letters)</p>
 								<a href="#"> <i class="fa fa-hand-o-right" aria-hidden="true"></i>
 									<span> <fmt:message key="translate" /> </span>
 								</a>
@@ -585,7 +585,7 @@ button#btnAddEbayItem {
                                 var htmlTemplate =  respData.extraData.description;
                                 var winpops=window.open('',"_blank","toolbar=yes,status=yes, " +
                                     "scrollbars=yes,resizable=yes,directories=yes,location=yes, " +
-                                    "width=900,height=600,left=100,top=50,screenX=100,screenY=100");
+                                    "width=900,height=600,left=100,top=10,screenX=100,screenY=100");
                                 console.log(htmlTemplate);
                                 winpops.document.write( htmlTemplate);
                             }else{
@@ -953,8 +953,9 @@ button#btnAddEbayItem {
 			    remove: 'Remove',
 			    removeAll: 'Remove All'
 			  };
-	
-	
+
+			setSizeTitle();
+
 			}(jQuery));
 		
 		function getCategoryEbay(levelLimit, categoryId, pick) {
@@ -1049,7 +1050,18 @@ button#btnAddEbayItem {
 			
 			nameValueListArrayType.push(nameValueListType);
 		});
-		
+
+        $("#product_title").on('keypress',function() {
+            setSizeTitle();
+        })
+        $("#product_title").on('keyup',function() {
+            setSizeTitle();
+        })
+
+        function setSizeTitle() {
+            $("#titleSub").text($("#product_title").val().length +" characters (max. 80 letters)");
+        }
+
 		</script>
 		<!-- Your GOOGLE ANALYTICS CODE Below -->
 		<script type="text/javascript">

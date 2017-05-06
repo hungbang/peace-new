@@ -167,14 +167,14 @@
     <!-- RIBBON -->
     <div id="ribbon">
 
-				<span class="ribbon-button-alignment">
-					<span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"
+                <span class="ribbon-button-alignment">
+                    <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"
                           rel="tooltip" data-placement="bottom"
                           data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings."
                           data-html="true">
-						<i class="fa fa-refresh"></i>
-					</span>
-				</span>
+                        <i class="fa fa-refresh"></i>
+                    </span>
+                </span>
 
         <!-- breadcrumb -->
         <ol class="breadcrumb">
@@ -203,7 +203,7 @@
                                maxlength="80">
                     </label>
                     <div class="note">
-                        <p>0 characters (max. 80 letters)</p>
+                        <p id="titleSub">0 characters (max. 80 letters)</p>
                         <a href="#"> <i class="fa fa-hand-o-right" aria-hidden="true"></i>
                             <span> <fmt:message key="translate"/> </span>
                         </a>
@@ -214,10 +214,10 @@
                 <section class="col-xs-10 col-md-10">
                     <label class="label">商品説明（英語）</label>
                     <textarea id="ckEditorForDescription">
-								<c:if test="${ebayProductAdd !=null}">
-                                    <%-- 									${ebayProductAdd.viewItemUrl} --%>
+                                <c:if test="${ebayProductAdd !=null}">
+                                    <%--                                    ${ebayProductAdd.viewItemUrl} --%>
                                 </c:if>
-							</textarea>
+                            </textarea>
                 </section>
 
                 <!-- The sel_item_country part -->
@@ -267,13 +267,13 @@
                 <!-- The UPC part -->
                 <section class="col-xs-10 col-md-10">
                     <label class="label">UPC（JANコードなど）</label>
-                    <!-- 							<label class="input ">  -->
-                    <!-- 								<select id="upc" name="upc"> -->
-                    <!-- 									<option value="-1">選択して下さい</option> -->
-                    <!-- 									<option value="1000">New</option> -->
-                    <!-- 									<option value="3000">Used</option> -->
-                    <!-- 								</select> -->
-                    <!-- 							</label>  -->
+                    <!--                            <label class="input ">  -->
+                    <!--                                <select id="upc" name="upc"> -->
+                    <!--                                    <option value="-1">選択して下さい</option> -->
+                    <!--                                    <option value="1000">New</option> -->
+                    <!--                                    <option value="3000">Used</option> -->
+                    <!--                                </select> -->
+                    <!--                            </label>  -->
                 </section>
                 <!-- End UPC part -->
 
@@ -753,9 +753,9 @@
                     shippingServiceAddtionalCost: shippingAddtionCost,
                     shippingInsuranceCost: shippingIsuranceCost
                 };
-            })
+            });
 
-        }
+        };
 
         function validate(onValidateSuccessCallBack) {
             if ($("#product_title").val() === "") {
@@ -804,62 +804,271 @@
                         return;
                     }
                 }
-            }
 
-            if ($("#buyNowPrice").val() === "") {
-                alert("You must enter the buy it now price")
-                return;
-            } else {
-                if (parseInt($("#buyNowPrice").val()) < 0) {
-                    alert("Buy It Now price must greater than zero")
-                    return;
-                }
-            }
 
-            if (parseInt($("#buyNowPrice").val() < parseInt($("#startingPrice").val()))) {
-                alert("Buy it now price must greater than starting price!")
-                return;
-            }
-
-            if ($("#use-paypal-email").is(":checked")) {
-                if ($("#paypal-email").val() === "") {
-                    alert("You must enter the paypal email");
+                if ($("#buyNowPrice").val() === "") {
+                    alert("You must enter the buy it now price")
                     return;
                 } else {
-                    if (!$.trim($("#paypal-email").val()).match(/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)) {
-                        alert("Paypal Email not correct form!")
+                    if (parseInt($("#buyNowPrice").val()) < 0) {
+                        alert("Buy It Now price must greater than zero")
                         return;
                     }
                 }
-            }
 
-            if ($("#payment-instructions").val() === "") {
-                alert("You must enter the payment instruction!")
-                return;
-            }
+                if (parseInt($("#buyNowPrice").val() < parseInt($("#startingPrice").val()))) {
+                    alert("Buy it now price must greater than starting price!")
+                    return;
+                }
 
-            //Validate the shipping service option
-            var listOfShippingMethodType = $(".select-shipping-method-code-type");
-            var originLength = listOfShippingMethodType.size();
-            var mapToValue = $.map(listOfShippingMethodType, function (val, i) {
-                return $(val).val()
-            });
-            var uniqueValue = $.unique(mapToValue);
-            var validateLength = uniqueValue.length;
-            if (originLength !== validateLength) {
-                alert("The shipping method type must be different from each other");
-                return;
-            }
+                if ($("#use-paypal-email").is(":checked")) {
+                    if ($("#paypal-email").val() === "") {
+                        alert("You must enter the paypal email");
+                        return;
+                    } else {
+                        if (!$.trim($("#paypal-email").val()).match(/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)) {
+                            alert("Paypal Email not correct form!")
+                            return;
+                        }
+                    }
+                }
 
-            onValidateSuccessCallBack();
-        }
+                if ($("#payment-instructions").val() === "") {
+                    alert("You must enter the payment instruction!")
+                    return;
+                }
+
+                //Validate the shipping service option
+                var listOfShippingMethodType = $(".select-shipping-method-code-type");
+                var originLength = listOfShippingMethodType.size();
+                var mapToValue = $.map(listOfShippingMethodType, function (val, i) {
+                    return $(val).val()
+                });
+                var uniqueValue = $.unique(mapToValue);
+                var validateLength = uniqueValue.length;
+                if (originLength !== validateLength) {
+                    alert("The shipping method type must be different from each other");
+                    return;
+                }
+
+                onValidateSuccessCallBack();
+            }
+        };
     });
+
 </script>
 
 <!-- EMBED CKEDITOR(napt2017) -->
 <script src="${pageContext.request.contextPath}/resources/js/plugin/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
     $(function () {
+        CKEDITOR.replace("ckEditorForDescription");
+    });
+</script>
+
+<!-- Thu vien xu ly picklist -->
+<script type="text/javascript">
+    (function ($) {
+
+
+        $.fn.pickList = function (options) {
+
+            var opts = $.extend({}, $.fn.pickList.defaults, options);
+            var levelLimit = 2;
+            var isHandle = false;
+
+
+            // Fill data
+            this.fill = function (data) {
+                var option = '';
+                if (data) {
+                    $.each(data, function (key, val) {
+                        option += '<option id=' + val.id + '>'
+                            + val.name
+                            + '</option>';
+                    });
+                    this.find('#pickData').append(option);
+                }
+                ;
+            };
+
+
+            // Controll data
+            this.controll = function (data) {
+                var pickThis = this;
+                if (data) {
+                    $("#pickListResult" + pickListId).css("display", "block");
+                    var option = '';
+                    $.each(data, function (key, val) {
+                        if (val.leafCategory) {
+                            option += '<option id=' + val.id + ' isLeafCategory=' + val.leafCategory + '>' + val.name + '</option>';
+                        } else {
+                            option += '<option id=' + val.id + '>' + val.name + '</option>';
+                        }
+                    });
+                    this.find('#pickListResult' + pickListId).append(option);
+                    return this.controll();
+                }
+
+
+                $("#pickListResult" + pickListId).on('change', function () {
+
+                    var levelLimitTemp = parseInt($(this).attr("levellimit"), 10);
+                    var electmentId = $(this).attr("id");
+                    var count = parseInt($(this).attr("count"));
+
+                    var p = pickThis.find("#" + electmentId + " option:selected");
+                    var isLeafCategory = $(p[0]).attr("isLeafCategory");
+
+                    for (var int = (count + 1); int <= (pickListId + 5); int++) {
+                        $("#col" + int).remove();
+                    }
+
+                    if (p[0] && !isLeafCategory) {
+
+                        // If have not select next
+                        pickListId = pickListId + 1;
+                        var temp = " <div id='col" + pickListId + "'>" +
+                            "    <select class='form-control pickListSelect' style='display:none' count='" + pickListId + "' levellimit='" + (levelLimitTemp + 1) + "' id='pickListResult" + pickListId + "'></select>" +
+                            " </div>";
+
+                        $("#categories").append(temp);
+                        getCategoryEbay((levelLimitTemp + 1), p[0].id, pickThis);
+                    }
+
+                    if (p[0] && isLeafCategory) {
+                        getCategorySpecifics(p[0].id);
+                    }
+                });
+
+                $("#add-shipping-service-option").on("click",function(evt){
+                    evt.preventDefault();
+                    var prev = $(".panel-shipping-service-option").last();
+                    var nextIndex= parseInt(prev.attr("data-index")) +1;
+                    var addition = prev.clone()
+                    addition.find("legend").text("Shipping Service Option "+nextIndex);
+                    addition.attr("data-index",nextIndex);
+                    addition.appendTo(prev.parent());
+                    $(this).remove();
+                });
+
+                function getListShippingOptionDto(){
+                    return $.map($(".panel-shipping-service-option"),function(val,index){
+                        var shippingMethod = $(val).find(".select-shipping-method-code-type").val();
+                        var shippingServiceCost = $(val).find(".shipping-service-cost").val();
+                        var shippingAddtionCost = $(val).find(".shipping-addition-cost").val();
+                        var shippingIsuranceCost = $(val).find(".shipping-isurance-cost").val();
+                        return {
+                            shippingMethodType:shippingMethod,
+                            shippingServiceCost:shippingServiceCost,
+                            shippingServiceAddtionalCost:shippingAddtionCost,
+                            shippingInsuranceCost:shippingIsuranceCost
+                        };
+                    })
+
+                }
+
+                function validate(onValidateSuccessCallBack){
+                    if($("#product_title").val()===""){
+                        alert("Empty title");
+                        return;
+                    }
+
+                    var selectedCategory =$("#categories").find("select").last().find("option[isleafcategory=true]:selected").attr("id");
+                    if(!selectedCategory){
+                        alert("You must select left category")
+                        return;
+                    }
+
+                    if($("#itemCondition").val()==="-1"){
+                        alert("You must select condition!");
+                        return;
+                    }
+
+                    if($("#quantity").val()===""){
+                        alert("You must enter quantity!");
+                        return;
+                    }else{
+                        if(parseInt($("#quantity").val())<=0){
+                            alert("The quantity must be greater than zero ");
+                            return;
+                        }
+                    }
+
+                    if($("#startingPrice").val()===""){
+                        alert("You must enter the starting price")
+                        return;
+                    }else{
+                        if(parseInt($("#startingPrice").val())<0){
+                            alert("Starting price must greater than zero")
+                            return;
+                        }
+                    }
+
+                    if($("#reservePrice").val()!==""){
+                        if(parseInt($("#reservePrice").val())<0){
+                            alert("Reserve price must greater than zero")
+                            return;
+                        }else{
+                            if(parseInt($("#startingPrice").val())>=parseInt($("#reservePrice").val())){
+                                alert("The starting price must less than reserve price");
+                                return;
+                            }
+                        }
+                    }
+
+                    if($("#buyNowPrice").val()===""){
+                        alert("You must enter the buy it now price")
+                        return;
+                    }else{
+                        if(parseInt($("#buyNowPrice").val())<0){
+                            alert("Buy It Now price must greater than zero")
+                            return;
+                        }
+                    }
+
+                    if(parseInt($("#buyNowPrice").val() <parseInt($("#startingPrice").val()))){
+                        alert("Buy it now price must greater than starting price!")
+                        return;
+                    }
+
+                    if($("#use-paypal-email").is(":checked")){
+                        if($("#paypal-email").val()===""){
+                            alert("You must enter the paypal email");
+                            return;
+                        }else{
+                            if(!$.trim($("#paypal-email").val()).match(/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)){
+                                alert("Paypal Email not correct form!")
+                                return;
+                            }
+                        }
+                    }
+
+                    if($("#payment-instructions").val()===""){
+                        alert("You must enter the payment instruction!")
+                        return;
+                    }
+
+                    //Validate the shipping service option
+                    var listOfShippingMethodType = $(".select-shipping-method-code-type");
+                    var originLength = listOfShippingMethodType.size();
+                    var mapToValue = $.map(listOfShippingMethodType,function(val,i){return $(val).val()});
+                    var uniqueValue = $.unique(mapToValue);
+                    var validateLength = uniqueValue.length;
+                    if(originLength!==validateLength){
+                        alert("The shipping method type must be different from each other");
+                        return;
+                    }
+
+                    onValidateSuccessCallBack();
+                };
+            })
+</script>
+
+<!-- EMBED CKEDITOR(napt2017) -->
+<script src="${pageContext.request.contextPath}/resources/js/plugin/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+    $(function(){
         CKEDITOR.replace("ckEditorForDescription");
     });
 </script>
@@ -978,8 +1187,8 @@
     }(jQuery));
 
     function getCategoryEbay(levelLimit, categoryId, pick) {
-        var data = {categoryLevel: levelLimit, id: categoryId}
-//				data["query"] = $("#query").val();
+        var data = {categoryLevel: levelLimit, id: categoryId};
+//              data["query"] = $("#query").val();
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
 
@@ -1070,6 +1279,18 @@
         nameValueListArrayType.push(nameValueListType);
     });
 
+
+    $("#product_title").on('keypress',function() {
+        setSizeTitle();
+    })
+    $("#product_title").on('keyup',function() {
+        setSizeTitle();
+    })
+
+    function setSizeTitle() {
+        $("#titleSub").text($("#product_title").val().length +" characters (max. 80 letters)");
+    }
+
 </script>
 <!-- Your GOOGLE ANALYTICS CODE Below -->
 <script type="text/javascript">
@@ -1077,7 +1298,7 @@
     _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
     _gaq.push(['_trackPageview']);
 
-    (function () {
+    (function() {
         var ga = document.createElement('script');
         ga.type = 'text/javascript';
         ga.async = true;

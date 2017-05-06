@@ -23,7 +23,7 @@
 						</li>
 						<li class="divider"></li>
 						<li>
-							<a href="login.html" title="Logout" data-action="userLogout" data-logout-msg="Test"><i class="fa fa-fw fa-sign-out"></i>ログアウト</a>
+							<a href="/logout" title="Logout" data-action="userLogout" data-logout-msg="Test"><i class="fa fa-fw fa-sign-out"></i>ログアウト</a>
 						</li>
 					</ul>
 				</span>

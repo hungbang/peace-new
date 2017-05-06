@@ -6,6 +6,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <html lang="en-us" ng-app="product_shopping_search">
+<head>
+	<style>
+		#productSearchBtn {
+			margin-left: 10px;
+		}
+		#productSearch {
+			width: 320px;
+		}
+	</style>
+</head>
 <jsp:include page="../pages/common/header.jsp" />
 <body class="fixed-page-footer">
 	<jsp:include page="../pages/common/menu-top.jsp" />
@@ -47,10 +57,11 @@
 						<form class="smart-form">
 							<fieldset>
 								<div class="row">
-									<section class="col col-4">
-										<label class="label">Key Search</label> <label class="input ">
+									<section class="col col-6">
+										<label class="label">Key Search</label> <label class="input" style="float:left">
 											<input type="text" id="productSearch" ng-change="searchProduct()" ng-model="searchModel" class="input" maxlength="80">
 										</label>
+										<input type="button" class="btn btn-primary" id="productSearchBtn" value='<fmt:message key="search"/>'/>
 									</section>
 								</div>
 								<section style="">
@@ -445,8 +456,8 @@ input, textarea, button {
                 $("#"+idTable+" .searchBody").html('');
 				listOfSearchProduct.forEach(function(product,index){
 					var template =
-                    "<tr><td class='col col-1'><image width='64' height='64'src='"+product.image+"'/></td>"+
-                    "	<td class='is-visible'><p>"+product.productName +"</p></td>"+
+                    "<tr><td class='col col-1'><a target='_blank' href='"+product.exhibition+"'>"+(product.image && product.image != ""?"<image width='64' height='64'src='"+product.image+"'/>":"<div>No Photo</div>")+"</a></td>"+
+                    "	<td class='is-visible'><p><a target='_blank' href='"+product.exhibition+"'>"+product.productName +"</a></p></td>"+
                     "	<td class='is-hidden'>"+product.price +"</td>"+
                     "	<td class='is-hidden'>"+product.stock +"</td>"+
                     "	<td class='is-hidden send-to-ebay' data-product-id='"+product.itemId+"' data-search-site='"+product.searchSite+"'> "+
@@ -475,6 +486,12 @@ input, textarea, button {
 				    var keyword = $(this).val();
 				    searchProduct(keyword);
 				}
+            })
+
+            $("#productSearchBtn").on("click",function(){
+                $("#searchBody").empty();
+                var keyword = $("#productSearch").val();
+                searchProduct(keyword);
             })
 
             function searchProduct(keyword){
@@ -591,7 +608,9 @@ input, textarea, button {
                     };
                 }):[];
 
-                bindProductToLayout(newData.amazon, 'tbAmazon');
+                console.log(data);
+
+                bindProductToLayout([], 'tbAmazon');
                 bindProductToLayout(newData.ebay, 'tbEbay', keyword);
                 bindProductToLayout(newData.yahoo, 'tbYahooAution');
                 bindProductToLayout(newData.rakuten, 'tbRakuten');

@@ -73,7 +73,7 @@
 								</div>
 								<div class="col col-lg-6">
 									<button type="submit" id="seach" class="btn btn-primary" style="float: right;height: 31px;margin-top: 10px;margin-bottom: 10px;padding: 0 22px; font: 300 15px/29px 'Open Sans',Helvetica,Arial,sans-serif;cursor: pointer;">
-											送信
+										<fmt:message key="search" />
 										</button>
 								</div>
 							</div>

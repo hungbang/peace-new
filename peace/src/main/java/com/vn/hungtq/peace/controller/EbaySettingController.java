@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.vn.hungtq.peace.entity.EbayToken;
+import com.vn.hungtq.peace.service.CommonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,9 @@ public class EbaySettingController {
 	
 	@Autowired
 	private UserDaoService userService;
+
+	@Autowired
+	private CommonService commonService;
 	
 	private Authentication authentication;
 
@@ -346,14 +350,23 @@ public class EbaySettingController {
                 logger.info("call.getTokenExpirationTime(): "+call.getTokenExpirationTime());
 
                 //Save token to database
-//				EbayToken ebayToken = new EbayToken();
-//				ebayToken.setUserId(userLogin.getId());
-//				ebayToken.setCreateDate(new Date());
-//				ebayToken.setExpiresDate();
+				EbayToken ebayToken = new EbayToken();
+				ebayToken.setUserId(userLogin.getId());
+				ebayToken.setCreateDate(new Date());
+				ebayToken.setExpiresDate(CommonUtils.getDateFromString(call.getTokenExpirationTime()));
+				ebayToken.setToken(call.getUsertoken());
+				EbayToken savedEbayToken = commonService.findByUser(userLogin.getId());
+				if(isNotNull(savedEbayToken)){
+					ebayToken.setTokenId(savedEbayToken.getTokenId());
+					commonService.updateEbayToken(ebayToken);
+				}
                 response.addCookie(cookie);
             }
         }
-        
         return ajaxResult;
     }
+
+	private boolean isNotNull(EbayToken savedEbayToken) {
+		return savedEbayToken != null ? true : false;
+	}
 } 

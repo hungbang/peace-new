@@ -204,7 +204,7 @@
                     </label>
                     <div class="note">
                         <p id="titleSub">0 characters (max. 80 letters)</p>
-                        <a href="#"> <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                        <a href="#" id="translate"> <i class="fa fa-hand-o-right" aria-hidden="true"></i>
                             <span> <fmt:message key="translate"/> </span>
                         </a>
                     </div>
@@ -1290,6 +1290,31 @@
     function setSizeTitle() {
         $("#titleSub").text($("#product_title").val().length +" characters (max. 80 letters)");
     }
+
+
+    $('#translate').on('click',  function(event) {
+        event.preventDefault();
+        var text = $('#product_title').val();
+        $.ajax({
+            method:'GET',
+            url: 'https://api-platform.systran.net/translation/text/translate?key=d93e1280-168a-49c4-bc2b-db808ffe6349',
+            dataType: 'text',
+            data: {
+                source: 'ja',
+                target: 'en',
+                input: text
+            },
+        })
+            .done(function(data) {
+                var json = JSON.parse(data);
+                $('#product_title').val(json.outputs[0].output)
+            })
+            .fail(function(error) {
+            })
+            .always(function() {
+            });
+
+    });
 
 </script>
 <!-- Your GOOGLE ANALYTICS CODE Below -->

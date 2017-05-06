@@ -81,7 +81,6 @@
 
 			.center-text {
 				text-align: right;
-				margin: 4%;
 			}
 
 			.error {
@@ -93,6 +92,9 @@
 				font-weight: bold;
 			}
 
+			.jarviswidget-color-blueDark>header{
+				padding-left: 2.5%;
+			}
 			/* Required field END */
 
 		</style> 

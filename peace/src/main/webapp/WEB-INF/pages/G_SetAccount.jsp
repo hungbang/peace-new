@@ -133,7 +133,7 @@
 	<!-- END RIBBON -->
 
 	<!-- MAIN CONTENT -->
-	<form class="col-lg-8" >
+	<div class="col-lg-8" >
 		<div id="content">
 			<div class="row">
 				<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
@@ -180,7 +180,7 @@
 								</fieldset>
 								<div class='row' style="padding: 10px 29px 5px 30px;">
 									<div class="col-md-10" ></div>
-									<button class="col-md-2 col-sm-12 col-xs-12 btn btn-success">Save</button>
+									<button id="btnSaveAccountConfig" class="col-md-2 col-sm-12 col-xs-12 btn btn-success">Save</button>
 								</div>
 							</div>
 						</div>
@@ -215,7 +215,7 @@
 								</fieldset>
 								<div class='row' style="padding: 10px 29px 5px 30px;">
 									<div class="col-md-10" ></div>
-									<button class="col-md-2 col-sm-12 col-xs-12 btn btn-success">Save</button>
+									<button id="btnSaveAmazonConfig" class="col-md-2 col-sm-12 col-xs-12 btn btn-success">Save</button>
 								</div>
 							</div>
 						</div>
@@ -250,7 +250,7 @@
 								</fieldset>
 								<div class='row' style="padding: 10px 29px 5px 30px;">
 									<div class="col-md-10" ></div>
-									<button class="col-md-2 col-sm-12 col-xs-12 btn btn-success">Save</button>
+									<button id="btnSavePaypalConfig" class="col-md-2 col-sm-12 col-xs-12 btn btn-success">Save</button>
 								</div>
 							</div>
 						</div>
@@ -262,7 +262,7 @@
 			<button id="btnSaveConfig" ng-click="saveAccountSetting($event)" class="col-md-2 col-sm-12 col-xs-12 btn btn-primary">Save</button>
 		</div>
 
-	</form>
+	</div>
 	<!-- END MAIN CONTENT -->
 
 </div>
@@ -350,8 +350,8 @@
             });
         }
 
-        //Validate rest form
-        function validateRestOfForm(success_callback) {
+        //Validate Account form
+        function validateAccountForm(success_callback) {
             if ($("#email").val() === "") {
                 alert("Empty email");
                 return;
@@ -362,6 +362,12 @@
                     return;
                 }
             }
+
+            success_callback();
+        }
+
+        //Validate Amazon form
+        function validateAmazonForm(success_callback) {
 
             if ($("#access-key").val() === "") {
                 alert("Empty access key");
@@ -377,6 +383,12 @@
                 alert("Empty amazon id");
                 return;
             }
+
+            success_callback();
+        }
+
+        //Validate Paypal form
+        function validatePaypalForm(success_callback) {
 
             if ($("#paypal-email").val() === "") {
                 alert("Empty paypal email");
@@ -457,20 +469,13 @@
             //Check correct old password
             checkCorrectOldPassword($("#old-pass").val(),function(){
                 //Password correct then validate rest form
-                validateRestOfForm(function(){
+                validateAccountForm(function(){
                     //When all validate success
                     updateOldUserInfo(function(){
                         console.log("Update password success!");
                         var dataPost ={
-                            userId:0,
-                            id:0,
                             email:$("#email").val(),
                             isDeliver:$("#rdIsDeliver").prop("checked"),
-                            amazonAccessKey:$("#access-key").val(),
-                            amazonSecretKey:$("#secret-key").val(),
-                            amazoneId:$("#amazon-id").val(),
-                            paypalEmail:$("#paypal-email").val(),
-                            isImmediateStettlement:$("#cbIsImmediateStettlement").prop("checked")
                         };
 
                         $.ajax({
@@ -507,9 +512,90 @@
             });
         }
 
+        //Save Amazon setting
+        function saveAmazonSetting(evt) {
+            validateAmazonForm(function(){
+				var dataPost ={
+					amazonAccessKey:$("#access-key").val(),
+					amazonSecretKey:$("#secret-key").val(),
+					amazoneId:$("#amazon-id").val(),
+				};
+
+				$.ajax({
+					type: "POST",
+					contentType: "application/json",
+					url: "/saveAmazonSetting",
+					data: JSON.stringify(dataPost),
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader(header, token);
+					},
+					dataType: 'json',
+					timeout: 100000,
+					success: function (data) {
+						if (data.status === "OK") {
+							alert("Update user info success");
+							window.location.reload();
+						} else {
+							alert("Update user info failed!")
+						}
+					},
+					error: function (e) {
+						console.log("ERROR: ", e);
+					},
+					done: function (e) {
+						console.log("DONE");
+					}
+				});
+            });
+        }
+
+        //Save Paypal setting
+        function savePaypalSetting(evt) {
+            validatePaypalForm(function(){
+				var dataPost ={
+					paypalEmail:$("#paypal-email").val(),
+					isImmediateStettlement:$("#cbIsImmediateStettlement").prop("checked")
+				};
+
+				$.ajax({
+					type: "POST",
+					contentType: "application/json",
+					url: "/savePaypalSetting",
+					data: JSON.stringify(dataPost),
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader(header, token);
+					},
+					dataType: 'json',
+					timeout: 100000,
+					success: function (data) {
+						if (data.status === "OK") {
+							alert("Update user info success");
+							window.location.reload();
+						} else {
+							alert("Update user info failed!")
+						}
+					},
+					error: function (e) {
+						console.log("ERROR: ", e);
+					},
+					done: function (e) {
+						console.log("DONE");
+					}
+				});
+            });
+        }
+
         //Register event add save
-        $("#btnSaveConfig").on("click",function (evt) {
+        $("#btnSaveAccountConfig").on("click",function (evt) {
             saveAccountSetting(evt);
+        })
+
+		$("#btnSaveAmazonConfig").on("click",function (evt) {
+			saveAmazonSetting(evt);
+		})
+
+        $("#btnSavePaypalConfig").on("click",function (evt) {
+            saveAmazonSetting(evt);
         })
 
         //Default load

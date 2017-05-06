@@ -384,7 +384,7 @@
                 var header = $("meta[name='_csrf_header']").attr("content");
                 $.ajax({
                     type : "POST",
-                    url : "SearchAmazonProductXml",
+                    url : "SearchAmazonProduct",
                     headers: {
                         [header]: token,
                         "Content-Type": "application/json; charset=utf8"

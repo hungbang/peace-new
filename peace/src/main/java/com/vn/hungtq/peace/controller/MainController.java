@@ -380,26 +380,14 @@ public class MainController {
 		Optional<AccountSetting> optionalOfAccoutSetting = accountSettingDaoService.loadAccountSettingByUser(userId);
 		if(optionalOfAccoutSetting.isPresent()){
 			acSetting = optionalOfAccoutSetting.get();
-			acSetting.setAmazonAccessKey(accountSettingDto.getAmazonAccessKey());
-			acSetting.setAmazoneId(accountSettingDto.getAmazoneId());
-			acSetting.setAmazonSecretKey(accountSettingDto.getAmazonSecretKey());
 			acSetting.setIsDeliver(accountSettingDto.getIsDeliver());
-			acSetting.setIsImmediateStettlement(accountSettingDto.getIsImmediateStettlement());
-			acSetting.setPaypalEmail(accountSettingDto.getPaypalEmail());
-			//acSetting.setId(accountSettingDto.getId());
 			
 			//Update to db
 			accountSettingDaoService.updateAccountSetting(acSetting);
 		}else{
 			//Convert data
 			acSetting = new AccountSetting();
-			acSetting.setAmazonAccessKey(accountSettingDto.getAmazonAccessKey());
-			acSetting.setAmazoneId(accountSettingDto.getAmazoneId());
-			acSetting.setAmazonSecretKey(accountSettingDto.getAmazonSecretKey());
 			acSetting.setIsDeliver(accountSettingDto.getIsDeliver());
-			acSetting.setIsImmediateStettlement(accountSettingDto.getIsImmediateStettlement());
-			acSetting.setPaypalEmail(accountSettingDto.getPaypalEmail());
-			acSetting.setId(accountSettingDto.getId());
 			acSetting.setUserId(userId);
 			
 			//Save to db

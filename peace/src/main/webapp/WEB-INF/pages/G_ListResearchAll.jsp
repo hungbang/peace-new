@@ -6,6 +6,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <html lang="en-us" ng-app="product_shopping_search">
+<head>
+	<style>
+		#productSearchBtn {
+			margin-left: 10px;
+		}
+		#productSearch {
+			width: 320px;
+		}
+	</style>
+</head>
 <jsp:include page="../pages/common/header.jsp" />
 <body class="fixed-page-footer">
 	<jsp:include page="../pages/common/menu-top.jsp" />
@@ -47,10 +57,11 @@
 						<form class="smart-form">
 							<fieldset>
 								<div class="row">
-									<section class="col col-4">
-										<label class="label">Key Search</label> <label class="input ">
+									<section class="col col-6">
+										<label class="label">Key Search</label> <label class="input" style="float:left">
 											<input type="text" id="productSearch" ng-change="searchProduct()" ng-model="searchModel" class="input" maxlength="80">
 										</label>
+										<input type="button" class="btn btn-primary" id="productSearchBtn" value='<fmt:message key="search"/>'/>
 									</section>
 								</div>
 								<section style="">
@@ -475,6 +486,12 @@ input, textarea, button {
 				    var keyword = $(this).val();
 				    searchProduct(keyword);
 				}
+            })
+
+            $("#productSearchBtn").on("click",function(){
+                $("#searchBody").empty();
+                var keyword = $("#productSearch").val();
+                searchProduct(keyword);
             })
 
             function searchProduct(keyword){

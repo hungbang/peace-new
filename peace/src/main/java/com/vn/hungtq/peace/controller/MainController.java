@@ -380,14 +380,40 @@ public class MainController {
 		Optional<AccountSetting> optionalOfAccoutSetting = accountSettingDaoService.loadAccountSettingByUser(userId);
 		if(optionalOfAccoutSetting.isPresent()){
 			acSetting = optionalOfAccoutSetting.get();
+			acSetting.setIsDeliver(accountSettingDto.getIsDeliver());
+			
+			//Update to db
+			accountSettingDaoService.updateAccountSetting(acSetting);
+		}else{
+			//Convert data
+			acSetting = new AccountSetting();
+			acSetting.setIsDeliver(accountSettingDto.getIsDeliver());
+			acSetting.setUserId(userId);
+			
+			//Save to db
+			accountSettingDaoService.saveAccountSetting(acSetting);
+		} 
+		
+		return responseResult;
+	}
+
+	@RequestMapping(value="saveAmazonSetting",method = RequestMethod.POST)
+	public @ResponseBody AjaxResponseResult<String> saveAmazonSetting(@RequestBody AccountSettingDto accountSettingDto){
+		AjaxResponseResult<String> responseResult = new AjaxResponseResult<String>();
+		responseResult.setStatus("OK");
+		AccountSetting acSetting ;
+		//Get user id
+		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		UserDto user = CommonUtils.getUserFromSession((org.springframework.security.core.userdetails.User)authentication.getPrincipal(), userService);
+		int userId = user.getId();
+
+		Optional<AccountSetting> optionalOfAccoutSetting = accountSettingDaoService.loadAccountSettingByUser(userId);
+		if(optionalOfAccoutSetting.isPresent()){
+			acSetting = optionalOfAccoutSetting.get();
 			acSetting.setAmazonAccessKey(accountSettingDto.getAmazonAccessKey());
 			acSetting.setAmazoneId(accountSettingDto.getAmazoneId());
 			acSetting.setAmazonSecretKey(accountSettingDto.getAmazonSecretKey());
-			acSetting.setIsDeliver(accountSettingDto.getIsDeliver());
-			acSetting.setIsImmediateStettlement(accountSettingDto.getIsImmediateStettlement());
-			acSetting.setPaypalEmail(accountSettingDto.getPaypalEmail());
-			//acSetting.setId(accountSettingDto.getId());
-			
+
 			//Update to db
 			accountSettingDaoService.updateAccountSetting(acSetting);
 		}else{
@@ -396,16 +422,44 @@ public class MainController {
 			acSetting.setAmazonAccessKey(accountSettingDto.getAmazonAccessKey());
 			acSetting.setAmazoneId(accountSettingDto.getAmazoneId());
 			acSetting.setAmazonSecretKey(accountSettingDto.getAmazonSecretKey());
-			acSetting.setIsDeliver(accountSettingDto.getIsDeliver());
-			acSetting.setIsImmediateStettlement(accountSettingDto.getIsImmediateStettlement());
-			acSetting.setPaypalEmail(accountSettingDto.getPaypalEmail());
-			acSetting.setId(accountSettingDto.getId());
 			acSetting.setUserId(userId);
-			
+
 			//Save to db
 			accountSettingDaoService.saveAccountSetting(acSetting);
-		} 
-		
+		}
+
+		return responseResult;
+	}
+
+	@RequestMapping(value="savePaypalSetting",method = RequestMethod.POST)
+	public @ResponseBody AjaxResponseResult<String> savePaypalSetting(@RequestBody AccountSettingDto accountSettingDto){
+		AjaxResponseResult<String> responseResult = new AjaxResponseResult<String>();
+		responseResult.setStatus("OK");
+		AccountSetting acSetting ;
+		//Get user id
+		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		UserDto user = CommonUtils.getUserFromSession((org.springframework.security.core.userdetails.User)authentication.getPrincipal(), userService);
+		int userId = user.getId();
+
+		Optional<AccountSetting> optionalOfAccoutSetting = accountSettingDaoService.loadAccountSettingByUser(userId);
+		if(optionalOfAccoutSetting.isPresent()){
+			acSetting = optionalOfAccoutSetting.get();
+			acSetting.setIsImmediateStettlement(accountSettingDto.getIsImmediateStettlement());
+			acSetting.setPaypalEmail(accountSettingDto.getPaypalEmail());
+
+			//Update to db
+			accountSettingDaoService.updateAccountSetting(acSetting);
+		}else{
+			//Convert data
+			acSetting = new AccountSetting();
+			acSetting.setIsImmediateStettlement(accountSettingDto.getIsImmediateStettlement());
+			acSetting.setPaypalEmail(accountSettingDto.getPaypalEmail());
+			acSetting.setUserId(userId);
+
+			//Save to db
+			accountSettingDaoService.saveAccountSetting(acSetting);
+		}
+
 		return responseResult;
 	}
 	

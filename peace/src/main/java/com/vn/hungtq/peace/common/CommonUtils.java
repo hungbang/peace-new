@@ -11,6 +11,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -521,4 +525,11 @@ public class CommonUtils {
 		//Must have this to resolve ${}
 		return new PropertySourcesPlaceholderConfigurer();
 	}
+
+    public static Date getDateFromString(String tokenExpirationTime) {
+		Instant instant = Instant.parse(tokenExpirationTime);
+//		LocalDateTime result = LocalDateTime.ofInstant(instant, ZoneId.of(ZoneOffset.UTC.getId()));
+		Date output = Date.from(instant);
+		return output;
+    }
 }

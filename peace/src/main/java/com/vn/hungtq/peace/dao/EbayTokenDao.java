@@ -9,4 +9,8 @@ public interface EbayTokenDao {
 
     void saveToken(EbayToken ebayToken);
     void updateToken(EbayToken ebayToken);
+
+    EbayToken findByToken(String usertoken);
+
+    EbayToken findByUser(Integer user);
 }

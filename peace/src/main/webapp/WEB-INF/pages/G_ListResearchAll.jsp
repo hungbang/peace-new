@@ -465,7 +465,7 @@
                     "	<td class='is-hidden'>"+product.price +"</td>"+
                     "	<td class='is-hidden'>"+product.stock +"</td>"+
                     "	<td class='is-hidden send-to-ebay' data-product-id='"+product.itemId+"' data-search-site='"+product.searchSite+"'> "+
-                    "	<a href='"+"SendToSell/"+product.searchSite+"/"+product.itemId+"/"+keyword+"'>Go to add ebay</a>"+
+                    "	<a href='"+"SendToSell/"+product.searchSite+"/"+product.itemId+"/"+keyword+"'><fmt:message key="gotoebay"/></a>"+
                     "	</td>"+
                     "</tr>";
                 $("#"+idTable+" .searchBody").append($(template));

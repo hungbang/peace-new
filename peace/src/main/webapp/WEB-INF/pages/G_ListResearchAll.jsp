@@ -445,8 +445,8 @@ input, textarea, button {
                 $("#"+idTable+" .searchBody").html('');
 				listOfSearchProduct.forEach(function(product,index){
 					var template =
-                    "<tr><td class='col col-1'><image width='64' height='64'src='"+product.image+"'/></td>"+
-                    "	<td class='is-visible'><p>"+product.productName +"</p></td>"+
+                    "<tr><td class='col col-1'><a target='_blank' href='"+product.exhibition+"'>"+(product.image && product.image != ""?"<image width='64' height='64'src='"+product.image+"'/>":"<div>No Photo</div>")+"</a></td>"+
+                    "	<td class='is-visible'><p><a target='_blank' href='"+product.exhibition+"'>"+product.productName +"</a></p></td>"+
                     "	<td class='is-hidden'>"+product.price +"</td>"+
                     "	<td class='is-hidden'>"+product.stock +"</td>"+
                     "	<td class='is-hidden send-to-ebay' data-product-id='"+product.itemId+"' data-search-site='"+product.searchSite+"'> "+
@@ -591,7 +591,9 @@ input, textarea, button {
                     };
                 }):[];
 
-                bindProductToLayout(newData.amazon, 'tbAmazon');
+                console.log(data);
+
+                bindProductToLayout([], 'tbAmazon');
                 bindProductToLayout(newData.ebay, 'tbEbay', keyword);
                 bindProductToLayout(newData.yahoo, 'tbYahooAution');
                 bindProductToLayout(newData.rakuten, 'tbRakuten');

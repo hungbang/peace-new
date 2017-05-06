@@ -204,7 +204,7 @@
                     </label>
                     <div class="note">
                         <p id="titleSub">0 characters (max. 80 letters)</p>
-                        <a href="#"> <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                        <a href="#" id="translate"> <i class="fa fa-hand-o-right" aria-hidden="true"></i>
                             <span> <fmt:message key="translate"/> </span>
                         </a>
                     </div>
@@ -237,6 +237,10 @@
 
                 <!-- The category part -->
                 <section class="col-xs-10 col-md-10">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+
+
                     <label class="label">カテゴリー</label>
                     <div id="category" class="tab-content" style="padding-left: 10px">
                         <div class="" style="100%">
@@ -464,6 +468,29 @@
     </div>
     <!-- END MAIN CONTENT -->
 
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog" >
+    <div class="modal-dialog row" style="display: flex;
+                        justify-content: center;
+                        width: 100%; padding-top: 60px;">
+        <div class="col-md-6 col-sm-10 col-xs-10" style="border-width: 1 #d1d1d1 solid; border-radius: 5px; background-color: white; padding-top: 20px;">
+            <div class="col-md-12" style="margin-bottom: 15px;">
+                <h4>Search Categories</h4>
+            </div>
+            <div class="col-md-12 col-xs-12 col-sm-12" >
+                <input id='keywordSearchCategories' type="text" class="col-md-9 col-sm-9 col-xs-9" style="padding: 5px; margin-bottom: 5px;" >
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                <button class="btn btn-success col-sm-2 col-md-2 col-xs-2" id="btnSearchCategories" >Search</button>
+            </div>
+            <div id='popUpcontentSearchCategories'>
+            </div>
+            <div class="col-md-12" style="padding-bottom: 20px; margin-top: 10px;">
+                <div class="col-sm-10 col-md-10 col-xs-10"></div>
+                <button  data-dismiss="modal" class="btn btn-default col-sm-2 col-md-2 col-xs-2" id='btnSearchCategories'>cancel</button>
+            </div>
+        </div>
+    </div>
 </div>
 <jsp:include page="../pages/common/footer.jsp"/>
 <!--================================================== -->
@@ -853,7 +880,7 @@
 
                 onValidateSuccessCallBack();
             }
-        };
+        }
     });
 
 </script>
@@ -968,7 +995,7 @@
 
                 }
 
-                function validate(onValidateSuccessCallBack){
+                function validate(onValidateSuccessCallBack) {
                     if($("#product_title").val()===""){
                         alert("Empty title");
                         return;
@@ -1062,7 +1089,9 @@
 
                     onValidateSuccessCallBack();
                 };
-            })
+            }
+        }
+    });
 </script>
 
 <!-- EMBED CKEDITOR(napt2017) -->
@@ -1188,7 +1217,6 @@
 
     function getCategoryEbay(levelLimit, categoryId, pick) {
         var data = {categoryLevel: levelLimit, id: categoryId};
-//              data["query"] = $("#query").val();
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
 
@@ -1289,6 +1317,70 @@
 
     function setSizeTitle() {
         $("#titleSub").text($("#product_title").val().length +" characters (max. 80 letters)");
+    }
+
+
+    $('#translate').on('click',  function(event) {
+        event.preventDefault();
+        var text = $('#product_title').val();
+        $.ajax({
+            method:'GET',
+            url: 'https://api-platform.systran.net/translation/text/translate?key=d93e1280-168a-49c4-bc2b-db808ffe6349',
+            dataType: 'text',
+            data: {
+                source: 'ja',
+                target: 'en',
+                input: text
+            },
+        })
+            .done(function(data) {
+                var json = JSON.parse(data);
+                $('#product_title').val(json.outputs[0].output)
+            })
+            .fail(function(error) {
+            })
+            .always(function() {
+            });
+
+    });
+
+    $('#btnSearchCategories').click(function () {
+        //on request search categories here
+        var dummyData = [
+            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
+            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
+            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
+            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
+            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
+            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
+            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
+            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
+        ];
+        console.log('eee')
+        renderResultSearchCategories(dummyData);
+    })
+    $('#keywordSearchCategories').keyup(function (e) {
+        //on request search categories here
+        console.log('yyyy')
+        var dummyData = [
+            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
+            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
+            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
+            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
+            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
+            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
+            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
+            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
+        ]
+        if (e.keyCode == 13) {
+            renderResultSearchCategories(dummyData);
+        }
+    })
+
+    function renderResultSearchCategories (data) {
+        $('#popUpcontentSearchCategories').html(data.map(function (_data, index) {
+            return '<div class="col-md-12" style="margin-top: 5px"><a href="#">'+_data+'</a></div>';
+        }));
     }
 
 </script>

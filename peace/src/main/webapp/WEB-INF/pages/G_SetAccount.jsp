@@ -595,7 +595,7 @@
 		})
 
         $("#btnSavePaypalConfig").on("click",function (evt) {
-            saveAmazonSetting(evt);
+            savePaypalSetting(evt);
         })
 
         //Default load

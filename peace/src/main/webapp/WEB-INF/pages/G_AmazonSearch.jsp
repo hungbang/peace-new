@@ -18,13 +18,13 @@
 	<!-- RIBBON -->
 	<div id="ribbon">
 
-			<span class="ribbon-button-alignment"> <span id="refresh"
+            <span class="ribbon-button-alignment"> <span id="refresh"
 														 class="btn btn-ribbon" data-action="resetWidgets"
 														 data-title="refresh" rel="tooltip" data-placement="bottom"
 														 data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings."
 														 data-html="true"> <i class="fa fa-refresh"></i>
-			</span>
-			</span>
+            </span>
+            </span>
 
 		<!-- breadcrumb -->
 		<ol class="breadcrumb">
@@ -47,34 +47,29 @@
 						<h2 class="amazon-search-title">リサーチ：amazon.co.jp</h2>
 					</header>
 					<div class="smart-form">
-						<%--<div class="container">--%>
-						<%--<div class="col col-lg-2" style="">--%>
-						<%--キーワード / ASIN:--%>
-						<%--</div>--%>
-						<%--<div class="col col-lg-6">--%>
-						<%--<label class="input">--%>
-						<%--<input type="search" id="search-by-keyword" />--%>
-						<%--</label> --%>
-						<%--</div>--%>
-						<%--</div>--%>
-						<div class="container" style="margin-top:5px;margin-bottom:5px;">
-							<div class="col col-lg-2" style="">
-								ASINから関連商品
-							</div>
-							<div class="col col-lg-6">
-								<label class="input">
-									<input type="search" id="search-by-asin" />
-								</label>
-							</div>
-						</div>
+						<section class="row smart-form" style="margin-top:5px;margin-bottom:5px; padding-left: 20px;padding-right: 20px;"> <label
+								class="label col col-2">ASIN</label> <label
+								class="col col-6">
+							<input type="search" id="search-by-keyword" class="form-control" style="width: 100%" id="old-pass">
+						</label>
+						</section>
+						<section class="row smart-form" style="margin-top:5px;margin-bottom:5px; padding-left: 20px; padding-right: 20px;"> <label
+								class="label col col-2">ASINから関連商品</label> <label
+								class="col col-6">
+							<input type="search" id="search-by-asin" class="form-control" style="width: 100%" id="old-pass">
+						</label>
+						</section>
+						<section class="row smart-form" style="margin-top:5px;margin-bottom:5px; padding-left: 20px;padding-right: 20px;"> <label
+								class="label col col-2"></label> <label
+								class="col col-6">
+							<button type="submit" id="seach" class="btn btn-primary" style="float: right;height: 31px;margin-top: 10px;margin-bottom: 10px;padding: 0 22px; font: 300 15px/29px 'Open Sans',Helvetica,Arial,sans-serif;cursor: pointer;">
+								<fmt:message key="search" />
+							</button>
+						</label>
+						</section>
 						<div class="container" style="margin-top:5px;margin-bottom:5px;">
 							<div class="col col-lg-2" style="">
 
-							</div>
-							<div class="col col-lg-6">
-								<button type="submit" id="seach" class="btn btn-primary" style="float: right;height: 31px;margin-top: 10px;margin-bottom: 10px;padding: 0 22px; font: 300 15px/29px 'Open Sans',Helvetica,Arial,sans-serif;cursor: pointer;">
-									<fmt:message key="search" />
-								</button>
 							</div>
 						</div>
 					</div>
@@ -88,9 +83,9 @@
 							<thead>
 							<tr>
 								<th>画像</th>
-								<th>	商品名 </th>
+								<th>    商品名 </th>
 								<th>価格（円）</th>
-								<th>	関連</th>
+								<th>    関連</th>
 								<th>出品</th>
 							</tr>
 							<!--
@@ -98,13 +93,13 @@
                                 <th ng-click="sort('image')">画像
                                     <span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                                 </th>
-                                <th ng-click="sort('productName')">	商品名
+                                <th ng-click="sort('productName')"> 商品名
                                     <span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                                 </th>
                                 <th ng-click="sort('price')">価格（円）
                                     <span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                                 </th>
-                                <th ng-click="sort('stock')">	関連
+                                <th ng-click="sort('stock')">   関連
                                     <span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                                 </th>
                                 <th ng-click="sort('exhibition')">出品
@@ -244,6 +239,21 @@
 		font-size: 26px;
 		margin: -3px 0 0 12px;
 	}
+	.disabledSearch {
+		background-color: #d1d1d1 !important;
+	}
+	.activeSearch {
+	}
+
+	@media (max-width: 420px) {
+
+		.smart-form .label.col {
+			margin: 0;
+			padding-bottom: 5px;
+			padding-top: 0px;
+		}
+	}
+
 	/* Required field END */
 </style>
 
@@ -288,8 +298,29 @@
 <!--Replace angular-->
 <script type="text/javascript">
     $(function () {
+
+        $('#search-by-asin').focus(function() {
+            $('#search-by-keyword').addClass('disabledSearch');
+            $('#search-by-asin').removeClass('disabledSearch');
+            $('#search-by-keyword').removeClass('activeSearch');
+            $('#search-by-asin').addClass('activeSearch');
+        })
+        $('#search-by-keyword').focus(function() {
+            $('#search-by-asin').addClass('disabledSearch');
+            $('#search-by-keyword').removeClass('disabledSearch');
+            $('#search-by-keyword').addClass('activeSearch');
+            $('#search-by-asin').removeClass('activeSearch');
+        })
+
+        $('#seach').click(function () {
+            var e = $.Event('keypress');
+            e.which = 13; // Character 'A'
+            console.log($('input .activeSearch'));
+            $('.activeSearch').trigger(e);
+        });
         //Search by keyword
         $("#search-by-keyword").on("keypress",function(evt){
+            console.log(evt);
             if(evt.which===13){
                 evt.preventDefault();
 
@@ -400,12 +431,14 @@
                 });
             }
         });
+
+
     });
 </script>
 <!-- LOAD ANGULAR JS MODULE
-	<script type="text/javascript"src="<c:url value="/resources/js/angularjs/angular.js"/>"></script>
-	<script type="text/javascript"src="<c:url value="/resources/js/angularjs/dirPagination.js"/>"></script>
-	 -->
+    <script type="text/javascript"src="<c:url value="/resources/js/angularjs/angular.js"/>"></script>
+    <script type="text/javascript"src="<c:url value="/resources/js/angularjs/dirPagination.js"/>"></script>
+     -->
 <!-- SCRIPT HANDING EVENT SEARCH PRODUCT (Author napt2017)
 <script type="text/javascript">
     var shoppingSearchModule = angular.module("product_shopping_search", ['angularUtils.directives.dirPagination']);

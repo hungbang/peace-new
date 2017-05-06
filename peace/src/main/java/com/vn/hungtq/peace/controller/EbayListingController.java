@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,333 +42,350 @@ import java.util.List;
 @Controller
 public class EbayListingController {
 
-	private final Logger logger = LoggerFactory.getLogger(EbayListingController.class);
+    private final Logger logger = LoggerFactory.getLogger(EbayListingController.class);
 
 
-	@Autowired
-	private CommonService commonService;
+    @Autowired
+    private CommonService commonService;
 
-	@Autowired
-	EbayServiceInfo ebayServiceInfo;
-	
-	@Autowired
-	UserDaoService userDaoService;
-	
-	@Autowired
-	UserTemplateDaoService userTemplateDaoService;
-	
-	@Autowired
-	ItemInfomationDaoService itemInfomationDaoService;
-	
-	private final static String COOKIE_EBAY_TOKEN = "PeaceEbayToken";
-	
-	@RequestMapping(value="/Sell",method= RequestMethod.GET)
-	public ModelAndView sell(){
-		return new ModelAndView("pages/G_Sell");
-	}
-	
-	@RequestMapping(value="/SellDetail",method= RequestMethod.GET)
-	public ModelAndView sellDetail(){
-		return new ModelAndView("pages/G_SellDetail");
-	}
-	
-	@RequestMapping(value="/AddItem",method= RequestMethod.POST)
-	public @ResponseBody AjaxResponseResult<String> addItem(@RequestBody EbayItemDto ebayItemDto ,
-															@CookieValue(value=COOKIE_EBAY_TOKEN ,defaultValue="") String ebayToken,
-															HttpServletRequest request){
-		AjaxResponseResult<String> responseResult = new AjaxResponseResult<String>();
+    @Autowired
+    EbayServiceInfo ebayServiceInfo;
 
-		EbayToken token = getTokenEbay(request);
-		if(checkTokenExpire(token)){
-			responseResult.setStatus("EXPIRE");
-			responseResult.setCause("Token is expired. Please Login Ebay to update new token.");
-			return responseResult;
-		}
-//
-//		if (ebayToken == null) {
-//			responseResult.setStatus("FAILED");
-//			responseResult.setCause("Login Ebay First!");
+    @Autowired
+    UserDaoService userDaoService;
+
+    @Autowired
+    UserTemplateDaoService userTemplateDaoService;
+
+    @Autowired
+    ItemInfomationDaoService itemInfomationDaoService;
+
+    private final static String COOKIE_EBAY_TOKEN = "PeaceEbayToken";
+
+    @RequestMapping(value = "/Sell", method = RequestMethod.GET)
+    public ModelAndView sell() {
+        return new ModelAndView("pages/G_Sell");
+    }
+
+    @RequestMapping(value = "/SellDetail", method = RequestMethod.GET)
+    public ModelAndView sellDetail() {
+        return new ModelAndView("pages/G_SellDetail");
+    }
+
+    @RequestMapping(value = "/AddItem", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    AjaxResponseResult<String> addItem(@RequestBody EbayItemDto ebayItemDto,
+                                       @CookieValue(value = COOKIE_EBAY_TOKEN, defaultValue = "") String ebayToken,
+                                       HttpServletRequest request, HttpServletResponse response) {
+        AjaxResponseResult<String> responseResult = new AjaxResponseResult<String>();
+
+        EbayToken token = getTokenEbay(request);
+
+        if(token == null){
+            responseResult.setStatus("FAILED");
+            responseResult.setCause("Login Ebay First!");
+            return responseResult;
+        }
+
+        if (checkTokenExpire(token)) {
+            responseResult.setStatus("EXPIRED");
+            responseResult.setCause("Token is expired. Please Login Ebay to update new token.");
+            return responseResult;
+        }
+
+        try {
+            ApiContext ctx = CommonUtils.getApiContext(token.getToken(), ebayServiceInfo);
+            AddItemCall api = new AddItemCall(ctx);
+            ItemType item = buildItemFromDto(ebayItemDto);
+            api.setItem(item);
+            FeesType fees = api.addItem();
+            double listingFee = eBayUtil.findFeeByName(fees.getFee(), "ListingFee").getFee().getValue();
+            responseResult.setMsg("Add item success with id:" + item.getItemID());
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseResult.setStatus("FAILED");
+            responseResult.setCause(e.getMessage());
+        }
+
+        return responseResult;
+    }
+
+    /**
+     * Get Category Ebay
+     *
+     * @param ebayToken
+     * @return
+     */
+    @RequestMapping(value = "/GetCategory", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    AjaxResponseResult<List<EbayCategory>> getCategory(@RequestBody EbayCategory ebayCategory,
+                                                       @CookieValue(value = COOKIE_EBAY_TOKEN, defaultValue = "") String ebayToken,
+                                                       HttpServletRequest request) {
+        AjaxResponseResult<List<EbayCategory>> responseResult = new AjaxResponseResult<List<EbayCategory>>();
+        logger.info("ebayToken: " + ebayToken);
+        EbayToken tokenEbay = getTokenEbay(request);
+
+        if(tokenEbay == null){
+            responseResult.setStatus("FAILED");
+            responseResult.setCause("Login Ebay First!");
+            return responseResult;
+        }
+
+        if (checkTokenExpire(tokenEbay)) {
+            responseResult.setStatus("EXPIRED");
+            responseResult.setCause("Token is expired. Please Login Ebay to update new token.");
+            return responseResult;
+        }
+
+        //Get api context
+        ApiContext apiContext = CommonUtils.getApiContext(tokenEbay.getToken(), ebayServiceInfo);
+        try {
+
+            Tuple<Boolean, List<EbayCategory>> tupleCategory = null;
+            if (ebayCategory.getId() == 0) {
+                tupleCategory = CommonUtils.getListCategories(apiContext, ebayCategory.getCategoryLevel(), null);
+            } else {
+                tupleCategory = CommonUtils.getListCategories(apiContext, ebayCategory.getCategoryLevel(), String.valueOf(ebayCategory.getId()));
+            }
+
+            if (Boolean.TRUE == tupleCategory.getFirst()) {
+                responseResult.setExtraData(tupleCategory.getSecond());
+            }
+        } catch (Exception e) {
+            responseResult.setStatus("FAILED");
+            responseResult.setCause(e.getMessage());
+        }
 //		}
-		try {
-			ApiContext ctx = CommonUtils.getApiContext(token.getToken(), ebayServiceInfo);
-			AddItemCall api = new AddItemCall(ctx);
-			ItemType item = buildItemFromDto(ebayItemDto);
-			api.setItem(item);
-			FeesType fees = api.addItem();
-			double listingFee = eBayUtil.findFeeByName(fees.getFee(), "ListingFee").getFee().getValue();
-			responseResult.setMsg("Add item success with id:"+item.getItemID());
-		} catch (Exception e) {
-			e.printStackTrace();
- 			responseResult.setStatus("FAILED");
-			responseResult.setCause(e.getMessage());
-		}
-		
-		return responseResult;
-	} 
-	
-	/**
-	 * Get Category Ebay
-	 * @param ebayToken
-	 * @return
-	 */
-	@RequestMapping(value="/GetCategory",method= RequestMethod.POST)
-	public @ResponseBody AjaxResponseResult<List<EbayCategory>> getCategory(@RequestBody EbayCategory ebayCategory,
-																			@CookieValue(value=COOKIE_EBAY_TOKEN ,defaultValue="" ) String ebayToken,
-																			HttpServletRequest request){
-		AjaxResponseResult<List<EbayCategory>> responseResult = new AjaxResponseResult<List<EbayCategory>>();
-		logger.info("ebayToken: "+ ebayToken);
-		EbayToken tokenEbay = getTokenEbay(request);
 
+        return responseResult;
+    }
 
-		if(checkTokenExpire(tokenEbay)){
-			responseResult.setStatus("EXPIRE");
-			responseResult.setCause("Token is expired. Please Login Ebay to update new token.");
-			return responseResult;
-		}
-//
-//		if(StringUtils.isEmpty(ebayToken)){
-//			responseResult.setStatus("FAILED");
-//			responseResult.setCause("You must login to ebay site to init the ebay token");
-//		}else{
-			//Get api context
-			ApiContext apiContext = CommonUtils.getApiContext(tokenEbay.getToken(), ebayServiceInfo);
-			try {
-				
-				Tuple<Boolean,List<EbayCategory>> tupleCategory = null;
-				if (ebayCategory.getId() == 0) {
-					tupleCategory = CommonUtils.getListCategories(apiContext, ebayCategory.getCategoryLevel(), null);
-				} else {
-					tupleCategory = CommonUtils.getListCategories(apiContext, ebayCategory.getCategoryLevel(), String.valueOf(ebayCategory.getId()));
-				}
-				
-				if (Boolean.TRUE == tupleCategory.getFirst() ) {
-					responseResult.setExtraData(tupleCategory.getSecond());
-				}
-			} catch (Exception e) { 
-				responseResult.setStatus("FAILED");
-				responseResult.setCause(e.getMessage());
-			} 
-//		}
-		
-		return responseResult;
-	}
-
-	private boolean checkTokenExpire(EbayToken tokenEbay) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		try {
-			Date currentDate = sdf.parse(sdf.format(new Date()));
-			Date tokenDate = sdf.parse(sdf.format(tokenEbay.getExpiresDate()));
-			return tokenDate.before(currentDate);
-		} catch (ParseException e) {
+    private boolean checkTokenExpire(EbayToken tokenEbay) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date currentDate = sdf.parse(sdf.format(new Date()));
+            Date tokenDate = sdf.parse(sdf.format(tokenEbay.getExpiresDate()));
+            return tokenDate.before(currentDate);
+        } catch (ParseException e) {
 //			e.printStackTrace();
-			return true;
-		}
-	}
+            return true;
+        }
+    }
 
-	private EbayToken getTokenEbay(HttpServletRequest request) {
-		String user = request.getUserPrincipal().getName();
-		User userLogin = userDaoService.findBySSO(user);
-		EbayToken token = commonService.findByUser(userLogin.getId());
-		return token;
-	}
+    private EbayToken getTokenEbay(HttpServletRequest request) {
+        String user = request.getUserPrincipal().getName();
+        User userLogin = userDaoService.findBySSO(user);
+        EbayToken token = commonService.findByUser(userLogin.getId());
+        return token;
+    }
 
-	/**
-	 * Get Data template
-	 * @param itemDto
-	 * @return
-	 */
-	@RequestMapping(value="/GetDataTemplate",method= RequestMethod.POST)
-	public @ResponseBody AjaxResponseResult<EbayItemDto> getDataTemplate(@RequestBody EbayItemDto itemDto){
-		AjaxResponseResult<EbayItemDto> responseResult = new AjaxResponseResult<EbayItemDto>();
-		
-		// Get user sso
-		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		org.springframework.security.core.userdetails.User userSSO = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
-		
-		// Get user from db
-		User user = userDaoService.findBySSO(userSSO.getUsername());
-		// Description
-		String htmlCode = userTemplateDaoService.getUserTemplateById(user.getId()).getHtmlCode();
-		try {
-			htmlCode  = UriUtils.decode(htmlCode,"UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		ItemInfomation itemInfomation = itemInfomationDaoService.getItemInfomationByUserId(user.getId());
-		htmlCode = htmlCode.replaceAll("<!---- Title ---->", itemDto.getTitle());
-		htmlCode = htmlCode.replaceAll("<!---- Description ---->", itemDto.getDescription());
-		// con thieu xu ly cho block shipping
-		htmlCode = htmlCode.replaceAll("<!---- Term of Sale ---->", itemInfomation.getTermsOfSale());
-		htmlCode = htmlCode.replaceAll("<!---- International Buyers - Please Note ---->", itemInfomation.getInternationalBuyerNote());
-		htmlCode = htmlCode.replaceAll("<!---- About Us ---->", itemInfomation.getAboutUs());
-		htmlCode = htmlCode.replaceAll("<!---- Payment ---->",itemInfomation.getPayment());
-		htmlCode = htmlCode.replaceAll("<!---- shipping ---->","Free shipping!");
-		String img = "<img src='"+itemDto.getImageUrl()+"' />";
-		htmlCode = htmlCode.replaceAll("<!---- Photo ---->", img);
-		itemDto.setDescription(htmlCode);
-		responseResult.setStatus("OK");
-		responseResult.setExtraData(itemDto);
-		return responseResult;
-	}
-	
-	
-	/**
-	 * Get Category Ebay
-	 * @param ebayToken
-	 * @return
-	 */
-	@RequestMapping(value="/GetCategorySpecifics",method= RequestMethod.GET)
-	public @ResponseBody AjaxResponseResult<RecommendationsType[]> getCategorySpecifics(HttpServletRequest request,
-																						@CookieValue(value=COOKIE_EBAY_TOKEN ,defaultValue="") String ebayToken
-																						){
-		AjaxResponseResult<RecommendationsType[]> responseResult = new AjaxResponseResult<RecommendationsType[]>();
-		String categoryId = request.getParameter("categoryId");
+    /**
+     * Get Data template
+     *
+     * @param itemDto
+     * @return
+     */
+    @RequestMapping(value = "/GetDataTemplate", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    AjaxResponseResult<EbayItemDto> getDataTemplate(@RequestBody EbayItemDto itemDto) {
+        AjaxResponseResult<EbayItemDto> responseResult = new AjaxResponseResult<EbayItemDto>();
 
-		EbayToken ebayToken1 = getTokenEbay(request);
-		if(checkTokenExpire(ebayToken1)){
-			responseResult.setStatus("EXPIRE");
-			responseResult.setCause("Token is expired. Please Login Ebay to update new token.");
-			return responseResult;
-		}
+        // Get user sso
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        org.springframework.security.core.userdetails.User userSSO = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
 
-//		if(StringUtils.isEmpty(ebayToken)){
-//			responseResult.setStatus("FAILED");
-//			responseResult.setCause("You must login to ebay site to init the ebay token");
-//		}else{
-			//Get api context
-			ApiContext apiContext = CommonUtils.getApiContext(ebayToken1.getToken(), ebayServiceInfo);
-			try {
-				GetCategorySpecificsCall getCategorySpecificsCall = new GetCategorySpecificsCall(apiContext);
-				String[] categoryIds = {categoryId};
-				getCategorySpecificsCall.setCategoryID(categoryIds);
-				
-				RecommendationsType[] recommendationsType = getCategorySpecificsCall.getCategorySpecifics();
-				responseResult.setStatus("OK");
-				responseResult.setExtraData(recommendationsType);
-			} catch (Exception e) { 
-				responseResult.setStatus("FAILED");
-				responseResult.setCause(e.getMessage());
-			} 
+        // Get user from db
+        User user = userDaoService.findBySSO(userSSO.getUsername());
+        // Description
+        String htmlCode = userTemplateDaoService.getUserTemplateById(user.getId()).getHtmlCode();
+        try {
+            htmlCode = UriUtils.decode(htmlCode, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        ItemInfomation itemInfomation = itemInfomationDaoService.getItemInfomationByUserId(user.getId());
+        htmlCode = htmlCode.replaceAll("<!---- Title ---->", itemDto.getTitle());
+        htmlCode = htmlCode.replaceAll("<!---- Description ---->", itemDto.getDescription());
+        // con thieu xu ly cho block shipping
+        htmlCode = htmlCode.replaceAll("<!---- Term of Sale ---->", itemInfomation.getTermsOfSale());
+        htmlCode = htmlCode.replaceAll("<!---- International Buyers - Please Note ---->", itemInfomation.getInternationalBuyerNote());
+        htmlCode = htmlCode.replaceAll("<!---- About Us ---->", itemInfomation.getAboutUs());
+        htmlCode = htmlCode.replaceAll("<!---- Payment ---->", itemInfomation.getPayment());
+        htmlCode = htmlCode.replaceAll("<!---- shipping ---->", "Free shipping!");
+        String img = "<img src='" + itemDto.getImageUrl() + "' />";
+        htmlCode = htmlCode.replaceAll("<!---- Photo ---->", img);
+        itemDto.setDescription(htmlCode);
+        responseResult.setStatus("OK");
+        responseResult.setExtraData(itemDto);
+        return responseResult;
+    }
+
+
+    /**
+     * Get Category Ebay
+     *
+     * @param ebayToken
+     * @return
+     */
+    @RequestMapping(value = "/GetCategorySpecifics", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    AjaxResponseResult<RecommendationsType[]> getCategorySpecifics(HttpServletRequest request,
+                                                                   @CookieValue(value = COOKIE_EBAY_TOKEN, defaultValue = "") String ebayToken
+    ) {
+        AjaxResponseResult<RecommendationsType[]> responseResult = new AjaxResponseResult<RecommendationsType[]>();
+        String categoryId = request.getParameter("categoryId");
+
+        EbayToken ebayToken1 = getTokenEbay(request);
+
+        if(ebayToken1 == null){
+            responseResult.setStatus("FAILED");
+            responseResult.setCause("Login Ebay First!");
+            return responseResult;
+        }
+
+        if (checkTokenExpire(ebayToken1)) {
+            responseResult.setStatus("EXPIRED");
+            responseResult.setCause("Token is expired. Please Login Ebay to update new token.");
+            return responseResult;
+        }
+
+        //Get api context
+        ApiContext apiContext = CommonUtils.getApiContext(ebayToken1.getToken(), ebayServiceInfo);
+        try {
+            GetCategorySpecificsCall getCategorySpecificsCall = new GetCategorySpecificsCall(apiContext);
+            String[] categoryIds = {categoryId};
+            getCategorySpecificsCall.setCategoryID(categoryIds);
+
+            RecommendationsType[] recommendationsType = getCategorySpecificsCall.getCategorySpecifics();
+            responseResult.setStatus("OK");
+            responseResult.setExtraData(recommendationsType);
+        } catch (Exception e) {
+            responseResult.setStatus("FAILED");
+            responseResult.setCause(e.getMessage());
+        }
 //		}
-		
-		return responseResult;
-	}
-	
-	/**
-	 * Fill data to model Item
-	 * @param itemDto
-	 * @return
-	 */
-	private ItemType buildItemFromDto(EbayItemDto itemDto){
-		ItemType itemType = new ItemType();
-		if (itemDto != null) {
-			
-			// Get user sso
-			final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			org.springframework.security.core.userdetails.User userSSO = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
-			
-			// Get user from db
-			User user = userDaoService.findBySSO(userSSO.getUsername());
-			
-			BeanUtils.copyProperties(itemDto, itemType);
-			
-			// Category Id
-			CategoryType categoryType = new CategoryType();
-			categoryType.setCategoryID(itemDto.getCategoryId());
-			itemType.setPrimaryCategory(categoryType);
-			
-			// Location
-			itemType.setPostalCode("95125");
-			
-			// Condition
-			itemType.setConditionID(Integer.valueOf(itemDto.getConditionID()));
-			
-			// Description
-			String htmlCode = userTemplateDaoService.getUserTemplateById(user.getId()).getHtmlCode();
+
+        return responseResult;
+    }
+
+    /**
+     * Fill data to model Item
+     *
+     * @param itemDto
+     * @return
+     */
+    private ItemType buildItemFromDto(EbayItemDto itemDto) {
+        ItemType itemType = new ItemType();
+        if (itemDto != null) {
+
+            // Get user sso
+            final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            org.springframework.security.core.userdetails.User userSSO = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
+
+            // Get user from db
+            User user = userDaoService.findBySSO(userSSO.getUsername());
+
+            BeanUtils.copyProperties(itemDto, itemType);
+
+            // Category Id
+            CategoryType categoryType = new CategoryType();
+            categoryType.setCategoryID(itemDto.getCategoryId());
+            itemType.setPrimaryCategory(categoryType);
+
+            // Location
+            itemType.setPostalCode("95125");
+
+            // Condition
+            itemType.setConditionID(Integer.valueOf(itemDto.getConditionID()));
+
+            // Description
+            String htmlCode = userTemplateDaoService.getUserTemplateById(user.getId()).getHtmlCode();
 //			htmlCode = StringEscapeUtils.unescapeHtml3(htmlCode);
-			ItemInfomation itemInfomation = itemInfomationDaoService.getItemInfomationByUserId(user.getId());
-			htmlCode = htmlCode.replaceAll("<!---- Title ---->", itemDto.getTitle());
-			htmlCode = htmlCode.replaceAll("<!---- Description ---->", itemDto.getDescription());
-			htmlCode = htmlCode.replaceAll("<!---- PaymentContent ---->", itemInfomation.getPayment());
-			htmlCode = htmlCode.replaceAll("<!---- TermOfSaleContent ---->", itemInfomation.getTermsOfSale());
-			htmlCode = htmlCode.replaceAll("<!---- InternationalBuyersContent ---->", itemInfomation.getInternationalBuyerNote());
-			htmlCode = htmlCode.replaceAll("<!---- AboutUsContent ---->", itemInfomation.getAboutUs());
-			
-			String img = "<img src='"+itemDto.getImageUrl()+"' />";
-			htmlCode = htmlCode.replaceAll("<!---- Photo ---->", img);
-			StringBuilder description = new StringBuilder();
-			description.append("<![CDATA[");
-			description.append(htmlCode);
-			description.append("]]>");
-			itemType.setDescription(description.toString());
-			
-			
-			// Picture
-			PictureDetailsType pictureDetailsType = new PictureDetailsType();
-			pictureDetailsType.setPictureURL(new String[] {itemDto.getImageUrl()});
-			itemType.setPictureDetails(pictureDetailsType);
-			
-			if (itemDto.getNameValueListTypes() != null) {
-				NameValueListArrayType paramNameValueListArrayType = new NameValueListArrayType();
-				paramNameValueListArrayType.setNameValueList (itemDto.getNameValueListTypes().toArray(new NameValueListType[itemDto.getNameValueListTypes().size()]));
-				
-				itemType.setItemSpecifics(paramNameValueListArrayType);
-			}
-			
-			itemType.setCountry(CountryCodeType.valueOf(itemDto.getCountry()));
-			itemType.setListingType(ListingTypeCodeType.valueOf(itemDto.getRadListingType()));
-			
-			
-			
-			if(itemDto.getStartPrice() != null) {
-				AmountType amount = new AmountType();
-				amount.setValue(Double.valueOf(itemDto.getStartPrice()));
-				itemType.setStartPrice(amount);
-			}
-			
-			if(itemDto.getBuyItNow() != null) {
-				AmountType amount = new AmountType();
-				amount.setValue(Double.valueOf(itemDto.getBuyItNow()));
-				itemType.setBuyItNowPrice(amount);
-			}
-			
-			itemType.setListingDuration(itemDto.getDuration());
-			
-			itemType.setCurrency(CurrencyCodeType.USD);
-			
-			itemType.setDispatchTimeMax(3);
-			
-			// Payment
-			itemType.setPaymentMethods(new BuyerPaymentMethodCodeType[]{BuyerPaymentMethodCodeType.PAY_PAL});
-			itemType.setPayPalEmailAddress("quanghung.aptech.89@gmail.com");
-			
-			// Return Policy
-			ReturnPolicyType returnPolicyType = new ReturnPolicyType();
-			returnPolicyType.setReturnsAcceptedOption("ReturnsAccepted");
-			returnPolicyType.setRefundOption("MoneyBack");
-			returnPolicyType.setReturnsWithinOption("Days_30");
-			returnPolicyType.setDescription("If you are not satisfied, return the book for refund.");
-			returnPolicyType.setShippingCostPaidByOption("Buyer");
-			itemType.setReturnPolicy(returnPolicyType);
-			 
-			// Set shipping
-			ShippingDetailsType shippingDetailsType = new ShippingDetailsType();
-			shippingDetailsType.setShippingType(ShippingTypeCodeType.FLAT);
-			  
-			ShippingServiceOptionsType shippingServiceOptionsType = new ShippingServiceOptionsType();
-			shippingServiceOptionsType.setShippingServicePriority(1);
-			shippingServiceOptionsType.setShippingService("USPSMedia");
-			AmountType amount = new AmountType();
-			amount.setValue(Double.valueOf("2.5"));
-			shippingServiceOptionsType.setShippingServiceCost(amount);
-			
-			ShippingServiceOptionsType[] shippingServiceOptionsTypes = {shippingServiceOptionsType};
-			shippingDetailsType.setShippingServiceOptions(shippingServiceOptionsTypes);
-			itemType.setShippingDetails(shippingDetailsType);
-			
-			
-			
-		}
-		return itemType;
-	}
+            ItemInfomation itemInfomation = itemInfomationDaoService.getItemInfomationByUserId(user.getId());
+            htmlCode = htmlCode.replaceAll("<!---- Title ---->", itemDto.getTitle());
+            htmlCode = htmlCode.replaceAll("<!---- Description ---->", itemDto.getDescription());
+            htmlCode = htmlCode.replaceAll("<!---- PaymentContent ---->", itemInfomation.getPayment());
+            htmlCode = htmlCode.replaceAll("<!---- TermOfSaleContent ---->", itemInfomation.getTermsOfSale());
+            htmlCode = htmlCode.replaceAll("<!---- InternationalBuyersContent ---->", itemInfomation.getInternationalBuyerNote());
+            htmlCode = htmlCode.replaceAll("<!---- AboutUsContent ---->", itemInfomation.getAboutUs());
+
+            String img = "<img src='" + itemDto.getImageUrl() + "' />";
+            htmlCode = htmlCode.replaceAll("<!---- Photo ---->", img);
+            StringBuilder description = new StringBuilder();
+            description.append("<![CDATA[");
+            description.append(htmlCode);
+            description.append("]]>");
+            itemType.setDescription(description.toString());
+
+
+            // Picture
+            PictureDetailsType pictureDetailsType = new PictureDetailsType();
+            pictureDetailsType.setPictureURL(new String[]{itemDto.getImageUrl()});
+            itemType.setPictureDetails(pictureDetailsType);
+
+            if (itemDto.getNameValueListTypes() != null) {
+                NameValueListArrayType paramNameValueListArrayType = new NameValueListArrayType();
+                paramNameValueListArrayType.setNameValueList(itemDto.getNameValueListTypes().toArray(new NameValueListType[itemDto.getNameValueListTypes().size()]));
+
+                itemType.setItemSpecifics(paramNameValueListArrayType);
+            }
+
+            itemType.setCountry(CountryCodeType.valueOf(itemDto.getCountry()));
+            itemType.setListingType(ListingTypeCodeType.valueOf(itemDto.getRadListingType()));
+
+
+            if (itemDto.getStartPrice() != null) {
+                AmountType amount = new AmountType();
+                amount.setValue(Double.valueOf(itemDto.getStartPrice()));
+                itemType.setStartPrice(amount);
+            }
+
+            if (itemDto.getBuyItNow() != null) {
+                AmountType amount = new AmountType();
+                amount.setValue(Double.valueOf(itemDto.getBuyItNow()));
+                itemType.setBuyItNowPrice(amount);
+            }
+
+            itemType.setListingDuration(itemDto.getDuration());
+
+            itemType.setCurrency(CurrencyCodeType.USD);
+
+            itemType.setDispatchTimeMax(3);
+
+            // Payment
+            itemType.setPaymentMethods(new BuyerPaymentMethodCodeType[]{BuyerPaymentMethodCodeType.PAY_PAL});
+            itemType.setPayPalEmailAddress("quanghung.aptech.89@gmail.com");
+
+            // Return Policy
+            ReturnPolicyType returnPolicyType = new ReturnPolicyType();
+            returnPolicyType.setReturnsAcceptedOption("ReturnsAccepted");
+            returnPolicyType.setRefundOption("MoneyBack");
+            returnPolicyType.setReturnsWithinOption("Days_30");
+            returnPolicyType.setDescription("If you are not satisfied, return the book for refund.");
+            returnPolicyType.setShippingCostPaidByOption("Buyer");
+            itemType.setReturnPolicy(returnPolicyType);
+
+            // Set shipping
+            ShippingDetailsType shippingDetailsType = new ShippingDetailsType();
+            shippingDetailsType.setShippingType(ShippingTypeCodeType.FLAT);
+
+            ShippingServiceOptionsType shippingServiceOptionsType = new ShippingServiceOptionsType();
+            shippingServiceOptionsType.setShippingServicePriority(1);
+            shippingServiceOptionsType.setShippingService("USPSMedia");
+            AmountType amount = new AmountType();
+            amount.setValue(Double.valueOf("2.5"));
+            shippingServiceOptionsType.setShippingServiceCost(amount);
+
+            ShippingServiceOptionsType[] shippingServiceOptionsTypes = {shippingServiceOptionsType};
+            shippingDetailsType.setShippingServiceOptions(shippingServiceOptionsTypes);
+            itemType.setShippingDetails(shippingDetailsType);
+
+
+        }
+        return itemType;
+    }
 }

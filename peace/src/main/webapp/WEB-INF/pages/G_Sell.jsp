@@ -714,6 +714,12 @@
                 mimeType: 'application/json',
                 dataType: "json",
                 success: function (respData) {
+
+                    if(respData.status == "FAILED" || respData.status == "EXPIRED"){
+                        alert(respData.cause);
+                        $(location).attr('href', 'SetEbayLogin');
+                    }
+
                     if (respData.status === "OK") {
                         alert(respData.msg)
                         //TODO add code to insert stock here
@@ -1232,10 +1238,13 @@
             timeout: 100000,
             success: function (data) {
                 console.log("SUCCESS: ", data);
+                if(data.status == "FAILED" || data.status == "EXPIRED"){
+                    alert(data.cause);
+                    $(location).attr('href', 'SetEbayLogin');
+                }
                 if (categoryId == 0) {
                     pick.fill(data.extraData);
                 } else {
-
                     pick.controll(data.extraData);
                 }
 
@@ -1266,6 +1275,10 @@
             timeout: 100000,
             success: function (data) {
                 console.log("SUCCESS: ", data);
+                if(data.status == "FAILED" || data.status == "EXPIRED"){
+                    alert(data.cause);
+                    $(location).attr('href', 'SetEbayLogin');
+                }
                 appendRecommendationsType(data.extraData[0].nameRecommendation);
             },
             error: function (e) {

@@ -331,7 +331,7 @@ public class EbaySettingController {
             String errMsg = call.getLongErrorMessage();
             if (errMsg != null && errMsg.startsWith("RequestError")) {
             	
-            	ajaxResult.setStatus("FAILED");
+            	ajaxResult.setStatus("REQ_ERROR");
             	ajaxResult.setMsg(errMsg);
             	
             	// Remove ebay session
@@ -359,6 +359,8 @@ public class EbaySettingController {
 				if(isNotNull(savedEbayToken)){
 					ebayToken.setTokenId(savedEbayToken.getTokenId());
 					commonService.updateEbayToken(ebayToken);
+				}else{
+					commonService.saveEbayToken(ebayToken);
 				}
                 response.addCookie(cookie);
             }

@@ -81,6 +81,19 @@
 					timeout : 100000,
 					success : function(data) {
 						console.log("SUCCESS: ", data);
+						if(data.status == "FAILED"){
+						    alert(data.msg);
+                            $(location).attr('href', 'SetEbayLogin');
+						}
+
+						if(data.status == "REQ_ERROR"){
+                            alert(data.msg);
+						}
+
+						if(data.status == "OK"){
+						    alert(data.msg);
+						}
+
 // 						display(data);
 					},
 					error : function(e) {

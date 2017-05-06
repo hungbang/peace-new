@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import jdk.nashorn.internal.runtime.URIUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -55,7 +57,11 @@ import org.springframework.web.util.UriUtils;
 
 @Controller
 public class EbayListingController {
-	
+
+	private final Logger logger = LoggerFactory.getLogger(EbayListingController.class);
+
+
+
 	@Autowired
 	EbayServiceInfo ebayServiceInfo;
 	
@@ -112,7 +118,8 @@ public class EbayListingController {
 	@RequestMapping(value="/GetCategory",method= RequestMethod.POST)
 	public @ResponseBody AjaxResponseResult<List<EbayCategory>> getCategory(@RequestBody EbayCategory ebayCategory, @CookieValue(value=COOKIE_EBAY_TOKEN ,defaultValue="") String ebayToken){
 		AjaxResponseResult<List<EbayCategory>> responseResult = new AjaxResponseResult<List<EbayCategory>>();
-		
+		logger.info("ebayToken: "+ ebayToken);
+
 		if(StringUtils.isEmpty(ebayToken)){
 			responseResult.setStatus("FAILED");
 			responseResult.setCause("You must login to ebay site to init the ebay token");

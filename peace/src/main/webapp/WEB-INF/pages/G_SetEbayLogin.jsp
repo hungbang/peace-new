@@ -72,7 +72,7 @@
 				$.ajax({
 					type : "POST",
 					contentType : "application/json",
-					url : "/GetEbayToken",
+					url : "GetEbayToken",
 					data: token,
 			        beforeSend:function(xhr){
 			             xhr.setRequestHeader(header, token);
@@ -81,12 +81,11 @@
 					timeout : 100000,
 					success : function(data) {
 						console.log("SUCCESS: ", data);
-						alert('data.msg');
 // 						display(data);
 					},
 					error : function(e) {
 						console.log("ERROR: ", e);
-						alert('data.msg');
+						alert(e.msg);
 // 						display(e);
 					},
 					done : function(e) {

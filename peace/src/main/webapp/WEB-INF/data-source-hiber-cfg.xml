@@ -106,8 +106,9 @@
 				<value>com.vn.hungtq.peace.entity.AreaSettingInfo</value>
 				<value>com.vn.hungtq.peace.entity.TimeUnitMapping</value>
 				<value>com.vn.hungtq.peace.entity.ItemInfomation</value> 
-				<value>com.vn.hungtq.peace.entity.AccountSetting</value> 
-				<value>com.vn.hungtq.peace.entity.StockRegistorEntity</value> 
+				<value>com.vn.hungtq.peace.entity.AccountSetting</value>
+				<value>com.vn.hungtq.peace.entity.StockRegistorEntity</value>
+				<value>com.vn.hungtq.peace.entity.EbayToken</value>
 			</list>
 		</property>
 

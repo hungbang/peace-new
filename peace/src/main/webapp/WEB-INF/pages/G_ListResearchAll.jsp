@@ -404,11 +404,11 @@
             $("#"+idTable+" .searchBody").html('');
             listOfSearchProduct.forEach(function(product,index){
                 var template =
-                    "<tr width='80px'><td class='col col-1'><a target='_blank' href='"+product.exhibition+"'>"+(product.image && product.image != ""?"<image width='64' height='64'src='"+product.image+"'/>":"<div>No Photo</div>")+"</a></td>"+
+                    "<tr width='10%'><td class='col col-1'><a target='_blank' href='"+product.exhibition+"'>"+(product.image && product.image != ""?"<image width='64' height='64'src='"+product.image+"'/>":"<div>No Photo</div>")+"</a></td>"+
                     "	<td class='is-visible'><p><a target='_blank' href='"+product.exhibition+"'>"+product.productName +"</a></p></td>"+
-                    "	<td width='50px' class='is-hidden'>"+product.price +"</td>"+
-                    "	<td width='40px' class='is-hidden'>"+product.stock +"</td>"+
-                    "	<td width='80px' class='is-hidden send-to-ebay' data-product-id='"+product.itemId+"' data-search-site='"+product.searchSite+"'> "+
+                    "	<td width='10%' class='is-hidden' style='text-align: center;'>"+product.price +"</td>"+
+                    "	<td width='10%' class='is-hidden' style='text-align: center;'>"+product.stock +"</td>"+
+                    "	<td width='10%' style='text-align: center;' class='is-hidden send-to-ebay' data-product-id='"+product.itemId+"' data-search-site='"+product.searchSite+"'> "+
                     "	<a href='"+"SendToSell/"+product.searchSite+"/"+product.itemId+"/"+keyword+"'><fmt:message key="gotoebay"/></a>"+
                     "	</td>"+
                     "</tr>";

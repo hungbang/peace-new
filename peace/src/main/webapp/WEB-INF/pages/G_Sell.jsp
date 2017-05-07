@@ -201,7 +201,7 @@
     align-items: center;
     margin-top: 15px; padding-bottom: 100px;
 " >
-            <div class="row" style="margin-left: 0px; margin-right: 0px;">
+            <div class="row" style="width: 100%">
                 <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
                      data-widget-editbutton="false" style="border-top-color: #ccc;
     border-top-width: 1px;
@@ -271,7 +271,7 @@
                                 </div>
                             </div>
                         <div class="col-md-1"> </div>
-                        <button type="button" class="btn btn-info btn-lg col-md-2" data-toggle="modal" data-target="#myModal">Open Modal</button>
+                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">検索</button>
                         </div>
                     </div>
                     <input type="hidden" id="categoryId"/>

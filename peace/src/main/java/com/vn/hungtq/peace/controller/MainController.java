@@ -659,6 +659,7 @@ public class MainController {
 		yahooProductAuctionSearch.setImage(element.getElementsByTagName("Image").item(0).getTextContent());
 		yahooProductAuctionSearch.setItemUrl(element.getElementsByTagName("ItemUrl").item(0).getTextContent());
 		yahooProductAuctionSearch.setAuctionItemUrl(element.getElementsByTagName("AuctionItemUrl").item(0).getTextContent());
+		yahooProductAuctionSearch.setBidOrBuy(element.getElementsByTagName("BidOrBuy").item(0).getTextContent());
 
 		return  yahooProductAuctionSearch;
 	}

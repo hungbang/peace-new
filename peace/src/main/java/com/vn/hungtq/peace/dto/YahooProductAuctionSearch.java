@@ -11,6 +11,7 @@ public class YahooProductAuctionSearch {
     private String image;
     private String itemUrl;
     private String auctionItemUrl;
+    private String bidOrBuy;
 
     public String getAuctionID() {
         return auctionID;
@@ -58,5 +59,13 @@ public class YahooProductAuctionSearch {
 
     public void setAuctionItemUrl(String auctionItemUrl) {
         this.auctionItemUrl = auctionItemUrl;
+    }
+
+    public String getBidOrBuy() {
+        return bidOrBuy;
+    }
+
+    public void setBidOrBuy(String bidOrBuy) {
+        this.bidOrBuy = bidOrBuy;
     }
 }

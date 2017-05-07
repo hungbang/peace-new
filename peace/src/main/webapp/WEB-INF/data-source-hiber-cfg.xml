@@ -29,6 +29,7 @@
 	<bean id="yahooServiceInfo" class="com.vn.hungtq.peace.common.YahooServiceInfo">
 		<property name="appid" value="${yahoo.appid}"/>
 		<property name="serviceUrl" value="${yahoo.service.url}"/>
+		<property name="serviceAuctionUrl" value="${yahoo.auction.service.url}"/>
 	</bean>
 	
 	<!-- Rakuten service infomation -->

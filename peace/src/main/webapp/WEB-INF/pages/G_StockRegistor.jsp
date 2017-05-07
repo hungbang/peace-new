@@ -227,12 +227,6 @@
 								</label>
 								</section>
 								<section class="row smart-form"> <label
-										class="label col col-2">★仕入価格(円)</label> <label
-										class="col col-10">
-									<input type="number" value="0"  id="puschase-price"  class="form-control" style="width: 100%; padding-left: 5px;" >
-								</label>
-								</section>
-								<section class="row smart-form"> <label
 										class="label col col-2">※チェックロジック(1,2)</label> <div
 										class="col col-6">
 									<div class="row smart-form ">
@@ -334,8 +328,8 @@
 							</div>
 						</fieldset>
 						<div type="submit" class='row' style="margin: 20px;">
-							<div  class="col-lg-10 col-md-10 col-sm-8"></div>
-							<button id ="btnRegistorStock"  class="col-lg-2 col-md-2 col-sm-4 col-xs-12 btn btn-primary">登録</button>
+							<div  class="col-lg-11 col-md-11 col-sm-8"></div>
+							<button id ="btnRegistorStock"  class="col-lg-1 col-md-1 col-sm-4 col-xs-12 btn btn-primary">登録</button>
 						</div>
 					</form>
 				</div>

@@ -345,7 +345,7 @@
 		font-size: 26px;
 		margin: -3px 0 0 12px;
 	}
-	#tbAmazon, #tbEbay, #tbRakuten, #tbYahooAution, #tbYahooShopping, #lbAmazonHeader, #lbEbayHeader, #lbRakutenHeader, #lbYahooHeader #lbYahooShopping {
+	#tbAmazon, #tbEbay, #tbRakuten, #tbYahooAution, #tbYahooShopping, #lbAmazonHeader, #lbEbayHeader, #lbRakutenHeader, #lbYahooHeader, #lbYahooShopping {
 		display: none;
 	}
 	.labelHeader {

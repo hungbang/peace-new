@@ -77,10 +77,10 @@
 						<a href="#"> <span class="menu-item-parent">リサーチ</span></a>
 						<ul>
 							<li class="" >
-								<a href="${contextPath}/ListResearchAll"> <span class="menu-item-parent">まとめてリサーチ</span></a>
+								<a href="${contextPath}/ListResearchAll"> <span class="menu-item-parent">キーワード</span></a>
 							</li>
 							<li class="" >
-								<a href="${contextPath}/AmazonSearch"> <span class="menu-item-parent">amazon.co.jp</span></a>
+								<a href="${contextPath}/AmazonSearch"> <span class="menu-item-parent">ASIN</span></a>
 							</li>
 						</ul>
 					</li>

@@ -54,7 +54,7 @@
                 <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
                      data-widget-editbutton="false">
                     <header>
-                        <h1>まとめてリサーチ</h1>
+                        <h1>キーワード</h1>
                     </header>
                     <div>
                         <div class="jarviswidget-editbox"></div>

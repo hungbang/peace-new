@@ -45,7 +45,7 @@
                 <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
                      data-widget-editbutton="false">
                     <header>
-                        <h1>リサーチ：amazon.co.jp</h1>
+                        <h1>リサーチ：ASIN</h1>
                     </header>
                     <div>
                         <div class="jarviswidget-editbox"></div>

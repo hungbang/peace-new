@@ -165,11 +165,12 @@
 											</label>
 										</section>
 									</fieldset>
-									<footer class="row">
-										<button type="submit" class="btn btn-primary" ng-cloak id="btnSave" ng-click="saveItemInfomation($event)">
+										<div class="row" style="padding: 25px;">
+											<div class="col-md-10"></div>
+										<button type="submit" class="btn btn-primary col-md-2" ng-cloak id="btnSave" ng-click="saveItemInfomation($event)">
 											Save
 										</button>
-									</footer>
+										</div>
 									</form>
 								</div>
 							</div>

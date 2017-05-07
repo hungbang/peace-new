@@ -115,6 +115,21 @@
 		margin: 0;
 		padding-top: 10px;
 	}
+	
+	.smart-form fieldset {
+
+    display: block;
+    /* padding: 25px 14px 5px; */
+    border: none;
+    background: rgba(255,255,255,.9);
+    position: relative;
+	}
+	.jarviswidget>header {
+    height: 50px;
+    padding: 0;
+    padding-left: 15px;
+    line-height: 40px;
+}
 </style>
 <!-- MAIN PANEL -->
 <div id="main" role="main">
@@ -149,7 +164,21 @@
 	<!-- END RIBBON -->
 
 	<!-- MAIN CONTENT -->
-	<div id="content">
+
+    <div class="col-lg-12" style=" display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px; padding-bottom: 100px;
+" >
+            <div class="row col-md-12" width="100%">
+                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
+                     data-widget-editbutton="false">
+                    <header>
+                        <h1>在庫チェック：新規登録</h1>
+                    </header>
+                    <div>
+                        <div class="jarviswidget-editbox"></div>
+                        <div id="content">
 		<!-- widget grid -->
 
 		<section id="widget-grid" class="">
@@ -159,7 +188,6 @@
 				<div class="widget-body" >
 					<form class="smart-form">
 						<fieldset>
-							<h2 style="padding-left: 15px;">在庫チェック：新規登録</h2>
 							<section class="row" style="margin-bottom:20px;font-size: larger; display:none;" >
 								<div class="col col-1"></div>
 
@@ -176,38 +204,38 @@
 								<input type="hidden" value="${stockId}" id="stockId"/>
 								<section class="row smart-form"> <label
 										class="label col col-2">店舗名</label> <label
-										class="col col-6">
+										class="col col-10">
 									<input type="text" id="store-name"  class="form-control" style="width: 100%; padding-left: 5px;" >
 								</label>
 								</section>
 								<section class="row smart-form"> <label
 										class="label col col-2">※商品名</label> <label
-										class="col col-6">
+										class="col col-10">
 									<input type="text" id="product-name"  class="form-control" style="width: 100%; padding-left: 5px;" >
 								</label>
 								</section>
 								<section class="row smart-form"> <label
 										class="label col col-2">※仕入URL</label> <label
-										class="col col-6">
+										class="col col-10">
 									<input type="text" id="purchasing-url"  class="form-control" style="width: 100%; padding-left: 5px;" >
 								</label>
 								</section>
 								<section class="row smart-form"> <label
 										class="label col col-2">★仕入価格(円)</label> <label
-										class="col col-6">
+										class="col col-10">
 									<input type="number" value="0"  id="puschase-price"  class="form-control" style="width: 100%; padding-left: 5px;" >
 								</label>
 								</section>
 								<section class="row smart-form"> <label
 										class="label col col-2">★仕入価格(円)</label> <label
-										class="col col-6">
+										class="col col-10">
 									<input type="number" value="0"  id="puschase-price"  class="form-control" style="width: 100%; padding-left: 5px;" >
 								</label>
 								</section>
 								<section class="row smart-form"> <label
 										class="label col col-2">※チェックロジック(1,2)</label> <div
 										class="col col-6">
-									<div class="row smart-form">
+									<div class="row smart-form ">
 										<div  class='col-sm-1 col-xs-1' style="padding-top: 2px;">
 											<input type="radio" checked="" name="radio-inline" id="option-check1" value="1" class="">
 										</div>
@@ -228,13 +256,13 @@
 								</section>
 								<section class="row smart-form"> <label
 										class="label col col-2">※在庫ワード</label> <label
-										class="col col-6">
+										class="col col-10">
 									<input type="text" id="stock-word" class="form-control" style="width: 100%; padding-left: 5px;" >
 								</label>
 								</section>
 								<section class="row smart-form"> <label
 										class="label col col-2">メモ</label> <label
-										class="col col-6">
+										class="col col-10">
 									<input type="text" id="note"  class="form-control" style="width: 100%; padding-left: 5px;" >
 								</label>
 								</section>
@@ -242,20 +270,20 @@
 							<div class="row" id="AmazonStock" style="display:none">
 								<section class="row smart-form"> <label
 										class="label col col-2">ASIN code</label> <label
-										class="col col-6">
+										class="col col-10">
 									<input type="text"  class="form-control" style="width: 100%; padding-left: 5px;" >
 								</label>
 								</section>
 								<section class="row smart-form"> <label
 										class="label col col-2">Product name</label> <label
-										class="col col-6">
+										class="col col-10">
 									<input type="text"  class="form-control" style="width: 100%; padding-left: 5px;" >
 								</label>
 								</section>
 
 								<section class="row smart-form"> <label
 										class="label col col-2">Base price</label> <label
-										class="col col-6">
+										class="col col-10">
 									<input type="text"  class="form-control" style="width: 100%; padding-left: 5px;" >
 								</label>
 								</section>
@@ -269,13 +297,13 @@
 
 								<section class="row smart-form"> <label
 										class="label col col-2">Alert upper limit price</label> <label
-										class="col col-6">
+										class="col col-10">
 									<input type="text"  class="form-control" style="width: 100%; padding-left: 5px;" >
 								</label>
 								</section>
 								<section class="row smart-form"> <label
 										class="label col col-2">Alert upper limit price</label> <label
-										class="col col-6">
+										class="col col-10">
 									<select class="" style="width:50%" id="select-" >
 										<option>Only check for new items</option>
 										<option>Check only secondhand</option>
@@ -287,7 +315,7 @@
 								</section>
 								<section class="row smart-form"> <label
 										class="label col col-2">Notes</label> <label
-										class="col col-6">
+										class="col col-10">
 									<input type="text"  class="form-control" style="width: 100%" >
 								</label>
 								</section>
@@ -305,7 +333,7 @@
 								</div>
 							</div>
 						</fieldset>
-						<div type="submit" class='row' style="padding: 10px 29px 5px 30px;">
+						<div type="submit" class='row' style="margin: 20px;">
 							<div  class="col-lg-10 col-md-10 col-sm-8"></div>
 							<button id ="btnRegistorStock"  class="col-lg-2 col-md-2 col-sm-4 col-xs-12 btn btn-primary">登録</button>
 						</div>
@@ -320,6 +348,15 @@
 		<!-- end widget grid -->
 
 	</div>
+                    </div>
+                </div>
+            </div>
+	
+        
+            </div>
+        </div>
+    </div>
+	
 	<!-- END MAIN CONTENT -->
 
 </div>

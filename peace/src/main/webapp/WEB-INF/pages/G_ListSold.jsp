@@ -42,6 +42,88 @@
 		<!-- END RIBBON -->
 
 		<!-- MAIN CONTENT -->
+
+    <div class="col-lg-12" style=" display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px; padding-bottom: 100px;
+" >
+            <div class="row">
+                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
+                     data-widget-editbutton="false" style="border-top-color: #ccc;
+    border-top-width: 1px;
+    border-top-style: solid;">
+                    <div>
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="row" style="width: 100%;">
+                        	<section id="widget-grid" class="" ng-controller="listSoldController">
+				<div class="container">
+					  <div id="datatable_tabletools_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="table-sell"> 
+		                <table 	id="table-sell" 
+				            		class="table table-striped table-bordered table-hover smart-form dataTable no-footer">
+				               <thead>
+				                  <tr>
+				                     <th class="fit nowrap select-checkbox sorting_disabled" style="width: 15px;">
+				                        <label class="checkbox">
+				                        	<input name="select_all" value="1" type="checkbox"><i></i>
+				                        </label>
+				                     </th>
+				                     <th ng-click="sort('title')">Title 
+				                     	 <span class="glyphicon sort-icon" ng-show="sortKey=='title'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+				                     </th>
+				                     <th ng-click="sort('endTime')">Ending time 
+				                     	<span class="glyphicon sort-icon" ng-show="sortKey=='endTime'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+				                     </th>  
+				                     <th ng-click="sort('purchaser')">Purchaser
+				                     	<span class="glyphicon sort-icon" ng-show="sortKey=='purchaser'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span> 
+				                     </th>
+				                     <th ng-click="sort('reListing')">Re-Listing
+				                     	<span class="glyphicon sort-icon" ng-show="sortKey=='reListing'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span> 
+				                     </th>  
+									 <th>Sort
+									 	<span class="glyphicon sort-icon" ng-show="sortKey=='title'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									 </th> 
+				                  </tr>
+				               </thead>
+				               <tbody>
+							   <!--
+				                  <tr dir-paginate ="ls in listSold |orderBy:sortKey:reverse |itemsPerPage:6">
+				                     <td ng-cloak>
+				                        <label class="checkbox"> 
+				                        	<input value="1" type="checkbox"><i></i>
+				                        </label>
+				                     </td>
+				                     <td ng-cloak>{{ls.title}}</td>
+				                     <td ng-cloak>{{ls.endTime}}</td>
+				                     <td ng-cloak>{{ls.purchaser}}</td>
+				                     <td ng-cloak>{{ls.reListing}}</td>
+				                     <td ng-cloak>
+				                        <button class="btn btn-default"> Edit </button>
+				                     </td>
+				                  </tr>
+				                -->
+				               </tbody>
+				            </table>
+						  <!--
+				            <dir-pagination-controls
+						       max-size="5"
+						       direction-links="true"
+						       boundary-links="true" >
+						    </dir-pagination-controls>
+						    -->
+		            </div>
+		           </div>
+				</div> 
+			</section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	
+        
+            </div>
+        </div>
+    </div>
 		<div id="content">
 			<!-- widget grid -->
 			<section id="widget-grid" class="" ng-controller="listSoldController">
@@ -931,5 +1013,12 @@
 		})();
 	</script> 
 </body>
-
+<style type="text/css">
+	.jarviswidget>header {
+    height: 50px;
+    padding: 0;
+    padding-left: 10px;
+    line-height: 40px;
+}
+</style>>
 </html>

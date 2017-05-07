@@ -4,10 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.vn.hungtq.peace.common.*;
-import com.vn.hungtq.peace.dto.AccountSettingDto;
-import com.vn.hungtq.peace.dto.EbayProductToAdd;
-import com.vn.hungtq.peace.dto.UserDto;
-import com.vn.hungtq.peace.dto.YahooProductSearch;
+import com.vn.hungtq.peace.dto.*;
 import com.vn.hungtq.peace.entity.AccountSetting;
 import com.vn.hungtq.peace.entity.StockRegistorEntity;
 import com.vn.hungtq.peace.entity.User;
@@ -534,6 +531,12 @@ public class MainController {
 		return  ajaxResponseResult;
 	}
 
+	@RequestMapping(value ="/YahooProductAuctionSearch/{keyword}",method=RequestMethod.GET)
+	public @ResponseBody AjaxResponseResult<List<YahooProductAuctionSearch>> yahooSearchAuctionProductByKeyword(@PathVariable(value = "keyword") String keyword){
+		AjaxResponseResult<List<YahooProductAuctionSearch>> ajaxResponseResult = processYahooAuctionSearch(keyword);
+		return  ajaxResponseResult;
+	}
+
 	private AjaxResponseResult<List<YahooProductSearch>> processYahooSearchV2(String keyword) {
 		AjaxResponseResult<List<YahooProductSearch>> ajaxResponseResult = new AjaxResponseResult<List<YahooProductSearch>>();
 		String productSearchUrl = CommonUtils.buildYahooServiceUrl(keyword, yahooServiceInfo);
@@ -542,6 +545,17 @@ public class MainController {
 		String xmlResponseContent =  CommonUtils.getHTMLContent(productSearchUrl);
 		List<YahooProductSearch> yahooProductSearchList = convertToListYahooProductSearch(xmlResponseContent);
 		ajaxResponseResult.setExtraData(yahooProductSearchList);
+		return ajaxResponseResult;
+	}
+
+	private AjaxResponseResult<List<YahooProductAuctionSearch>> processYahooAuctionSearch(String keyword) {
+		AjaxResponseResult<List<YahooProductAuctionSearch>> ajaxResponseResult = new AjaxResponseResult<List<YahooProductAuctionSearch>>();
+		String productSearchUrl = CommonUtils.buildYahooAuctionServiceUrl(keyword, yahooServiceInfo);
+		logger.debug("yahoo appid:"+yahooServiceInfo.getAppid());
+		logger.debug("The yahoo service search url :" +productSearchUrl);
+		String xmlResponseContent =  CommonUtils.getHTMLContent(productSearchUrl);
+		List<YahooProductAuctionSearch> yahooProductAuctionSearchList = convertToListYahooAuctionProductSearch(xmlResponseContent);
+		ajaxResponseResult.setExtraData(yahooProductAuctionSearchList);
 		return ajaxResponseResult;
 	}
 
@@ -575,6 +589,38 @@ public class MainController {
 		return  yahooProductSearchList;
 	}
 
+	private List<YahooProductAuctionSearch> convertToListYahooAuctionProductSearch(String xmlContent){
+		List<YahooProductAuctionSearch> yahooProductAuctionSearchList = new ArrayList<>();
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		try {
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			try(InputStream inputStream = new ByteArrayInputStream(xmlContent.getBytes())){
+				org.w3c.dom.Document doc = db.parse(inputStream);
+				doc.getDocumentElement().normalize();
+				System.out.println("Root element:"+doc.getDocumentElement().getNodeName());
+				org.w3c.dom.NodeList itemTags = doc.getElementsByTagName("Item");
+				int length = itemTags.getLength();
+				for (int i = 0; i < length; i++) {
+					org.w3c.dom.Node itemTag = itemTags.item(i);
+					if(itemTag.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE){
+						YahooProductAuctionSearch yahooProductAuctionSearch = convertToYahooProductAuctionSearch(itemTag);
+						yahooProductAuctionSearchList.add(yahooProductAuctionSearch);
+					}
+				}
+			}
+		} catch (ParserConfigurationException ex) {
+			logger.debug(ex.getMessage());
+		} catch (IOException ex) {
+			logger.debug(ex.getMessage());
+		} catch (org.xml.sax.SAXException ex) {
+			logger.debug(ex.getMessage());
+		}
+
+		return  yahooProductAuctionSearchList;
+	}
+
+
+
 	private  YahooProductSearch convertToYahooProductSearch(org.w3c.dom.Node hitTag){
 		YahooProductSearch yahooProductSearch = new YahooProductSearch();
 		yahooProductSearch.setSearchSite("yahoo");
@@ -597,6 +643,20 @@ public class MainController {
 		org.w3c.dom.Element priceElement = (org.w3c.dom.Element)element.getElementsByTagName("PriceLabel").item(0);
 		yahooProductSearch.setPrice(priceElement.getElementsByTagName("DefaultPrice").item(0).getTextContent());
 		return  yahooProductSearch;
+	}
+
+	private  YahooProductAuctionSearch convertToYahooProductAuctionSearch(org.w3c.dom.Node itemTag){
+		YahooProductAuctionSearch yahooProductAuctionSearch = new YahooProductAuctionSearch();
+
+		org.w3c.dom.Element element = (org.w3c.dom.Element)itemTag;
+		yahooProductAuctionSearch.setAuctionID(element.getElementsByTagName("AuctionID").item(0).getTextContent());
+		yahooProductAuctionSearch.setTitle(element.getElementsByTagName("Title").item(0).getTextContent());
+		yahooProductAuctionSearch.setCurrentPrice(element.getElementsByTagName("CurrentPrice").item(0).getTextContent());
+		yahooProductAuctionSearch.setImage(element.getElementsByTagName("Image").item(0).getTextContent());
+		yahooProductAuctionSearch.setItemUrl(element.getElementsByTagName("ItemUrl").item(0).getTextContent());
+		yahooProductAuctionSearch.setAuctionItemUrl(element.getElementsByTagName("AuctionItemUrl").item(0).getTextContent());
+
+		return  yahooProductAuctionSearch;
 	}
 
 	@RequestMapping("SendToSell/{searchSite}/{itemIndex}/{keyWord}")
@@ -909,11 +969,13 @@ public class MainController {
 		AmazonSearchResult amzSearchResult = processAmazonSearchResult(amazonSearchURL);
 		String ebayResult = getEbaySearchProductResult(keyword);
 		AjaxResponseResult<List<YahooProductSearch>> ajaxResponseResult = processYahooSearchV2(keyword);
+		AjaxResponseResult<List<YahooProductAuctionSearch>> yahooAuctionResult = processYahooAuctionSearch(keyword);
 		List<ProductSearch> rakutenResult = processRakutenSearch(keyword);
 		Map<String, Object> objectMap = new HashedMap();
 		objectMap.put("amazon", amzSearchResult);
 		objectMap.put("ebay", ebayResult);
 		objectMap.put("yahoo", ajaxResponseResult);
+		objectMap.put("yahooAuction", yahooAuctionResult);
 		objectMap.put("rakuten", rakutenResult);
 
 		return new ResponseEntity(objectMap,HttpStatus.OK);

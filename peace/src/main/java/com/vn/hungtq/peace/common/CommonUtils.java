@@ -378,6 +378,10 @@ public class CommonUtils {
 	public static String buildYahooServiceUrl(String keyword,YahooServiceInfo yahooServiceInfomation){
 		return MessageFormat.format(yahooServiceInfomation.getServiceUrl(), yahooServiceInfomation.getAppid(),keyword);
 	}
+
+	public static String buildYahooAuctionServiceUrl(String keyword,YahooServiceInfo yahooServiceInfomation){
+		return MessageFormat.format(yahooServiceInfomation.getServiceAuctionUrl(), yahooServiceInfomation.getAppid(),keyword);
+	}
 	
 	/**
 	 * 

@@ -93,7 +93,8 @@ public class AmazonSearchEngine {
      *
      * **/
     private  Optional<AmazonSearchResult> getAmazonSearchAsinResult(String searchURL){
-        AmazonSearchResult amazonSearchResult = null;
+        AmazonSearchResult amazonSearchResult = new AmazonSearchResult();
+        List<AmazonProductSearch> lstAmazSearch = new ArrayList<>();
         String rawHtml = getHTMLContent(searchURL);
         if(!"".equals(rawHtml)) {
             //Parse to html document
@@ -124,8 +125,8 @@ public class AmazonSearchEngine {
                     Element imageElement = htmlDocument.getElementById("imgTagWrapperId").select("img").first();
 
                     //Add to search result
-                    amazonSearchResult.addProductSearch(new AmazonProductSearch(titleElement.text(),priceElement.text(),searchURL,imageElement.attr("data-old-hires"),"",0));
-
+                    lstAmazSearch.add(new AmazonProductSearch(titleElement.text(),priceElement.text(),searchURL,imageElement.attr("data-old-hires"),"",0));
+                    amazonSearchResult.setLstProductSearch(lstAmazSearch);
                     //Get related product
                     Element relatedProductSearch = htmlDocument.getElementById("sp_detail");
                     if(relatedProductSearch!=null){

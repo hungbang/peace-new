@@ -4,6 +4,7 @@ public class YahooServiceInfo {
 	
 	private String appid;
 	private String serviceUrl;
+	private String serviceAuctionUrl;
 	
 	public String getAppid() {
 		return appid;
@@ -19,5 +20,9 @@ public class YahooServiceInfo {
 	
 	public void setServiceUrl(String serviceUrl) {
 		this.serviceUrl = serviceUrl;
-	} 
+	}
+	public String getServiceAuctionUrl() { return serviceAuctionUrl; }
+	public void setServiceAuctionUrl(String serviceAuctionUrl) {
+		this.serviceAuctionUrl = serviceAuctionUrl;
+	}
 }

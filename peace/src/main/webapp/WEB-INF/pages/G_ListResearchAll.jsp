@@ -79,7 +79,7 @@
 																  name="radio-inline" id="all" checked="checked"> <i></i>All
 									</label>
 									<label class="radio "> <input type="radio" value="amazon"
-																  name="radio-inline" id="amazon" checked="checked"> <i></i>Amazon
+																  name="radio-inline" id="amazon" > <i></i>Amazon
 									</label>
 									<label class="radio "> <input type="radio" value="ebay"
 																  name="radio-inline" id="ebay"> <i></i>Ebay
@@ -106,19 +106,19 @@
 								class="table table-bordered table-striped responsive-utilities">
 								<thead>
 								<tr>
-									<th ng-click="sort('image')">Image
+									<th ng-click="sort('image')" class="col-1" width="80px;">Image
 										<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 									</th>
 									<th ng-click="sort('productName')">Product Name
 										<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 									</th>
-									<th ng-click="sort('price')">Price
+									<th ng-click="sort('price')" class="col-1" width="50px;">Price
 										<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 									</th>
-									<th ng-click="sort('stock')">Stock
+									<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
 										<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 									</th>
-									<th ng-click="sort('exhibition')">Exhibition
+									<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
 										<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 									</th>
 								</tr>
@@ -135,19 +135,19 @@
 								>
 							<thead>
 							<tr>
-								<th ng-click="sort('image')">Image
+								<th ng-click="sort('image')" class="col-1" width="80px;">Image
 									<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
 								<th ng-click="sort('productName')">Product Name
 									<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('price')">Price
+								<th ng-click="sort('price')" class="col-1" width="50px;">Price
 									<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('stock')">Stock
+								<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
 									<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('exhibition')">Exhibition
+								<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
 									<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
 							</tr>
@@ -163,19 +163,19 @@
 								>
 							<thead>
 							<tr>
-								<th ng-click="sort('image')">Image
+								<th ng-click="sort('image')" class="col-1" width="80px;">Image
 									<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
 								<th ng-click="sort('productName')">Product Name
 									<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('price')">Price
+								<th ng-click="sort('price')" class="col-1" width="50px;">Price
 									<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('stock')">Stock
+								<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
 									<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('exhibition')">Exhibition
+								<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
 									<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
 							</tr>
@@ -192,19 +192,19 @@
 								>
 							<thead>
 							<tr>
-								<th ng-click="sort('image')">Image
+								<th ng-click="sort('image')" class="col-1" width="80px;">Image
 									<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
 								<th ng-click="sort('productName')">Product Name
 									<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('price')">Price
+								<th ng-click="sort('price')" class="col-1" width="50px;">Price
 									<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('stock')">Stock
+								<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
 									<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('exhibition')">Exhibition
+								<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
 									<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
 							</tr>
@@ -221,19 +221,19 @@
 								>
 							<thead>
 							<tr>
-								<th ng-click="sort('image')">Image
+								<th ng-click="sort('image')" class="col-1" width="80px;">Image
 									<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
 								<th ng-click="sort('productName')">Product Name
 									<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('price')">Price
+								<th ng-click="sort('price')" class="col-1" width="50px;">Price
 									<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('stock')">Stock
+								<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
 									<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('exhibition')">Exhibition
+								<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
 									<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
 							</tr>
@@ -404,11 +404,11 @@
             $("#"+idTable+" .searchBody").html('');
             listOfSearchProduct.forEach(function(product,index){
                 var template =
-                    "<tr><td class='col col-1'><a target='_blank' href='"+product.exhibition+"'>"+(product.image && product.image != ""?"<image width='64' height='64'src='"+product.image+"'/>":"<div>No Photo</div>")+"</a></td>"+
+                    "<tr width='80px'><td class='col col-1'><a target='_blank' href='"+product.exhibition+"'>"+(product.image && product.image != ""?"<image width='64' height='64'src='"+product.image+"'/>":"<div>No Photo</div>")+"</a></td>"+
                     "	<td class='is-visible'><p><a target='_blank' href='"+product.exhibition+"'>"+product.productName +"</a></p></td>"+
-                    "	<td class='is-hidden'>"+product.price +"</td>"+
-                    "	<td class='is-hidden'>"+product.stock +"</td>"+
-                    "	<td class='is-hidden send-to-ebay' data-product-id='"+product.itemId+"' data-search-site='"+product.searchSite+"'> "+
+                    "	<td width='50px' class='is-hidden'>"+product.price +"</td>"+
+                    "	<td width='40px' class='is-hidden'>"+product.stock +"</td>"+
+                    "	<td width='80px' class='is-hidden send-to-ebay' data-product-id='"+product.itemId+"' data-search-site='"+product.searchSite+"'> "+
                     "	<a href='"+"SendToSell/"+product.searchSite+"/"+product.itemId+"/"+keyword+"'><fmt:message key="gotoebay"/></a>"+
                     "	</td>"+
                     "</tr>";

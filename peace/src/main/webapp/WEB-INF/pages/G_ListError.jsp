@@ -44,7 +44,7 @@
     align-items: center;
     margin-top: 15px;
 " >
-    <div class="row">
+    <div class="row" style="width: 100%">
                 <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
                      data-widget-editbutton="false">
                     <header>
@@ -54,7 +54,7 @@
                         <div class="jarviswidget-editbox"></div>
                         <div class="widget-body ">
                         	<section id="widget-grid" class="" ng-controller="listErrorController">
-					<div class="container" style="padding-left: 8px; padding-right: 8px;">
+					<div  style="padding-left: 8px; padding-right: 8px;">
 						
 						<div class="dataTables_wrapper form-inline dt-bootstrap no-footer"> 
 				            <table 	id="table-sell" 

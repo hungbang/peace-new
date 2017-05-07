@@ -34,7 +34,7 @@
 		    align-items: center;
 		    margin-top: 15px; padding-bottom: 100px;
 		" >
-		            <div class="row" width="100%">
+		            <div class="row col-md-12" width="100%">
 		                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
 		                     data-widget-editbutton="false">
 		                    <header>
@@ -42,7 +42,7 @@
 		                    </header>
 		                    <div>
 		                        <div class="jarviswidget-editbox"></div>
-		                        <div id="content">
+		                        <div>
 				<!-- widget grid -->
 														<section id="widget-grid" class="">
 															

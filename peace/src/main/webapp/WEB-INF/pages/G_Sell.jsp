@@ -201,7 +201,7 @@
     align-items: center;
     margin-top: 15px; padding-bottom: 100px;
 " >
-            <div class="row" style="margin-left: 0px; margin-right: 0px;">
+            <div class="row" style="width: 100%">
                 <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
                      data-widget-editbutton="false" style="border-top-color: #ccc;
     border-top-width: 1px;

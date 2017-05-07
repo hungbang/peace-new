@@ -52,7 +52,7 @@
 			<div class="row" ng-controller="productSearchController">
 				<div class="widget-body ">
 					<header>
-						<h2 style=" padding-left: 15px;">まとめてリサーチ</h2>
+						<h2 style=" padding-left: 15px;">キーワード</h2>
 					</header>
 					<form class="smart-form">
 						<fieldset>

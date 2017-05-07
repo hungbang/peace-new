@@ -44,7 +44,7 @@
 			<div class="row" ng-controller="productSearchController">
 				<div class="widget-body ">
 					<header>
-						<h2 class="amazon-search-title">リサーチ：amazon.co.jp</h2>
+						<h2 class="amazon-search-title">リサーチ：ASIN</h2>
 					</header>
 					<div class="smart-form">
 						<section class="row smart-form" style="margin-top:5px;margin-bottom:5px; padding-left: 20px;padding-right: 20px;"> <label

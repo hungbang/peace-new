@@ -43,17 +43,26 @@
 	<!-- END RIBBON -->
 
 	<!-- MAIN CONTENT -->
-	<div id="content">
-		<!-- widget grid -->
 
-		<section id="widget-grid" class="">
+	
+    <div class="col-lg-12" style="display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px; padding-bottom: 100px;
+" >
+    <div class="row" style="width: 100%">
+                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
+                     data-widget-editbutton="false">
+                    <header>
+                        <h1>まとめてリサーチ</h1>
+                    </header>
+                    <div>
+                        <div class="jarviswidget-editbox"></div>
+                        <section id="widget-grid" class="">
 
 			<!-- widget div-->
 			<div class="row" ng-controller="productSearchController">
 				<div class="widget-body ">
-					<header>
-						<h2 style=" padding-left: 15px;">まとめてリサーチ</h2>
-					</header>
 					<form class="smart-form">
 						<fieldset>
 							<div class="row">
@@ -70,7 +79,7 @@
 																  name="radio-inline" id="all" checked="checked"> <i></i>All
 									</label>
 									<label class="radio "> <input type="radio" value="amazon"
-																  name="radio-inline" id="amazon" checked="checked"> <i></i>Amazon
+																  name="radio-inline" id="amazon" > <i></i>Amazon
 									</label>
 									<label class="radio "> <input type="radio" value="ebay"
 																  name="radio-inline" id="ebay"> <i></i>Ebay
@@ -89,231 +98,148 @@
 						</fieldset>
 					</form>
 				</div>
-				<div class="row"
-					 style="background-color: white; padding-right: 40px;">
+				<div class="row" style="margin-left: 5px; margin-right: 5px;">
 					<div class="col col-lg-12">
-						<label id="lbAmazonHeader" class="label labelHeader">Amazon</label>
+						<b id="lbAmazonHeader" class=" labelHeader">Amazon</b>
 						<table
 								id="tbAmazon"
-								class="table table-bordered table-striped responsive-utilities"
-								style="margin-left: 25px">
-							<thead>
-							<tr>
-								<th ng-click="sort('image')">Image
-									<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('productName')">Product Name
-									<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('price')">Price
-									<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('stock')">Stock
-									<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('exhibition')">Exhibition
-									<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-							</tr>
-							</thead>
-							<tbody class="searchBody">
-							<!--
-                            <tr dir-paginate ="product in listOfProduct |orderBy:sortKey:reverse |itemsPerPage:6">
-                                <td class="col col-1" ng-cloak ><image width="64" height="64"
-                                        src="{{product.image}}" /></td>
-                                <td ng-cloak class="is-visible"><p>{{product.productName}}</p></td>
-                                <td ng-cloak class="is-hidden">{{product.price}}</td>
-                                <td ng-cloak class="is-hidden">{{product.stock}}</td>
-                                <td class="is-hidden" ng-cloak>
-                                    <!--
-                                    <a ng-if="isEbaySearch==true" ng-cloak ng-click="sendToAddProduct($event,product.itemId)" href="{{product.exhibition}}">Go to add ebay item</a>
-                                    <a ng-if="isEbaySearch==false" ng-cloak href="{{product.exhibition}}">{{product.exhibition}}</a>
-
-                                    <a ng-cloak ng-click="sendToAddProduct($event,product.itemId,product.searchSite)" href="{{product.exhibition}}">Go to add ebay item</a>
-                                </td>
-                            </tr>
-                            -->
+								class="table table-bordered table-striped responsive-utilities">
+								<thead>
+								<tr>
+									<th ng-click="sort('image')" class="col-1" width="80px;">Image
+										<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('productName')">Product Name
+										<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('price')" class="col-1" width="50px;">Price
+										<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
+										<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+									<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
+										<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+									</th>
+								</tr>
+								</thead>
+								<tbody class="searchBody">
+								
 							</tbody>
 						</table>
-						<!--
-						<dir-pagination-controls
-						       max-size="5"
-						       direction-links="true"
-						       boundary-links="true" >
-						</dir-pagination-controls>
-						-->
-						<label id="lbEbayHeader" class="label labelHeader">Ebay</label>
+						
+						<b id="lbEbayHeader" class=" labelHeader">Ebay</b>
 						<table
 								id="tbEbay"
 								class="table table-bordered table-striped responsive-utilities"
-								style="margin-left: 25px">
+								>
 							<thead>
 							<tr>
-								<th ng-click="sort('image')">Image
+								<th ng-click="sort('image')" class="col-1" width="80px;">Image
 									<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
 								<th ng-click="sort('productName')">Product Name
 									<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('price')">Price
+								<th ng-click="sort('price')" class="col-1" width="50px;">Price
 									<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('stock')">Stock
+								<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
 									<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('exhibition')">Exhibition
+								<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
 									<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
 							</tr>
 							</thead>
 							<tbody class="searchBody">
-							<!--
-                            <tr dir-paginate ="product in listOfProduct |orderBy:sortKey:reverse |itemsPerPage:6">
-                                <td class="col col-1" ng-cloak ><image width="64" height="64"
-                                        src="{{product.image}}" /></td>
-                                <td ng-cloak class="is-visible"><p>{{product.productName}}</p></td>
-                                <td ng-cloak class="is-hidden">{{product.price}}</td>
-                                <td ng-cloak class="is-hidden">{{product.stock}}</td>
-                                <td class="is-hidden" ng-cloak>
-                                    <!--
-                                    <a ng-if="isEbaySearch==true" ng-cloak ng-click="sendToAddProduct($event,product.itemId)" href="{{product.exhibition}}">Go to add ebay item</a>
-                                    <a ng-if="isEbaySearch==false" ng-cloak href="{{product.exhibition}}">{{product.exhibition}}</a>
-
-                                    <a ng-cloak ng-click="sendToAddProduct($event,product.itemId,product.searchSite)" href="{{product.exhibition}}">Go to add ebay item</a>
-                                </td>
-                            </tr>
-                            -->
+						
 							</tbody>
 						</table>
 
 						<table
 								id="tbYahooShopping"
 								class="table table-bordered table-striped responsive-utilities"
-								style="margin-left: 25px">
+								>
 							<thead>
 							<tr>
-								<th ng-click="sort('image')">Image
+								<th ng-click="sort('image')" class="col-1" width="80px;">Image
 									<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
 								<th ng-click="sort('productName')">Product Name
 									<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('price')">Price
+								<th ng-click="sort('price')" class="col-1" width="50px;">Price
 									<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('stock')">Stock
+								<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
 									<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('exhibition')">Exhibition
+								<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
 									<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
 							</tr>
 							</thead>
 							<tbody class="searchBody">
-							<!--
-                            <tr dir-paginate ="product in listOfProduct |orderBy:sortKey:reverse |itemsPerPage:6">
-                                <td class="col col-1" ng-cloak ><image width="64" height="64"
-                                        src="{{product.image}}" /></td>
-                                <td ng-cloak class="is-visible"><p>{{product.productName}}</p></td>
-                                <td ng-cloak class="is-hidden">{{product.price}}</td>
-                                <td ng-cloak class="is-hidden">{{product.stock}}</td>
-                                <td class="is-hidden" ng-cloak>
-                                    <!--
-                                    <a ng-if="isEbaySearch==true" ng-cloak ng-click="sendToAddProduct($event,product.itemId)" href="{{product.exhibition}}">Go to add ebay item</a>
-                                    <a ng-if="isEbaySearch==false" ng-cloak href="{{product.exhibition}}">{{product.exhibition}}</a>
-
-                                    <a ng-cloak ng-click="sendToAddProduct($event,product.itemId,product.searchSite)" href="{{product.exhibition}}">Go to add ebay item</a>
-                                </td>
-                            </tr>
-                            -->
+						
 							</tbody>
 						</table>
 
-						<label id="lbYahooHeader" class="label labelHeader">Yahoo! Shopping</label>
+						<b id="lbYahooHeader" class=" labelHeader">Yahoo! Shopping</b>
 						<table
 								id="tbYahooAution"
 								class="table table-bordered table-striped responsive-utilities"
-								style="margin-left: 25px">
+								>
 							<thead>
 							<tr>
-								<th ng-click="sort('image')">Image
+								<th ng-click="sort('image')" class="col-1" width="80px;">Image
 									<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
 								<th ng-click="sort('productName')">Product Name
 									<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('price')">Price
+								<th ng-click="sort('price')" class="col-1" width="50px;">Price
 									<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('stock')">Stock
+								<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
 									<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('exhibition')">Exhibition
+								<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
 									<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
 							</tr>
 							</thead>
 							<tbody class="searchBody">
-							<!--
-                            <tr dir-paginate ="product in listOfProduct |orderBy:sortKey:reverse |itemsPerPage:6">
-                                <td class="col col-1" ng-cloak ><image width="64" height="64"
-                                        src="{{product.image}}" /></td>
-                                <td ng-cloak class="is-visible"><p>{{product.productName}}</p></td>
-                                <td ng-cloak class="is-hidden">{{product.price}}</td>
-                                <td ng-cloak class="is-hidden">{{product.stock}}</td>
-                                <td class="is-hidden" ng-cloak>
-                                    <!--
-                                    <a ng-if="isEbaySearch==true" ng-cloak ng-click="sendToAddProduct($event,product.itemId)" href="{{product.exhibition}}">Go to add ebay item</a>
-                                    <a ng-if="isEbaySearch==false" ng-cloak href="{{product.exhibition}}">{{product.exhibition}}</a>
-
-                                    <a ng-cloak ng-click="sendToAddProduct($event,product.itemId,product.searchSite)" href="{{product.exhibition}}">Go to add ebay item</a>
-                                </td>
-                            </tr>
-                            -->
+						
 							</tbody>
 						</table>
 
-						<label id="lbRakutenHeader" class="label labelHeader">Rakuten</label>
+						<b id="lbRakutenHeader" class=" labelHeader">Rakuten</b>
 						<table
 								id="tbRakuten"
 								class="table table-bordered table-striped responsive-utilities"
-								style="margin-left: 25px">
+								>
 							<thead>
 							<tr>
-								<th ng-click="sort('image')">Image
+								<th ng-click="sort('image')" class="col-1" width="80px;">Image
 									<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
 								<th ng-click="sort('productName')">Product Name
 									<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('price')">Price
+								<th ng-click="sort('price')" class="col-1" width="50px;">Price
 									<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('stock')">Stock
+								<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
 									<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
-								<th ng-click="sort('exhibition')">Exhibition
+								<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
 									<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 								</th>
 							</tr>
 							</thead>
 							<tbody class="searchBody">
-							<!--
-                            <tr dir-paginate ="product in listOfProduct |orderBy:sortKey:reverse |itemsPerPage:6">
-                                <td class="col col-1" ng-cloak ><image width="64" height="64"
-                                        src="{{product.image}}" /></td>
-                                <td ng-cloak class="is-visible"><p>{{product.productName}}</p></td>
-                                <td ng-cloak class="is-hidden">{{product.price}}</td>
-                                <td ng-cloak class="is-hidden">{{product.stock}}</td>
-                                <td class="is-hidden" ng-cloak>
-                                    <!--
-                                    <a ng-if="isEbaySearch==true" ng-cloak ng-click="sendToAddProduct($event,product.itemId)" href="{{product.exhibition}}">Go to add ebay item</a>
-                                    <a ng-if="isEbaySearch==false" ng-cloak href="{{product.exhibition}}">{{product.exhibition}}</a>
-
-                                    <a ng-cloak ng-click="sendToAddProduct($event,product.itemId,product.searchSite)" href="{{product.exhibition}}">Go to add ebay item</a>
-                                </td>
-                            </tr>
-                            -->
+						
 							</tbody>
 						</table>
 					</div>
@@ -325,8 +251,18 @@
 		<!-- end widget grid -->
 
 	</div>
-	<!-- END MAIN CONTENT -->
+                </div>
+            </div>
 
+        </div>
+								
+        <!--end div border -->
+          </div>
+      </div>
+    </div>
+
+	
+	<!-- END MAIN CONTENT -->
 </div>
 <!-- END MAIN PANEL -->
 <style>
@@ -410,6 +346,14 @@
 		font-size: 26px;
 		margin-left: 10px;
 	}
+
+.jarviswidget>header {
+    height: 50px;
+    padding: 0;
+    padding-left: 10px;
+    line-height: 40px;
+}
+
 	/* Required field END */
 </style>
 
@@ -460,11 +404,11 @@
             $("#"+idTable+" .searchBody").html('');
             listOfSearchProduct.forEach(function(product,index){
                 var template =
-                    "<tr><td class='col col-1'><a target='_blank' href='"+product.exhibition+"'>"+(product.image && product.image != ""?"<image width='64' height='64'src='"+product.image+"'/>":"<div>No Photo</div>")+"</a></td>"+
+                    "<tr width='80px'><td class='col col-1'><a target='_blank' href='"+product.exhibition+"'>"+(product.image && product.image != ""?"<image width='64' height='64'src='"+product.image+"'/>":"<div>No Photo</div>")+"</a></td>"+
                     "	<td class='is-visible'><p><a target='_blank' href='"+product.exhibition+"'>"+product.productName +"</a></p></td>"+
-                    "	<td class='is-hidden'>"+product.price +"</td>"+
-                    "	<td class='is-hidden'>"+product.stock +"</td>"+
-                    "	<td class='is-hidden send-to-ebay' data-product-id='"+product.itemId+"' data-search-site='"+product.searchSite+"'> "+
+                    "	<td width='50px' class='is-hidden'>"+product.price +"</td>"+
+                    "	<td width='40px' class='is-hidden'>"+product.stock +"</td>"+
+                    "	<td width='80px' class='is-hidden send-to-ebay' data-product-id='"+product.itemId+"' data-search-site='"+product.searchSite+"'> "+
                     "	<a href='"+"SendToSell/"+product.searchSite+"/"+product.itemId+"/"+keyword+"'><fmt:message key="gotoebay"/></a>"+
                     "	</td>"+
                     "</tr>";

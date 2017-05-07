@@ -28,23 +28,45 @@
 			<!-- END RIBBON -->
 
 			<!-- MAIN CONTENT -->
-			<div id="content">
+			
+    <div class="col-lg-12" style=" display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    margin-top: 15px; padding-bottom: 100px;
+		" >
+		            <div class="row col-md-12" width="100%">
+		                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
+		                     data-widget-editbutton="false">
+		                    <header>
+		                       <h1><b>eBay 設定 : eBayログイン</b></h1>
+		                    </header>
+		                    <div>
+		                        <div class="jarviswidget-editbox"></div>
+		                        <div>
 				<!-- widget grid -->
-				<section id="widget-grid" class="">
-					<h1><b>eBay 設定 : eBayログイン</b></h1>
-					<hr/>
-					
-					<h2><b>STEP 1.</b> <a class="btn btn-success" href="${urlEbayLogin}" target="_blank">eBay認証</a></h2>
-					<p>※別画面が開きますので、[Sign in] ＞ [I agree] と進み、eBay認証を完了させて下さい。 
-　　「Thank You」の画面まで行ったらその画面を閉じ、下の「完了」ボタンを押して下さい。
-					</p>
-					<h2><b>STEP 2.</b> <button id="ebayLoginComplete" class="btn btn-success">完了！</button></h2>
-					
-						
-				</section>
-				<!-- end widget grid -->
+														<section id="widget-grid" class="">
+															
+															
+															<h2><b>STEP 1.</b> <a class="btn btn-success" href="${urlEbayLogin}" target="_blank">eBay認証</a></h2>
+															<p>※別画面が開きますので、[Sign in] ＞ [I agree] と進み、eBay認証を完了させて下さい。 
+										　　「Thank You」の画面まで行ったらその画面を閉じ、下の「完了」ボタンを押して下さい。
+															</p>
+															<h2><b>STEP 2.</b> <button id="ebayLoginComplete" class="btn btn-success">完了！</button></h2>
+															
+																
+														</section>
+														<!-- end widget grid -->
 
-			</div>
+													</div>
+		                    </div>
+		                </div>
+		            </div>
+			
+		        
+		            </div>
+		        </div>
+    </div>
+			
 			<!-- END MAIN CONTENT -->
 
 		</div>
@@ -139,5 +161,12 @@
 		</script>
 
 	</body>
-
+<style type="text/css">
+	.jarviswidget>header {
+    height: 50px;
+    padding: 0;
+    padding-left: 25px;
+    line-height: 40px;
+}
+</style>
 </html>

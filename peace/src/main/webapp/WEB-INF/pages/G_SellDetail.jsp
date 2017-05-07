@@ -176,17 +176,19 @@ label {
 					<div id="myTabContent1" class="tab-content" >
 						
 							<div class="tab-pane fade in active" id="s1">
-								<fieldset>
+								<fieldset style="padding-bottom: 20px;">
 								<section class="col-xs-10 col-md-10"> 
-									<label class="label">商品タイトル（英語）</label> 
+									<label class="">商品タイトル（英語）</label> 
 									 
-										<input type="text" class="input" id="product_title"   maxlength="80" style="width: 100%">
+										<input type="text" class="input" id="product_title"   maxlength="80" style="width: 100%padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 5px;">
 									
 								</section> 
 								
 								<!-- The detail part -->
 								<section class="col-xs-10 col-md-10"> 
-									<label class="label">商品説明（英語）</label>   
+									<label class="">商品説明（英語）</label>   
 									<textarea id="ckEditorForDescription">
 										<c:if test ="${ebayProductAdd !=null}"> 
 		<%-- 									${ebayProductAdd.viewItemUrl} --%>
@@ -195,26 +197,26 @@ label {
 								</section>
 									<!-- The image URL  part -->
 									<section class="col-xs-10 col-md-10"> 
-										<label class="label">タイトル用画像URL </label> 
+										<label class="">タイトル用画像URL </label> 
 										<textarea id="imageUrl" style="width: 100%" rows="5"></textarea> 
 									</section>
 									<!-- End image URL  part -->
 									
 									<!-- The Product image URL for product description  part -->
 									<section class="col-xs-10 col-md-10"> 
-										<label class="label">商品説明用画像URL </label> 
+										<label class="">商品説明用画像URL </label> 
 										<textarea id="imageDescription" style="width: 100%" rows="5"></textarea> 
 									</section>
 									<section class="col-xs-10 col-md-10" style="margin-bottom: 10px"> 
-										<label class="label">商品説明用画像URL </label> 
+										<label class="">商品説明用画像URL </label> 
 										<textarea id="imageDescription" style="width: 100%" rows="5"></textarea>
 									</section>
 								</fieldset>
 							</div>
 							<div class="tab-pane fade" id="s2">
 								<fieldset>
-									<div class="row">
-										<section class="col col-">
+									<div class="row" style="padding-left: 20px;">
+										<section class="col col-md-12" >
 											<label class="input">
 												<input class="input" style="width: 800px" type="text" id="title"/>
 											</label>
@@ -226,8 +228,8 @@ label {
 											</div>
 										</section>
 									</div>
-									<div class="row" style="margin-bottom: 10px">
-										<section class="col col-">
+									<div class="row" style="margin-bottom: 10px; padding-left: 20px;">
+										<section class="col col-md-12">
 											<label class="input" >
 												<textarea id="description" style="width: 800px" rows="10"></textarea> 
 											</label>

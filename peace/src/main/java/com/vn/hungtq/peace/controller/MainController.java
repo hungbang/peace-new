@@ -48,6 +48,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.MessageFormat;
@@ -114,23 +115,32 @@ public class MainController {
 
 	}
 
-	@RequestMapping("/Manual")
-	public String actionViewManual(HttpServletRequest request, HttpSession httpSession,HttpServletResponse response){
+	@RequestMapping(value="/Manual", method = RequestMethod.GET)
+	public void actionViewManual(HttpServletResponse response){
 		try {
 			byte [] documentInBytes = getManualDocument();
-			response.setDateHeader("Expires", -1);
-			response.setContentType("application/pdf");
-			response.setContentLength(documentInBytes.length);
-			response.getOutputStream().write(documentInBytes);
+			streamReport(response, documentInBytes, "manual.pdf");
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("ERROR: "+ e.getMessage());
 		}
-		return  null;
+	}
+
+	protected void streamReport(HttpServletResponse response, byte[] data, String name)
+			throws IOException {
+
+		response.setContentType("application/pdf");
+//		response.setHeader("Content-disposition", "attachment; filename=" + name);
+		response.setContentLength(data.length);
+
+		response.getOutputStream().write(data);
+		response.getOutputStream().flush();
 	}
 
 	private byte [] getManualDocument() throws IOException {
-		String manualPdfFile = context.getRealPath("../resources/manual.pdf");
-		return  Files.readAllBytes(Paths.get(manualPdfFile));
+		ClassLoader classLoader = getClass().getClassLoader();
+		File file = new File(classLoader.getResource("manual.pdf").getFile());
+//		String manualPdfFile = context.getRealPath("../resources/manual.pdf");
+		return  Files.readAllBytes(file.toPath());
 	}
 
 	
@@ -453,11 +463,9 @@ public class MainController {
 			acSetting.setIsImmediateStettlement(accountSettingDto.getIsImmediateStettlement());
 			acSetting.setPaypalEmail(accountSettingDto.getPaypalEmail());
 			acSetting.setUserId(userId);
-
 			//Save to db
 			accountSettingDaoService.saveAccountSetting(acSetting);
 		}
-
 		return responseResult;
 	}
 	
@@ -799,6 +807,7 @@ public class MainController {
 				 Tuple.make("Cookie","ubid-acbjp=352-2065366-8993931; session-token=\"fZXdjEjgK8uR6fth39+5xc65xw00eK1S/VV1L0uwCVjJGSdDS17l+BV6codbMvHFs8mCC8yVKJ5LmIcIXi54AbFNeVm/J8i+ky/BfjqDmWSYVcYb5PjuJNAtpZZiqnhkuSkldVUyECMclcveQ6J/0XClOFlkAYu0RldNopA/HVG0+InHQYFgfayFjOGTDXPdYm75xpRZBxk7vbjdgU0dhqV3uYWkCXDRRukKp+4Yl+8=\"; x-acbjp=\"N82igyz2nuVH@XNt@cQkpObsv3dZQOa@9ss7pdR5xKsnhx?8WRGYSU5BYbznHlY@\"; session-id=353-9960805-6338904; session-id-time=2082758400; ubid-tacbjp=353-1361336-5340853"),
 				 Tuple.make("Cache-Control","max-age=0"));
 		 AmazonSearchResult amzSearchResult = new AmazonSearchResult();
+		 List<AmazonProductSearch> lstAmazSearch = new ArrayList<>();
 		 Document htmlDocument = Jsoup.parse(response, "", Parser.xmlParser());
 		 Elements itemsElement = htmlDocument.select("ItemSearchResponse>Items>Item");
 		 Iterator<Element> itemsIterator = itemsElement.iterator();
@@ -817,9 +826,10 @@ public class MainController {
 			 }
 			 Element itemAttribute = item.select("ItemAttributes").first();
 			 String title = itemAttribute.select("Title").first().text();
-			 amzSearchResult.addProductSearch(new AmazonProductSearch(title, "0f", urlElement.text(), "", asinCode,index));
+			 lstAmazSearch.add(new AmazonProductSearch(title, "0f", urlElement.text(), "", asinCode,index));
 			 index++;
 		 }
+		 amzSearchResult.setLstProductSearch(lstAmazSearch);
 		 return amzSearchResult;
 	 }
 	 

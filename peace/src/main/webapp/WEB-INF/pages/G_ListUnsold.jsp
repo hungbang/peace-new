@@ -19,6 +19,7 @@
 		<jsp:include page="../pages/common/menu-left.jsp"/> 
 
 		<!-- MAIN PANEL -->
+
 		<div id="main" role="main">
 
 			<!-- RIBBON -->
@@ -38,26 +39,32 @@
 			<!-- END RIBBON -->
 
 			<!-- MAIN CONTENT -->
-			<div id="content">
 
-				<div class="row">
-					<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-						<h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-home"></i> Dashboard <span>> Ebay Product List</span> <span>> UnSold</span></h1>
-					</div>
-					<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
-						
-					</div>
+
+    <div class="col-lg-12" style=" display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px; padding-bottom: 100px;
+" >
+            <div class="row" style="width: 100%">
+                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
+                     data-widget-editbutton="false">
+                    <header>
+                        <h1>Item list: listing end </h1>
+                    </header>
+                    <div>
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="row" style="width: 100%;">
+					
+					
 				</div>
 				<!-- widget grid -->
 				<section id="widget-grid" class="" ng-controller="listUnSoldController">
-					<div class="container">
-						<div class="row">
-							<h1>Item list: listing end </h1>
-						</div>
+					<div class="row">
 
-						<div class="row">
+						<div >
 
-							<label>
+							<label style="padding-left: 10px;">
 								<span>lastest</span>
 								<input type="number" value="0" id="number-of-item" style="width: 600px;" class="input-sm"/> 
 							</label>
@@ -69,7 +76,7 @@
 								</font>	
 							</a> 
 						</div> 
-						 <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="table-unsold"> 
+						 <div class="col-md-12 dataTables_wrapper form-inline dt-bootstrap no-footer" id="table-unsold"> 
 				            <table 	id="table-sell" 
 				            		class="table table-striped table-bordered table-hover smart-form dataTable no-footer">
 				               <thead>
@@ -134,6 +141,14 @@
 				<!-- end widget grid -->
 
 			</div>
+                    </div>
+                </div>
+            </div>
+	
+        
+            </div>
+        </div>
+    </div>
 			<!-- END MAIN CONTENT -->
 
 		</div>
@@ -801,4 +816,12 @@
 		
 	</body>
 
+<style type="text/css">
+	.jarviswidget>header {
+    height: 50px;
+    padding: 0;
+    padding-left: 13px;
+    line-height: 40px;
+}
+</style>>
 </html>

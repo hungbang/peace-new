@@ -59,15 +59,15 @@ table td.nowrap {
 }
 
 .hint-required {
-    color: #fff;
-    background-color: #ff3246;
-    border-radius: 2px;
-    padding: 0 2px;
-    font-size: 85%;
-    margin-right: .2em;
-    font-style: normal;
-    float: right;
-    margin-left: 5px;
+	color: #fff;
+	background-color: #ff3246;
+	border-radius: 2px;
+	padding: 0 2px;
+	font-size: 85%;
+	margin-right: .2em;
+	font-style: normal;
+	float: right;
+	margin-left: 5px;
 }
 .hint-required:before {
 	content: '必須';
@@ -89,7 +89,7 @@ table td.nowrap {
 	max-height: 400px;
 }
 .tab-pane{
-	margin-left : 30px;
+	padding-left: 10px;
 }
 .label {
 	color: black;

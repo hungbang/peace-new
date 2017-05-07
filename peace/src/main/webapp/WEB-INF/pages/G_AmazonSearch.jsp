@@ -35,115 +35,122 @@
 	<!-- END RIBBON -->
 
 	<!-- MAIN CONTENT -->
-	<div id="content">
-		<!-- widget grid -->
 
-		<section id="widget-grid" class="">
+    <div class="col-lg-12" style=" display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+" >
+    <div class="row" style="width: 100%">
+                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
+                     data-widget-editbutton="false">
+                    <header>
+                        <h1>リサーチ：amazon.co.jp</h1>
+                    </header>
+                    <div>
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body ">
+                         
+                                <div class="smart-form">
+                                    <section class="row smart-form" style="margin-top:5px;margin-bottom:5px; padding-left: 20px;padding-right: 20px;"> <label
+                                            class="label col col-2">ASIN</label> <label
+                                            class="col col-6">
+                                        <input type="search" id="search-by-keyword" class="form-control" style="width: 100%" id="old-pass">
+                                    </label>
+                                    </section>
+                                    <section class="row smart-form" style="margin-top:5px;margin-bottom:5px; padding-left: 20px; padding-right: 20px;"> <label
+                                            class="label col col-2">ASINから関連商品</label> <label
+                                            class="col col-6">
+                                        <input type="search" id="search-by-asin" class="form-control" style="width: 100%" id="old-pass">
+                                    </label>
+                                    </section>
+                                    <section class="row smart-form" style="margin-top:5px;margin-bottom:5px; padding-left: 20px;padding-right: 20px;"> <label
+                                            class="label col col-2"></label> <label
+                                            class="col col-6">
+                                        <button type="submit" id="seach" class="btn btn-primary" style="float: right;height: 31px;margin-top: 10px;margin-bottom: 10px;padding: 0 22px; font: 300 15px/29px 'Open Sans',Helvetica,Arial,sans-serif;cursor: pointer;">
+                                            <fmt:message key="search" />
+                                        </button>
+                                    </label>
+                                    </section>
+                                        <div class="container" style="margin-top:5px;margin-bottom:5px;">
+                                            <div class="col col-lg-2" style="">
 
-			<!-- widget div-->
-			<div class="row" ng-controller="productSearchController">
-				<div class="widget-body ">
-					<header>
-						<h2 class="amazon-search-title">リサーチ：amazon.co.jp</h2>
-					</header>
-					<div class="smart-form">
-						<section class="row smart-form" style="margin-top:5px;margin-bottom:5px; padding-left: 20px;padding-right: 20px;"> <label
-								class="label col col-2">ASIN</label> <label
-								class="col col-6">
-							<input type="search" id="search-by-keyword" class="form-control" style="width: 100%" id="old-pass">
-						</label>
-						</section>
-						<section class="row smart-form" style="margin-top:5px;margin-bottom:5px; padding-left: 20px; padding-right: 20px;"> <label
-								class="label col col-2">ASINから関連商品</label> <label
-								class="col col-6">
-							<input type="search" id="search-by-asin" class="form-control" style="width: 100%" id="old-pass">
-						</label>
-						</section>
-						<section class="row smart-form" style="margin-top:5px;margin-bottom:5px; padding-left: 20px;padding-right: 20px;"> <label
-								class="label col col-2"></label> <label
-								class="col col-6">
-							<button type="submit" id="seach" class="btn btn-primary" style="float: right;height: 31px;margin-top: 10px;margin-bottom: 10px;padding: 0 22px; font: 300 15px/29px 'Open Sans',Helvetica,Arial,sans-serif;cursor: pointer;">
-								<fmt:message key="search" />
-							</button>
-						</label>
-						</section>
-						<div class="container" style="margin-top:5px;margin-bottom:5px;">
-							<div class="col col-lg-2" style="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                        
+                                        <div class="row"
+                                 style="background-color: white; padding-right: 40px;">
+                                <div class="col col-lg-12">
+                                    <table
+                                            class="table table-bordered table-striped responsive-utilities"
+                                            style="margin-left: 15px" >
+                                        <thead>
+                                        <tr>
+                                            <th>画像</th>
+                                            <th>    商品名 </th>
+                                            <th>価格（円）</th>
+                                            <th>    関連</th>
+                                            <th>出品</th>
+                                        </tr>
+                                        <!--
+                                        <tr>
+                                            <th ng-click="sort('image')">画像
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('productName')"> 商品名
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('price')">価格（円）
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('stock')">   関連
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                            <th ng-click="sort('exhibition')">出品
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                        </tr>
+                                        -->
+                                        </thead>
+                                        <tbody id="searchBody">
+                                        <!--
+                                        <tr ng-repeat ="product in listOfProduct |orderBy:sortKey:reverse">
+                                            <td class="col col-1" ng-cloak><image width="64" height="64"
+                                                    src="{{product.imageUrl}}" /></td>
+                                            <td class="is-visible" ng-cloak><p>{{product.name}}</p></td>
+                                            <td class="is-hidden" ng-cloak>{{product.price}}</td>
+                                            <td class="is-hidden" ng-cloak>{{product.stock}}</td>
+                                            <td class="is-hidden" ng-cloak>
+                                                <a  ng-cloak href="{{product.link}}" ng-click="addToEbay($event,'amazon',product.index)">Add to ebay</a>
+                                            </td>
+                                        </tr>
+                                        -->
+                                        </tbody>
+                                    </table>
+                                    <!-- Pagination
+                                    <div class="row" ng-if="pages&&pages.length>0">
+                                        <div class="btn-toolbar" role="toolbar">
+                                          <div class="btn-group center-paging">
+                                              <button type="button" class="btn btn-default" id="btn-prev-page" ng-cloak ng-click="prevPage($event)">&lt;&lt;</button>
+                                              <button type="button" ng-repeat="page in pages" class="btn btn-default" ng-cloak ng-click="changePage($event,page)" napt-repeat-directive>{{page}}</button>
+                                              <button type="button" class="btn btn-default" id="btn-next-page" ng-cloak ng-click="nextPage($event)">&gt;&gt;</button>
 
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row"
-					 style="background-color: white; padding-right: 40px;">
-					<div class="col col-lg-12">
-						<table
-								class="table table-bordered table-striped responsive-utilities"
-								style="margin-left: 15px" >
-							<thead>
-							<tr>
-								<th>画像</th>
-								<th>    商品名 </th>
-								<th>価格（円）</th>
-								<th>    関連</th>
-								<th>出品</th>
-							</tr>
-							<!--
-                            <tr>
-                                <th ng-click="sort('image')">画像
-                                    <span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-                                </th>
-                                <th ng-click="sort('productName')"> 商品名
-                                    <span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-                                </th>
-                                <th ng-click="sort('price')">価格（円）
-                                    <span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-                                </th>
-                                <th ng-click="sort('stock')">   関連
-                                    <span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-                                </th>
-                                <th ng-click="sort('exhibition')">出品
-                                    <span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-                                </th>
-                            </tr>
-                            -->
-							</thead>
-							<tbody id="searchBody">
-							<!--
-                            <tr ng-repeat ="product in listOfProduct |orderBy:sortKey:reverse">
-                                <td class="col col-1" ng-cloak><image width="64" height="64"
-                                        src="{{product.imageUrl}}" /></td>
-                                <td class="is-visible" ng-cloak><p>{{product.name}}</p></td>
-                                <td class="is-hidden" ng-cloak>{{product.price}}</td>
-                                <td class="is-hidden" ng-cloak>{{product.stock}}</td>
-                                <td class="is-hidden" ng-cloak>
-                                    <a  ng-cloak href="{{product.link}}" ng-click="addToEbay($event,'amazon',product.index)">Add to ebay</a>
-                                </td>
-                            </tr>
-                            -->
-							</tbody>
-						</table>
-						<!-- Pagination
-                        <div class="row" ng-if="pages&&pages.length>0">
-                            <div class="btn-toolbar" role="toolbar">
-                              <div class="btn-group center-paging">
-                                  <button type="button" class="btn btn-default" id="btn-prev-page" ng-cloak ng-click="prevPage($event)">&lt;&lt;</button>
-                                  <button type="button" ng-repeat="page in pages" class="btn btn-default" ng-cloak ng-click="changePage($event,page)" napt-repeat-directive>{{page}}</button>
-                                  <button type="button" class="btn btn-default" id="btn-next-page" ng-cloak ng-click="nextPage($event)">&gt;&gt;</button>
-
-                              </div>
-                         </div>
+                                          </div>
+                                     </div>
+                                    </div>
+                                      -->
+                                </div>
+                            </div>
                         </div>
-                          -->
-					</div>
-				</div>
-			</div>
-			<!-- end widget div -->
-
-		</section>
-		<!-- end widget grid -->
-
-	</div>
+                    </div>
+                </div>
+            </div>
+	
+        
+                </div>
+            </div>
+    </div>
 	<!-- END MAIN CONTENT -->
 
 </div>
@@ -253,7 +260,12 @@
 			padding-top: 0px;
 		}
 	}
-
+.jarviswidget>header {
+    height: 50px;
+    padding: 0;
+    padding-left: 20px;
+    line-height: 40px;
+}
 	/* Required field END */
 </style>
 
@@ -384,7 +396,7 @@
                 var header = $("meta[name='_csrf_header']").attr("content");
                 $.ajax({
                     type : "POST",
-                    url : "SearchAmazonProduct",
+                    url : "searchAsinRelate/"+$("#search-by-asin").val(),
                     headers: {
                         [header]: token,
                         "Content-Type": "application/json; charset=utf8"

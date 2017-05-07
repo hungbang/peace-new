@@ -1400,44 +1400,29 @@
 
     });
 
-    $('#btnSearchCategories').click(function () {
-        //on request search categories here
-        var dummyData = [
-            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
-            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
-            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
-            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
-            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
-            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
-            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
-            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
-        ];
-        console.log('eee')
-        renderResultSearchCategories(dummyData);
-    })
-    $('#keywordSearchCategories').keyup(function (e) {
-        //on request search categories here
-        console.log('yyyy')
-        var dummyData = [
-            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
-            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
-            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
-            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
-            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
-            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
-            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
-            'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
-        ]
-        if (e.keyCode == 13) {
-            renderResultSearchCategories(dummyData);
-        }
-    })
 
-    function renderResultSearchCategories (data) {
-        $('#popUpcontentSearchCategories').html(data.map(function (_data, index) {
-            return '<div class="col-md-12" style="margin-top: 5px"><a href="#">'+_data+'</a></div>';
-        }));
-    }
+    $('#keywordSearchCategories').keyup(function (e) {
+        var country = $('#sel_country').val();
+        var cateName = $('#category_name').val();
+        $('#sel_country').prop("disabled", true);
+        $('#category_name').prop("disabled", true);
+        $('#btnCancel').prop('disabled', true);
+        $('#search_list').empty();
+        $.get('/searchCategory/'+country+'/'+cateName+'', function(data) {
+            var json = JSON.parse(data);
+            if (json.status == true) {
+                $.each(json.result, function (index, val) {
+                    // console.log('My array has at position ' + index + ', this value: ' + val);
+                    $('#search_list').append('<li>' + val.CategoryName + '</li>');
+                    $('#category_name').val('');
+                    $('#sel_country').prop("disabled", false);
+                    $('#category_name').prop("disabled", false);
+                    $('#btnCancel').prop('disabled', false);
+                });
+            }
+        })
+    });
+
 
     $('#btnSearchCategories').click(function () {
         //on request search categories here
@@ -1449,16 +1434,17 @@
         $('#search_list').empty();
         $.get('/searchCategory/'+country+'/'+cateName+'', function(data) {
             var json = JSON.parse(data);
-            if(json.status == true){
-                $.each(json.result, function(index, val) {
+            if (json.status == true) {
+                $.each(json.result, function (index, val) {
                     // console.log('My array has at position ' + index + ', this value: ' + val);
-                    $('#search_list').append('<li>'+val.CategoryName+'</li>');
+                    $('#search_list').append('<li>' + val.CategoryName + '</li>');
                     $('#category_name').val('');
                     $('#sel_country').prop("disabled", false);
                     $('#category_name').prop("disabled", false);
                     $('#btnCancel').prop('disabled', false);
                 });
             }
+        })
         });
 
 </script>

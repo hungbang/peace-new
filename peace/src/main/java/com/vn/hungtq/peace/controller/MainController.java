@@ -47,6 +47,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.MessageFormat;
@@ -564,7 +565,7 @@ public class MainController {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		try {
 			DocumentBuilder db = dbf.newDocumentBuilder();
-			try(InputStream inputStream = new ByteArrayInputStream(xmlContent.getBytes())){
+			try(InputStream inputStream = new ByteArrayInputStream(xmlContent.getBytes(StandardCharsets.UTF_8))){
 				org.w3c.dom.Document doc = db.parse(inputStream);
 				doc.getDocumentElement().normalize();
 				System.out.println("Root element:"+doc.getDocumentElement().getNodeName());
@@ -594,7 +595,7 @@ public class MainController {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		try {
 			DocumentBuilder db = dbf.newDocumentBuilder();
-			try(InputStream inputStream = new ByteArrayInputStream(xmlContent.getBytes())){
+			try(InputStream inputStream = new ByteArrayInputStream(xmlContent.getBytes(StandardCharsets.UTF_8))){
 				org.w3c.dom.Document doc = db.parse(inputStream);
 				doc.getDocumentElement().normalize();
 				System.out.println("Root element:"+doc.getDocumentElement().getNodeName());
@@ -655,7 +656,9 @@ public class MainController {
 		yahooProductAuctionSearch.setImage(element.getElementsByTagName("Image").item(0).getTextContent());
 		yahooProductAuctionSearch.setItemUrl(element.getElementsByTagName("ItemUrl").item(0).getTextContent());
 		yahooProductAuctionSearch.setAuctionItemUrl(element.getElementsByTagName("AuctionItemUrl").item(0).getTextContent());
-		yahooProductAuctionSearch.setBidOrBuy(element.getElementsByTagName("BidOrBuy").item(0).getTextContent());
+		if (element.getElementsByTagName("BidOrBuy").item(0)!= null) {
+			yahooProductAuctionSearch.setBidOrBuy(element.getElementsByTagName("BidOrBuy").item(0).getTextContent());
+		}
 
 
 		return  yahooProductAuctionSearch;

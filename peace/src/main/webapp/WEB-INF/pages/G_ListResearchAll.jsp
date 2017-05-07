@@ -9,7 +9,6 @@
 <head>
 	<style>
 		#productSearchBtn {
-			margin-left: 10px;
 		}
 		#productSearch {
 			width: 320px;
@@ -68,9 +67,15 @@
 							<div class="row">
 								<section class="col col-6">
 									<label class="label">Key Search</label> <label class="input" style="float:left">
-									<input type="text" id="productSearch" ng-change="searchProduct()" ng-model="searchModel" class="input" maxlength="80">
+									<input type="text" id="productSearch" ng-change="searchProduct()" style="
+										   margin-right: 15px;
+										   margin-bottom: 10px;
+										   " ng-model="searchModel" class="input" maxlength="80">
 								</label>
-									<input type="button" class="btn btn-primary" id="productSearchBtn" value='<fmt:message key="search"/>'/>
+									<input style="
+										   margin-right: 15px;
+										   margin-bottom: 10px;
+										   " type="button" class="btn btn-primary" id="productSearchBtn" value='<fmt:message key="search"/>'/>
 								</section>
 							</div>
 							<section style="">
@@ -157,6 +162,7 @@
 							</tbody>
 						</table>
 
+						<b id="lbYahooShopping" class=" labelHeader">Yahoo Shopping</b>
 						<table
 								id="tbYahooShopping"
 								class="table table-bordered table-striped responsive-utilities"
@@ -185,7 +191,7 @@
 							</tbody>
 						</table>
 
-						<b id="lbYahooHeader" class=" labelHeader">Yahoo! Shopping</b>
+						<b id="lbYahooHeader" class=" labelHeader">Yahoo! Aution</b>
 						<table
 								id="tbYahooAution"
 								class="table table-bordered table-striped responsive-utilities"
@@ -344,7 +350,6 @@
 	}
 	.labelHeader {
 		font-size: 26px;
-		margin-left: 10px;
 	}
 
 .jarviswidget>header {
@@ -404,11 +409,11 @@
             $("#"+idTable+" .searchBody").html('');
             listOfSearchProduct.forEach(function(product,index){
                 var template =
-                    "<tr width='10%'><td class='col col-1'><a target='_blank' href='"+product.exhibition+"'>"+(product.image && product.image != ""?"<image width='64' height='64'src='"+product.image+"'/>":"<div>No Photo</div>")+"</a></td>"+
+                    "<tr style='width: 10% !important;'><td class='col col-1'><a target='_blank' href='"+product.exhibition+"'>"+(product.image && product.image != ""?"<image width='64' height='64'src='"+product.image+"'/>":"<div>No Photo</div>")+"</a></td>"+
                     "	<td class='is-visible'><p><a target='_blank' href='"+product.exhibition+"'>"+product.productName +"</a></p></td>"+
-                    "	<td width='10%' class='is-hidden' style='text-align: center;'>"+product.price +"</td>"+
-                    "	<td width='10%' class='is-hidden' style='text-align: center;'>"+product.stock +"</td>"+
-                    "	<td width='10%' style='text-align: center;' class='is-hidden send-to-ebay' data-product-id='"+product.itemId+"' data-search-site='"+product.searchSite+"'> "+
+                    "	<td style='width: 10% !important;' class='is-hidden' style='text-align: center;'>"+(product.price || 'N/A') +"</td>"+
+                    "	<td style='width: 10% !important;' class='is-hidden' style='text-align: center;'>"+(product.stock || 'N/A' )+"</td>"+
+                    "	<td style='width: 10% !important;' style='text-align: center;' class='is-hidden send-to-ebay' data-product-id='"+product.itemId+"' data-search-site='"+product.searchSite+"'> "+
                     "	<a href='"+"SendToSell/"+product.searchSite+"/"+product.itemId+"/"+keyword+"'><fmt:message key="gotoebay"/></a>"+
                     "	</td>"+
                     "</tr>";
@@ -456,7 +461,7 @@
                     ebaySearchProductByKeyword(keyword);
                 } else if ($("#yahoo_shopping").prop("checked")) {
                     //Search yahoo shopping
-                    yahooSearchProductByKeyword(keyword);
+                    yahooShoppingSearchProductByKeyword(keyword);
                 } else if ($("#yahoo_auction").prop("checked")) {
                     //Search yahoo auction
                     yahooSearchProductByKeyword(keyword);
@@ -562,8 +567,8 @@
                 lbId: 'lbEbayHeader'
             },
             yahooShopping: {
-                tbId: 'tbYahooAution',
-                lbId: 'lbYahooHeader'
+                tbId: 'tbYahooShopping',
+                lbId: 'lbYahooShopping'
             },
             yahooAuction: {
                 tbId: 'tbYahooAution',
@@ -597,6 +602,7 @@
         function convertDataForSearchAll(data, keyword) {
 
             var newData = {};
+            newData['yahooAuction'] = data.yahooAuction && data.yahooAuction.extraData?data.yahooAuction.extraData : [];
             newData['rakuten'] = data.rakuten?data.rakuten: [];
             newData['ebay'] = data.ebay?findItemsByKeywords(JSON.parse(data.ebay)):[];
             newData['yahoo'] = data.yahoo && data.yahoo.extraData?data.yahoo.extraData : [];
@@ -615,7 +621,8 @@
 
             bindProductToLayout(newData.amazon, 'tbAmazon');
             bindProductToLayout(newData.ebay, 'tbEbay', keyword);
-            bindProductToLayout(newData.yahoo, 'tbYahooAution');
+            bindProductToLayout(newData.yahoo, 'tbYahooShopping');
+            bindProductToLayout(convertAutionData(newData.yahooAuction || []), 'tbYahooAution');
             bindProductToLayout(newData.rakuten, 'tbRakuten');
             onChangeRadioBtn();
         }
@@ -626,6 +633,7 @@
                 bindProductToLayout([], 'tbAmazon');
                 bindProductToLayout([], 'tbYahooAution');
                 bindProductToLayout([], 'tbRakuten');
+                bindProductToLayout([], 'tbYahooShopping');
                 bindProductToLayout(findItemsByKeywords(JSON.parse(data)), 'tbEbay', keyWord);
                 onChangeRadioBtn();
             });
@@ -641,22 +649,49 @@
                     bindProductToLayout([], 'tbEbay');
                     bindProductToLayout([], 'tbYahooAution');
                     bindProductToLayout(data, 'tbRakuten');
+                    bindProductToLayout([], 'tbYahooShopping');
                     onChangeRadioBtn();
                 });
             }
         };
 
-        //Yahoo search
-        function yahooSearchProductByKeyword(keyWord){
+        //Yahoo search shopping
+        function yahooShoppingSearchProductByKeyword(keyWord){
             //Send ajax to server to search product
             $.get("YahooProductSearchV2/"+keyWord,function(data,status){
                 bindProductToLayout([], 'tbAmazon');
                 bindProductToLayout([], 'tbEbay');
                 bindProductToLayout([], 'tbRakuten');
-                bindProductToLayout(data.extraData, 'tbYahooAution');
+                bindProductToLayout([], 'tbYahooAution');
+                bindProductToLayout(data.extraData, 'tbYahooShopping');
                 onChangeRadioBtn();
             });
         }
+
+        //Yahoo search aution
+        function yahooSearchProductByKeyword(keyWord){
+            //Send ajax to server to search product
+            $.get("YahooProductAuctionSearch/"+keyWord,function(data,status){
+                bindProductToLayout([], 'tbAmazon');
+                bindProductToLayout([], 'tbEbay');
+                bindProductToLayout([], 'tbRakuten');
+                bindProductToLayout([], 'tbYahooShopping');
+                bindProductToLayout(convertAutionData(data.extraData || []), 'tbYahooAution');
+                onChangeRadioBtn();
+            });
+        }
+        function convertAutionData (list) {
+            return list.map(function (data, index) {
+               return {
+                   "itemId": data.auctionID,
+                   "productName": data.title,
+                   "description":"",
+                   "exhibition": data.auctionItemUrl,
+                   "price": data.currentPrice,
+                   "image": data.image,
+			   } ;
+			});
+		}
     })
 </script>
 

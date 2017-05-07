@@ -401,21 +401,16 @@
                         [header]: token,
                         "Content-Type": "application/json; charset=utf8"
                     },
-                    data: JSON.stringify({
-                        searchData:$("#search-by-asin").val(),
-                        isAsinSearch:false,
-                        page:1
-                    }),
+
                     timeout : 100000,
                     success : function(data) {
-                        if(data.status==="OK"){
-                            if(data.extraData.lstProductSearch.length >0){
+                            if(data.lstProductSearch.length >0){
                                 $("#searchBody").empty();
-                            }
+
                             console.log(data)
-                            data.extraData.lstProductSearch.forEach(function(product,index){
+                            data.lstProductSearch.forEach(function(product,index){
                                 var template = "<tr data-index='"+index+"'><td class='col col-1'><image width='64' height='64'src='"+product.imageUrl+"' /></td>" +
-                                    "<td class='is-visible'><p>"+product.name +"</p></td>"+
+                                    "<td class='is-visible'><a href='"+product.link +"'><p>"+product.name +"</p></a></td>"+
                                     "<td class='is-hidden'>"+product.price+"</td>"+
                                     "<td class='is-hidden'>"+product.stock +"</td>"+
                                     "<td class='is-hidden add-to-ebay'><a href='"+product.link +"'>Add to ebay</a></td>"+

@@ -43,232 +43,232 @@
 
 	<!-- MAIN CONTENT -->
 
-	
-    <div class="col-lg-12" style="display: flex;
+
+	<div class="col-lg-12" style="display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 15px; padding-bottom: 100px;
 " >
-    <div class="row" style="width: 100%">
-                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
-                     data-widget-editbutton="false">
-                    <header>
-                        <h1>キーワード</h1>
-                    </header>
-                    <div>
-                        <div class="jarviswidget-editbox"></div>
-                        <section id="widget-grid" class="">
+		<div class="row" style="width: 100%">
+			<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
+				 data-widget-editbutton="false">
+				<header>
+					<h1>キーワード</h1>
+				</header>
+				<div>
+					<div class="jarviswidget-editbox"></div>
+					<section id="widget-grid" class="">
 
-			<!-- widget div-->
-			<div class="row" ng-controller="productSearchController">
-				<div class="widget-body ">
-					<form class="smart-form">
-						<fieldset>
-							<div class="row">
-								<section class="col col-6">
-									<label class="label">Key Search</label> <label class="input" style="float:left">
-									<input type="text" id="productSearch" ng-change="searchProduct()" style="
+						<!-- widget div-->
+						<div class="row" ng-controller="productSearchController">
+							<div class="widget-body ">
+								<form class="smart-form">
+									<fieldset>
+										<div class="row">
+											<section class="col col-6">
+												<label class="label">Key Search</label> <label class="input" style="float:left">
+												<input type="text" id="productSearch" ng-change="searchProduct()" style="
 										   margin-right: 15px;
 										   margin-bottom: 10px;
 										   " ng-model="searchModel" class="input" maxlength="80">
-								</label>
-									<input style="
+											</label>
+												<input style="
 										   margin-right: 15px;
 										   margin-bottom: 10px;
 										   " type="button" class="btn btn-primary" id="productSearchBtn" value='<fmt:message key="search"/>'/>
-								</section>
+											</section>
+										</div>
+										<section style="">
+											<div class="inline-group" style="padding-top: 30px">
+												<label class="radio "> <input type="radio" value="all"
+																			  name="radio-inline" id="all" checked="checked"> <i></i>All
+												</label>
+												<label class="radio "> <input type="radio" value="amazon"
+																			  name="radio-inline" id="amazon" > <i></i>Amazon
+												</label>
+												<label class="radio "> <input type="radio" value="ebay"
+																			  name="radio-inline" id="ebay"> <i></i>Ebay
+												</label> <label class="radio "> <input type="radio" value="yahooShopping"
+																					   name="radio-inline" id="yahoo_shopping"> <i></i>
+												Yahoo! Shopping
+											</label> <label class="radio "> <input type="radio" value="yahooAuction"
+																				   name="radio-inline" id="yahoo_auction"> <i></i>
+												Yahoo! Auction
+											</label> <label class="radio "> <input type="radio" value="rakuten"
+																				   name="radio-inline" id="rakuten_research"> <i></i>
+												Rakuten Research
+											</label>
+											</div>
+										</section>
+									</fieldset>
+								</form>
 							</div>
-							<section style="">
-								<div class="inline-group" style="padding-top: 30px">
-									<label class="radio "> <input type="radio" value="all"
-																  name="radio-inline" id="all" checked="checked"> <i></i>All
-									</label>
-									<label class="radio "> <input type="radio" value="amazon"
-																  name="radio-inline" id="amazon" > <i></i>Amazon
-									</label>
-									<label class="radio "> <input type="radio" value="ebay"
-																  name="radio-inline" id="ebay"> <i></i>Ebay
-									</label> <label class="radio "> <input type="radio" value="yahooShopping"
-																		   name="radio-inline" id="yahoo_shopping"> <i></i>
-									Yahoo! Shopping
-								</label> <label class="radio "> <input type="radio" value="yahooAuction"
-																	   name="radio-inline" id="yahoo_auction"> <i></i>
-									Yahoo! Auction
-								</label> <label class="radio "> <input type="radio" value="rakuten"
-																	   name="radio-inline" id="rakuten_research"> <i></i>
-									Rakuten Research
-								</label>
+							<div class="row" style="margin-left: 5px; margin-right: 5px;">
+								<div class="col col-lg-12">
+									<b id="lbAmazonHeader" class=" labelHeader">Amazon</b>
+									<table
+											id="tbAmazon"
+											class="table table-bordered table-striped responsive-utilities">
+										<thead>
+										<tr>
+											<th ng-click="sort('image')" class="col-1" width="80px;">Image
+												<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('productName')">Product Name
+												<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('price')" class="col-1" width="50px;">Price
+												<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
+												<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
+												<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+										</tr>
+										</thead>
+										<tbody class="searchBody">
+
+										</tbody>
+									</table>
+
+									<b id="lbEbayHeader" class=" labelHeader">Ebay</b>
+									<table
+											id="tbEbay"
+											class="table table-bordered table-striped responsive-utilities"
+									>
+										<thead>
+										<tr>
+											<th ng-click="sort('image')" class="col-1" width="80px;">Image
+												<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('productName')">Product Name
+												<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('price')" class="col-1" width="50px;">Price
+												<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
+												<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
+												<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+										</tr>
+										</thead>
+										<tbody class="searchBody">
+
+										</tbody>
+									</table>
+
+									<b id="lbYahooShopping" class=" labelHeader">Yahoo Shopping</b>
+									<table
+											id="tbYahooShopping"
+											class="table table-bordered table-striped responsive-utilities"
+									>
+										<thead>
+										<tr>
+											<th ng-click="sort('image')" class="col-1" width="80px;">Image
+												<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('productName')">Product Name
+												<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('price')" class="col-1" width="50px;">Price
+												<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
+												<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
+												<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+										</tr>
+										</thead>
+										<tbody class="searchBody">
+
+										</tbody>
+									</table>
+
+									<b id="lbYahooHeader" class=" labelHeader">Yahoo! Aution</b>
+									<table
+											id="tbYahooAution"
+											class="table table-bordered table-striped responsive-utilities"
+									>
+										<thead>
+										<tr>
+											<th ng-click="sort('image')" class="col-1" width="80px;">Image
+												<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('productName')">Product Name
+												<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('price')" class="col-1" width="50px;">Price
+												<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
+												<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
+												<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+										</tr>
+										</thead>
+										<tbody class="searchBody">
+
+										</tbody>
+									</table>
+
+									<b id="lbRakutenHeader" class=" labelHeader">Rakuten</b>
+									<table
+											id="tbRakuten"
+											class="table table-bordered table-striped responsive-utilities"
+									>
+										<thead>
+										<tr>
+											<th ng-click="sort('image')" class="col-1" width="80px;">Image
+												<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('productName')">Product Name
+												<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('price')" class="col-1" width="50px;">Price
+												<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
+												<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+											<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
+												<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+											</th>
+										</tr>
+										</thead>
+										<tbody class="searchBody">
+
+										</tbody>
+									</table>
 								</div>
-							</section>
-						</fieldset>
-					</form>
-				</div>
-				<div class="row" style="margin-left: 5px; margin-right: 5px;">
-					<div class="col col-lg-12">
-						<b id="lbAmazonHeader" class=" labelHeader">Amazon</b>
-						<table
-								id="tbAmazon"
-								class="table table-bordered table-striped responsive-utilities">
-								<thead>
-								<tr>
-									<th ng-click="sort('image')" class="col-1" width="80px;">Image
-										<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-									</th>
-									<th ng-click="sort('productName')">Product Name
-										<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-									</th>
-									<th ng-click="sort('price')" class="col-1" width="50px;">Price
-										<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-									</th>
-									<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
-										<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-									</th>
-									<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
-										<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-									</th>
-								</tr>
-								</thead>
-								<tbody class="searchBody">
-								
-							</tbody>
-						</table>
-						
-						<b id="lbEbayHeader" class=" labelHeader">Ebay</b>
-						<table
-								id="tbEbay"
-								class="table table-bordered table-striped responsive-utilities"
-								>
-							<thead>
-							<tr>
-								<th ng-click="sort('image')" class="col-1" width="80px;">Image
-									<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('productName')">Product Name
-									<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('price')" class="col-1" width="50px;">Price
-									<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
-									<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
-									<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-							</tr>
-							</thead>
-							<tbody class="searchBody">
-						
-							</tbody>
-						</table>
+							</div>
+						</div>
+						<!-- end widget div -->
 
-						<b id="lbYahooShopping" class=" labelHeader">Yahoo Shopping</b>
-						<table
-								id="tbYahooShopping"
-								class="table table-bordered table-striped responsive-utilities"
-								>
-							<thead>
-							<tr>
-								<th ng-click="sort('image')" class="col-1" width="80px;">Image
-									<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('productName')">Product Name
-									<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('price')" class="col-1" width="50px;">Price
-									<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
-									<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
-									<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-							</tr>
-							</thead>
-							<tbody class="searchBody">
-						
-							</tbody>
-						</table>
+					</section>
+					<!-- end widget grid -->
 
-						<b id="lbYahooHeader" class=" labelHeader">Yahoo! Aution</b>
-						<table
-								id="tbYahooAution"
-								class="table table-bordered table-striped responsive-utilities"
-								>
-							<thead>
-							<tr>
-								<th ng-click="sort('image')" class="col-1" width="80px;">Image
-									<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('productName')">Product Name
-									<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('price')" class="col-1" width="50px;">Price
-									<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
-									<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
-									<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-							</tr>
-							</thead>
-							<tbody class="searchBody">
-						
-							</tbody>
-						</table>
-
-						<b id="lbRakutenHeader" class=" labelHeader">Rakuten</b>
-						<table
-								id="tbRakuten"
-								class="table table-bordered table-striped responsive-utilities"
-								>
-							<thead>
-							<tr>
-								<th ng-click="sort('image')" class="col-1" width="80px;">Image
-									<span class="glyphicon sort-icon" ng-show="sortKey=='image'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('productName')">Product Name
-									<span class="glyphicon sort-icon" ng-show="sortKey=='productName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('price')" class="col-1" width="50px;">Price
-									<span class="glyphicon sort-icon" ng-show="sortKey=='price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('stock')" class="col-1" width="50px;">Stock
-									<span class="glyphicon sort-icon" ng-show="sortKey=='stock'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-								<th ng-click="sort('exhibition')" class="col-1" width="80px;">Exhibition
-									<span class="glyphicon sort-icon" ng-show="sortKey=='exhibition'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-								</th>
-							</tr>
-							</thead>
-							<tbody class="searchBody">
-						
-							</tbody>
-						</table>
-					</div>
 				</div>
 			</div>
-			<!-- end widget div -->
-
-		</section>
-		<!-- end widget grid -->
+		</div>
 
 	</div>
-                </div>
-            </div>
 
-        </div>
-								
-        <!--end div border -->
-          </div>
-      </div>
-    </div>
+	<!--end div border -->
+</div>
+</div>
+</div>
 
-	
-	<!-- END MAIN CONTENT -->
+
+<!-- END MAIN CONTENT -->
 </div>
 <!-- END MAIN PANEL -->
 <style>
@@ -345,19 +345,19 @@
 		font-size: 26px;
 		margin: -3px 0 0 12px;
 	}
-	#tbAmazon, #tbEbay, #tbRakuten, #tbYahooAution, #tbYahooShopping, #lbAmazonHeader, #lbEbayHeader, #lbRakutenHeader, #lbYahooHeader {
+	#tbAmazon, #tbEbay, #tbRakuten, #tbYahooAution, #tbYahooShopping, #lbAmazonHeader, #lbEbayHeader, #lbRakutenHeader, #lbYahooHeader #lbYahooShopping {
 		display: none;
 	}
 	.labelHeader {
 		font-size: 26px;
 	}
 
-.jarviswidget>header {
-    height: 50px;
-    padding: 0;
-    padding-left: 10px;
-    line-height: 40px;
-}
+	.jarviswidget>header {
+		height: 50px;
+		padding: 0;
+		padding-left: 10px;
+		line-height: 40px;
+	}
 
 	/* Required field END */
 </style>
@@ -502,39 +502,35 @@
 
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
-            console.log(token);
-            console.log(header)
+            // console.log(token);
+            // console.log(header)
             $.ajax({
-                type : "post",
-                url : "SearchAmazonProductXml",
+                type : "get",
+                url : "searchAmazonByKeyword/"+keyword,
                 headers: {
                     [header]: token,
                     "Content-Type": "application/json; charset=utf8"
                 },
-                data: JSON.stringify({
-                    searchData: keyword,
-                    isAsinSearch:false,
-                    page:1
-                }),
                 success : function(data) {
-                    if(data.status==="OK"){
-                        var convertData = data && data.extraData.lstProductSearch?data.extraData.lstProductSearch.map(function(data, index){
+                    data = JSON.parse(data);
+                    if(data.status){
+                        // console.log(data.result)
+                        var convertData = data.result.map(function(data, index){
                             return {
-                                "itemId": data.index,
-                                "productName": data.name,
-                                "description":"",
-                                "exhibition": data.link,
-                                "price": data.price,
-                                "image": data.imageUrl,
+                                "itemId": data[5].replace('</br>', ''),
+                                "productName": data[2].replace('</br>', ''),
+                                "description": data[2].replace('</br>', ''),
+                                "exhibition": data[0].replace('</br>', ''),
+                                "price": data[3].replace('</br>', ''),
+                                "image": data[1].replace('</br>', ''),
+                                stock: data[4].replace('</br>', ''),
                             };
-                        }):[];
-
-                        console.log(convertData);
-                        console.log(data);
+                        });
 
                         bindProductToLayout(convertData, 'tbAmazon');
                         bindProductToLayout([], 'tbEbay', keyword);
                         bindProductToLayout([], 'tbYahooAution');
+                        bindProductToLayout([], 'tbYahooShopping');
                         bindProductToLayout([], 'tbRakuten');
                         onChangeRadioBtn();
                     }else{
@@ -617,7 +613,7 @@
                 };
             }):[];
 
-            console.log(data);
+            // console.log(data);
 
             bindProductToLayout(newData.amazon, 'tbAmazon');
             bindProductToLayout(newData.ebay, 'tbEbay', keyword);
@@ -682,16 +678,16 @@
         }
         function convertAutionData (list) {
             return list.map(function (data, index) {
-               return {
-                   "itemId": data.auctionID,
-                   "productName": data.title,
-                   "description":"",
-                   "exhibition": data.auctionItemUrl,
-                   "price": data.currentPrice,
-                   "image": data.image,
-			   } ;
-			});
-		}
+                return {
+                    "itemId": data.auctionID,
+                    "productName": data.title,
+                    "description":"",
+                    "exhibition": data.auctionItemUrl,
+                    "price": data.currentPrice,
+                    "image": data.image,
+                } ;
+            });
+        }
     })
 </script>
 

@@ -38,13 +38,24 @@
 			<!-- END RIBBON -->
 
 			<!-- MAIN CONTENT -->
-			<div id="content">
-				<!-- widget grid -->
-				<section id="widget-grid" class="" ng-controller="listErrorController">
-					<div class="container">
-						<div class="row">
-							<h1>Product list: error </h1>
-						</div> 
+
+    <div class="col-lg-12" style=" display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+" >
+    <div class="row">
+                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
+                     data-widget-editbutton="false">
+                    <header>
+											<h1>Product list: error </h1>
+                    </header>
+                    <div>
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body ">
+                        	<section id="widget-grid" class="" ng-controller="listErrorController">
+					<div class="container" style="padding-left: 8px; padding-right: 8px;">
+						
 						<div class="dataTables_wrapper form-inline dt-bootstrap no-footer"> 
 				            <table 	id="table-sell" 
 				            		class="table table-striped table-bordered table-hover smart-form dataTable no-footer">
@@ -93,9 +104,16 @@
 				        </div>
 					</div> 
 				</section>
-				<!-- end widget grid -->
-
-			</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	
+        
+                </div>
+            </div>
+    </div>
+			
 			<!-- END MAIN CONTENT -->
 
 		</div>
@@ -726,5 +744,12 @@
 
 		</script>
 	</body>
-
+<style>
+.jarviswidget>header {
+    height: 50px;
+    padding: 0;
+    padding-left: 20px;
+    line-height: 40px;
+}
+</style>
 </html>

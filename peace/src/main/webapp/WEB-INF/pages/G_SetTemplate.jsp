@@ -16,6 +16,13 @@
 			.required-field-block {
 				position: relative;   
 			}
+			
+			.jarviswidget>header {
+			    height: 50px;
+			    padding: 0;
+			    padding-left: 20px;
+			    line-height: 40px;
+			}
 
 			.required-field-block .required-icon {
 				display: inline-block;
@@ -128,19 +135,30 @@
 				</div>
 				<!-- widget grid -->
 				
+    <div class="col-lg-12" style=" display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px; padding-bottom: 100px;
+" >
+            <div class="row" width="100%">
+                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
+                     data-widget-editbutton="false">
+                    <header>
+                        <h1>Exhibit Template</h1>
+                    </header>
+                    <div>
+                        <div class="jarviswidget-editbox"></div>
+                        
 				<section id="widget-grid" class="">
 
 					<!-- widget div-->
 					<div class="row">
 						<div class="widget-body ">
-							<header>
-								<h2>Exhibit Template</h2>
-							</header>
 							<form class="smart-form">
 								<fieldset>
 									<div class="row">
 										<section class="col col-12">
-											<label class="label">Selection of an exhibition template</label>
+											<label class="label" style="    margin-left: 10px;">Selection of an exhibition template</label>
 											<div class="inline-group" style="padding-top: 30px">
 												<section class="col col-2 col-sm-2" style="">
 												<label class="radio">
@@ -190,7 +208,7 @@
 												<div class="sl-marker marker" style="left: 74px; top: 126px;"></div>
 											</div>
 										</div>
-										<input type="text" id="colorstr" name="colorstr" value="#FFFFFF" style="">
+										<input type="text" id="colorstr" name="colorstr" value="#FFFFFF" style="margin-left: 25px;">
 										<div id="colorpickerstr">
 											<div class="farbtastic">
 												<div class="color" style="background-color: rgb(255, 0, 0);"></div>
@@ -200,20 +218,29 @@
 												<div class="sl-marker marker" style="left: 74px; top: 126px;"></div>
 											</div>
 										</div>
-										<input type="text" id="colorstr" name="colorstr" value="#FFFFFF" style="">
+										<input type="text" id="colorstr" name="colorstr" value="#FFFFFF" style="margin-left: 25px;">
 									</div>
 								</fieldset>
-								<footer>
-									<button type="submit" class="btn btn-primary">
+								<div class="row col-md-12" style="padding-bottom: 25px; padding-right: 25px;">
+									<div class="col-md-10"></div>
+									<button type="submit" class="btn btn-primary col-md-2">
 										Save
 									</button>
-								</footer>
+								</div>
 							</form>
 						</div>
 					</div>
 					<!-- end widget div -->
 
 				</section>
+                    </div>
+                </div>
+            </div>
+	
+        
+            </div>
+        </div>
+    </div>
 				<!-- end widget grid -->
 				
 			</div>

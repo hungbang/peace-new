@@ -18,7 +18,11 @@
 			.required-field-block {
 				position: relative;   
 			}
-
+	
+	#content {
+		    position: relative;
+		    padding: 0px;
+	}
 			.required-field-block .required-icon {
 				display: inline-block;
 				vertical-align: middle;
@@ -79,6 +83,14 @@
 				font-size: 26px;
 				margin: -3px 0 0 12px;
 			}
+			.smart-form .checkbox, .smart-form .radio {
+				margin-bottom: 4px;
+		    line-height: 25px;
+        padding-left: 0px;
+		    color: #404040;
+		    cursor: pointer;
+		    font-size: 13px;
+			}
 			/* Required field END */
 
 		</style> 
@@ -105,10 +117,10 @@
 			<!-- END RIBBON -->
 
 			<!-- MAIN CONTENT -->
-			<div id="content" ng-controller="transportController">
+			<div id="content" class="row " ng-controller="transportController" >
 
-				<div class="row">
-					<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+				<div class="row col-md-12" width="100%">
+					<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4" style="padding-left: 20px;">
 						<h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-home"></i> Dashboard <span>> EBay Setting</span> <span>> Shipping</span></h1>
 					</div>
 					<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
@@ -117,9 +129,13 @@
 				</div>
 				<!-- widget grid -->
 				
-				<section id="widget-grid" class=""> 
+				<section id="widget-grid" class="col-md-12" style=" display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px; padding-bottom: 100px;
+" > 
 					<!-- Shipping Setting Area-->
-					<div class="row">
+					<div class="row col-md-12" width="100%">
 						<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
 							data-widget-editbutton="false">
 							<header> 
@@ -130,7 +146,9 @@
 								<div class="widget-body ">
 									<div class="row smart-form">
 										 <fieldset> 
-											<label>発送しない国の設定を選択してください </label>
+										 <div class="row">
+											<label >発送しない国の設定を選択してください </label>
+											</div>
 											<div class="row" ng-model="listOfGroupCountry" >
 												<div class="col-sm-4 region" ng-repeat="countryGroup in listOfGroupCountry" napt-repeat-directive >
 													 <span class="checkbox" style="display:inline-block">
@@ -151,9 +169,10 @@
 												</div> 
 											</div>									
 										</fieldset>
-										<footer>
-											<button ng-click="saveNotShippingCountry()" class="btn btn-primary">Save</button>
-										</footer>
+										<div class="col-md-12">
+											<div class="col-md-10"></div>
+											<button ng-click="saveNotShippingCountry()" class="btn btn-primary col-md-2">Save</button>
+										</div>
 									</div>
 								</div>
 							</div>

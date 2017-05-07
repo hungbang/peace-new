@@ -94,6 +94,13 @@
 				margin-bottom: 10px;
 			}
 
+			.jarviswidget>header {
+    height: 50px;
+    padding: 0;
+    padding-left: 15px;
+    line-height: 40px;
+}
+
 		</style> 
 
 			<!-- RIBBON -->
@@ -124,9 +131,24 @@
 
 			</div>
 			<!-- END RIBBON -->
-
+				
 			<!-- MAIN CONTENT -->
-			<div id="content">
+
+    <div class="col-lg-12" style=" display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px; padding-bottom: 100px;
+" >
+            <div class="row  col-md-12" width="100%">
+                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
+                     data-widget-editbutton="false">
+                    <header>
+                        <h1>在庫チェック：在庫一覧</h1>
+                    </header>
+                    <div>
+                        <div class="jarviswidget-editbox"></div>
+                        
+			<div id="content" class="row" width="100%">
 				<!-- widget grid -->
 				
 				<section id="widget-grid" class="">
@@ -134,13 +156,10 @@
 					<!-- widget div-->
 					<div class="row" ng-controller="stockListController">
 						<div class="widget-body ">
-							<header>
-								<h2>在庫チェック：在庫一覧</h2>
-							</header>
 							<form class="smart-form">
 								<fieldset>
-									<div class="row" style="background-color:white; padding-right: 40px;">
-										<table class="table table-bordered table-striped responsive-utilities" style="margin-left:25px">
+									<div class="row" style="background-color:white;">
+										<table class="table table-bordered table-striped responsive-utilities">
 											<thead>
 											  <tr> 
 												<th class="select-checkbox " style="width: 15px;">
@@ -212,19 +231,21 @@
 										</dir-pagination-controls>
 									</div>
 									-->
+									<div class="row col-md-12" style="margin-top: 10px;" >
+									<div class="col-md-8"></div>
 									
-								</fieldset>
-								<footer>
-									<button type="submit" id="btnReset" class="btn btn-primary">
+									<button type="submit" style="float: right;" id="btnReset" class="btn btn-primary col-md-1" >
 										Reset
 									</button>
-									<button type="submit" id="btnDelete"  class="btn btn-primary">
+									<button style="margin-right: 10px; margin-left: 10px; float: right;" type="submit" id="btnDelete"  class="btn btn-primary col-md-1" >
 										削除
 									</button>
-									<button type="button" id="btnChange" class="btn btn-default">
+									<button style="margin-left: 10px; float: right;" type="button" id="btnChange" class="btn btn-default col-md-1">
 										変更
 									</button>
-								</footer>
+								</div>
+								</fieldset>
+								
 							</form>
 						</div>
 					</div>
@@ -233,6 +254,14 @@
 				<!-- end widget grid -->
 				
 			</div>
+                    </div>
+                </div>
+            </div>
+	
+        
+            </div>
+        </div>
+    </div>
 			<!-- END MAIN CONTENT -->
 
 		</div>

@@ -522,6 +522,12 @@
                 </div>
 
             </div>
+
+            <br/>
+            <div class="col-md-12">
+                <ul id="search_list"></ul>
+            </div>
+
             <div class="col-md-12" style="padding-bottom: 20px; margin-top: 10px;">
                 <div class="col-sm-10 col-md-10 col-xs-10"></div>
                 <button  data-dismiss="modal" class="btn btn-default col-sm-2 col-md-2 col-xs-2" id='btnCancel'><fmt:message key="sell.category.cancel" /></button>
@@ -1433,9 +1439,27 @@
         }));
     }
 
-    $('#btnSearchCategories').on('click', function(){
-
-    });
+    $('#btnSearchCategories').click(function () {
+        //on request search categories here
+        var country = $('#sel_country').val();
+        var cateName = $('#category_name').val();
+        $('#sel_country').prop("disabled", true);
+        $('#category_name').prop("disabled", true);
+        $('#btnCancel').prop('disabled', true);
+        $('#search_list').empty();
+        $.get('/searchCategory/'+country+'/'+cateName+'', function(data) {
+            var json = JSON.parse(data);
+            if(json.status == true){
+                $.each(json.result, function(index, val) {
+                    // console.log('My array has at position ' + index + ', this value: ' + val);
+                    $('#search_list').append('<li>'+val.CategoryName+'</li>');
+                    $('#category_name').val('');
+                    $('#sel_country').prop("disabled", false);
+                    $('#category_name').prop("disabled", false);
+                    $('#btnCancel').prop('disabled', false);
+                });
+            }
+        });
 
 </script>
 <!-- Your GOOGLE ANALYTICS CODE Below -->

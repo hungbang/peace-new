@@ -271,7 +271,7 @@
                                 </div>
                             </div>
                         <div class="col-md-1"> </div>
-                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">検索</button>
+                            <button type="button" class="btn btn-info col-md-2" data-toggle="modal" data-target="#myModal"><fmt:message key="sell.category.search" /></button>
                         </div>
                     </div>
                     <input type="hidden" id="categoryId"/>
@@ -504,18 +504,33 @@
                         width: 100%; padding-top: 60px;">
         <div class="col-md-6 col-sm-10 col-xs-10" style="border-width: 1 #d1d1d1 solid; border-radius: 5px; background-color: white; padding-top: 20px;">
             <div class="col-md-12" style="margin-bottom: 15px;">
-                <h4>Search Categories</h4>
+                <h4 style="margin-left: 3%;"><fmt:message key="sell.category.search"/></h4>
             </div>
-            <div class="col-md-12 col-xs-12 col-sm-12" >
-                <input id='keywordSearchCategories' type="text" class="col-md-9 col-sm-9 col-xs-9" style="padding: 5px; margin-bottom: 5px;" >
-                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-                <button class="btn btn-success col-sm-2 col-md-2 col-xs-2" id="btnSearchCategories" >Search</button>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <label for="sel_country"><fmt:message key="sell.country" /></label>
+                    <select id="sel_country" class="form-control">
+                        <option value="US">United States</option>
+                        <option value="AU">Australia</option>
+                        <option value="GB">United Kingdom</option>
+                        <option value="CA">Canada</option>
+                    </select>
+                    <label for="category_name"><fmt:message key="sell.cate.name" /></label>
+                    <input class="form-control" id="category_name" style="width:100%;" type="text">
+                    <button class="btn btn-success col-sm-4 col-md-4 col-xs-4" id="btnSearchCategories"><fmt:message key="sell.search.button"/></button>
+                </div>
+
             </div>
-            <div id='popUpcontentSearchCategories'>
+
+            <br/>
+            <div class="col-md-12">
+                <ul id="search_list"></ul>
             </div>
+
             <div class="col-md-12" style="padding-bottom: 20px; margin-top: 10px;">
                 <div class="col-sm-10 col-md-10 col-xs-10"></div>
-                <button  data-dismiss="modal" class="btn btn-default col-sm-2 col-md-2 col-xs-2" id='btnSearchCategories'>cancel</button>
+                <button  data-dismiss="modal" class="btn btn-default col-sm-2 col-md-2 col-xs-2" id='btnCancel'><fmt:message key="sell.category.cancel" /></button>
             </div>
         </div>
     </div>
@@ -1423,6 +1438,28 @@
             return '<div class="col-md-12" style="margin-top: 5px"><a href="#">'+_data+'</a></div>';
         }));
     }
+
+    $('#btnSearchCategories').click(function () {
+        //on request search categories here
+        var country = $('#sel_country').val();
+        var cateName = $('#category_name').val();
+        $('#sel_country').prop("disabled", true);
+        $('#category_name').prop("disabled", true);
+        $('#btnCancel').prop('disabled', true);
+        $('#search_list').empty();
+        $.get('/searchCategory/'+country+'/'+cateName+'', function(data) {
+            var json = JSON.parse(data);
+            if(json.status == true){
+                $.each(json.result, function(index, val) {
+                    // console.log('My array has at position ' + index + ', this value: ' + val);
+                    $('#search_list').append('<li>'+val.CategoryName+'</li>');
+                    $('#category_name').val('');
+                    $('#sel_country').prop("disabled", false);
+                    $('#category_name').prop("disabled", false);
+                    $('#btnCancel').prop('disabled', false);
+                });
+            }
+        });
 
 </script>
 <!-- Your GOOGLE ANALYTICS CODE Below -->

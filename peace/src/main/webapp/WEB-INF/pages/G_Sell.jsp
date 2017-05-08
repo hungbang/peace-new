@@ -1414,12 +1414,13 @@
                 $.each(json.result, function (index, val) {
                     // console.log('My array has at position ' + index + ', this value: ' + val);
                     $('#search_list').append('<li>' + val.CategoryName + '</li>');
-                    $('#category_name').val('');
-                    $('#sel_country').prop("disabled", false);
-                    $('#category_name').prop("disabled", false);
-                    $('#btnCancel').prop('disabled', false);
+
                 });
             }
+            $('#category_name').val('');
+            $('#sel_country').prop("disabled", false);
+            $('#category_name').prop("disabled", false);
+            $('#btnCancel').prop('disabled', false);
         })
     });
 
@@ -1438,12 +1439,12 @@
                 $.each(json.result, function (index, val) {
                     // console.log('My array has at position ' + index + ', this value: ' + val);
                     $('#search_list').append('<li>' + val.CategoryName + '</li>');
-                    $('#category_name').val('');
-                    $('#sel_country').prop("disabled", false);
-                    $('#category_name').prop("disabled", false);
-                    $('#btnCancel').prop('disabled', false);
                 });
             }
+            $('#category_name').val('');
+            $('#sel_country').prop("disabled", false);
+            $('#category_name').prop("disabled", false);
+            $('#btnCancel').prop('disabled', false);
         })
         });
 

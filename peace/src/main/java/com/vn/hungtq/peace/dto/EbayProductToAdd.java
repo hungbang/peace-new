@@ -21,7 +21,32 @@ public class EbayProductToAdd {
 	private boolean oneDayShippingAvailable;
 	private String handingTime;
 	private String currentPrice ;
-	
+
+	public EbayProductToAdd(){}
+
+	public EbayProductToAdd(Builder builder) {
+		itemId = builder.itemId;
+		title = builder.title;
+		globalId = builder.globalId;
+		categoryId = builder.categoryId;
+		categoryName = builder.categoryName;
+		imageUrl = builder.imageUrl;
+		paymentMethod = builder.paymentMethod;
+		viewItemUrl = builder.viewItemUrl;
+		autoPay = builder.autoPay;
+		portalCode = builder.portalCode;
+		location = builder.location;
+		country = builder.country;
+		currencyId = builder.currencyId;
+		shippingCost = builder.shippingCost;
+		shippingType = builder.shippingType;
+		shippingToLocation = builder.shippingToLocation;
+		expeditedShipping = builder.expeditedShipping;
+		oneDayShippingAvailable = builder.oneDayShippingAvailable;
+		handingTime = builder.handingTime;
+		currentPrice = builder.currentPrice;
+	}
+
 	public String getItemId() {
 		return itemId;
 	}
@@ -142,5 +167,96 @@ public class EbayProductToAdd {
 	public void setViewItemUrl(String viewItemUrl) {
 		this.viewItemUrl = viewItemUrl;
 	} 
-	
+
+	public static class Builder{
+		private String itemId;
+		private String title;
+		private String globalId;
+		private String categoryId;
+		private String categoryName;
+		private String imageUrl;
+		private String paymentMethod;
+		private String viewItemUrl;
+		private boolean autoPay;
+		private String portalCode;
+		private String location;
+		private String country;
+		private String currencyId;
+		private String shippingCost;
+		private String shippingType;
+		private String shippingToLocation;
+		private String expeditedShipping;
+		private boolean oneDayShippingAvailable;
+		private String handingTime;
+		private String currentPrice ;
+
+		public Builder(){}
+		public Builder currentPrice(String val){
+			currentPrice = val; return this;
+		}
+		public Builder handingTime(String val){
+			handingTime = val; return this;
+		}
+		public Builder categoryName(String val){
+			categoryName = val; return this;
+		}
+		public Builder oneDayShippingAvailable(boolean val){
+			oneDayShippingAvailable = val; return this;
+		}
+		public Builder expeditedShipping(String val){
+			expeditedShipping = val; return this;
+		}
+		public Builder shippingToLocation(String val){
+			shippingToLocation = val; return this;
+		}
+		public Builder shippingType(String val){
+			shippingType = val; return this;
+		}
+		public Builder shippingCost(String val){
+			shippingCost = val; return this;
+		}
+		public Builder currencyId(String val){
+			currencyId = val; return this;
+		}
+
+		public Builder country(String val){
+			country = val; return this;
+		}
+		public Builder location(String val){
+			location = val; return this;
+		}
+		public Builder portalCode(String val){
+			portalCode = val; return this;
+		}
+		public Builder autoPay(boolean val){
+			autoPay = val; return this;
+		}
+		public Builder itemId(String val){
+			itemId = val; return this;
+		}
+		public Builder title(String val){
+			title = val; return this;
+		}
+		public Builder globalId(String val){
+			globalId = val; return this;
+		}
+		public Builder categoryId(String val){
+			categoryId = val; return this;
+		}
+		public Builder imageUrl(String val){
+			imageUrl = val; return this;
+		}
+		public Builder paymentMethod(String val){
+			paymentMethod = val; return this;
+		}
+		public Builder viewItemUrl(String val){
+			viewItemUrl = val; return this;
+		}
+
+		public EbayProductToAdd build(){
+			return new EbayProductToAdd(this);
+		}
+
+	}
+
 }

@@ -398,7 +398,7 @@
 <script type="text/javascript">
     $(function () {
         //Function bind search product to layout
-        function bindProductToLayout(listOfSearchProduct, idTable, keyword) {
+        function bindProductToLayout(listOfSearchProduct, idTable, keyword, searchSite) {
             $("#"+idTable+" .searchBody").html('');
             listOfSearchProduct.forEach(function(product,index){
                 var template =
@@ -406,8 +406,8 @@
                     "	<td class='is-visible'><p><a target='_blank' href='"+product.exhibition+"'>"+product.productName +"</a></p></td>"+
                     "	<td style='width: 10% !important;' class='is-hidden' style='text-align: center;'>"+(product.price || 'N/A') +"</td>"+
                     "	<td style='width: 10% !important;' class='is-hidden' style='text-align: center;'>"+(product.stock || 'N/A' )+"</td>"+
-                    "	<td style='width: 10% !important;' style='text-align: center;' class='is-hidden send-to-ebay' data-product-id='"+product.itemId+"' data-search-site='"+product.searchSite+"'> "+
-                    "	<a href='"+"SendToSell/"+product.searchSite+"/"+product.itemId+"/"+keyword+"'><fmt:message key="gotoebay"/></a>"+
+                    "	<td style='width: 10% !important;' style='text-align: center;' class='is-hidden send-to-ebay' data-product-id='"+product.itemId+"' data-search-site='"+searchSite+"'> "+
+                    "	<a href='"+"SendToSell/"+searchSite+"/"+product.itemId+"/"+keyword+"'><fmt:message key="gotoebay"/></a>"+
                     "	</td>"+
                     "</tr>";
                 $("#"+idTable+" .searchBody").append($(template));
@@ -516,15 +516,15 @@
                                 "exhibition": data[0].replace('</br>', ''),
                                 "price": data[3].replace('</br>', ''),
                                 "image": data[1].replace('</br>', ''),
-                                stock: data[4].replace('</br>', ''),
+                                "stock": data[4].replace('</br>', ''),
                             };
                         });
 
-                        bindProductToLayout(convertData, 'tbAmazon');
-                        bindProductToLayout([], 'tbEbay', keyword);
-                        bindProductToLayout([], 'tbYahooAution');
-                        bindProductToLayout([], 'tbYahooShopping');
-                        bindProductToLayout([], 'tbRakuten');
+                        bindProductToLayout(convertData, 'tbAmazon', keyword, 'amazon');
+                        bindProductToLayout([], 'tbEbay', keyword, 'ebay');
+                        bindProductToLayout([], 'tbYahooAution', keyword, 'yahoo-auction');
+                        bindProductToLayout([], 'tbYahooShopping', keyword, 'yahoo-shopping');
+                        bindProductToLayout([], 'tbRakuten', keyword, 'rakuten');
                         onChangeRadioBtn();
                     }else{
                         alert(data.cause);
@@ -589,83 +589,84 @@
         }
 
         function convertDataForSearchAll(data, keyword) {
-
+            var dataJson = JSON.parse(data.amazon);
             var newData = {};
             newData['yahooAuction'] = data.yahooAuction && data.yahooAuction.extraData?data.yahooAuction.extraData : [];
             newData['rakuten'] = data.rakuten?data.rakuten: [];
             newData['ebay'] = data.ebay?findItemsByKeywords(JSON.parse(data.ebay)):[];
             newData['yahoo'] = data.yahoo && data.yahoo.extraData?data.yahoo.extraData : [];
-            newData['amazon'] = data.amazon && data.amazon.lstProductSearch?data.amazon.lstProductSearch.map(function(data, index){
-                return {
-                    "itemId": data.index,
-                    "productName": data.name,
-                    "description":"",
-                    "exhibition": data.link,
-                    "price": data.price,
-                    "image": data.imageUrl,
-                };
-            }):[];
 
+            newData['amazon'] = dataJson.result.map(function(data, index){
+                return {
+                    "itemId": data[5].replace('</br>', ''),
+                    "productName": data[2].replace('</br>', ''),
+                    "description": data[2].replace('</br>', ''),
+                    "exhibition": data[0].replace('</br>', ''),
+                    "price": data[3].replace('</br>', ''),
+                    "image": data[1].replace('</br>', ''),
+                    "stock": data[4].replace('</br>', ''),
+                };
+            });
             // console.log(data);
 
-            bindProductToLayout(newData.amazon, 'tbAmazon');
-            bindProductToLayout(newData.ebay, 'tbEbay', keyword);
-            bindProductToLayout(newData.yahoo, 'tbYahooShopping');
-            bindProductToLayout(convertAutionData(newData.yahooAuction || []), 'tbYahooAution');
-            bindProductToLayout(newData.rakuten, 'tbRakuten');
+            bindProductToLayout(newData.amazon, 'tbAmazon', keyword, 'amazon');
+            bindProductToLayout(newData.ebay, 'tbEbay', keyword, 'ebay');
+            bindProductToLayout(newData.yahoo, 'tbYahooShopping', keyword, 'yahoo-shopping');
+            bindProductToLayout(convertAutionData(newData.yahooAuction || []), 'tbYahooAution', keyword,'yahoo-auction');
+            bindProductToLayout(newData.rakuten, 'tbRakuten', keyword, 'rakuten');
             onChangeRadioBtn();
         }
 
         //Ebay search
-        function ebaySearchProductByKeyword(keyWord) {
-            $.get("EbayProductSearch/"+keyWord,function(data,status){
-                bindProductToLayout([], 'tbAmazon');
-                bindProductToLayout([], 'tbYahooAution');
-                bindProductToLayout([], 'tbRakuten');
-                bindProductToLayout([], 'tbYahooShopping');
-                bindProductToLayout(findItemsByKeywords(JSON.parse(data)), 'tbEbay', keyWord);
+        function ebaySearchProductByKeyword(keyword) {
+            $.get("EbayProductSearch/"+keyword,function(data,status){
+                bindProductToLayout([], 'tbAmazon', keyword, 'amazon');
+                bindProductToLayout([], 'tbYahooAution', keyword,'yahoo-auction');
+                bindProductToLayout([], 'tbRakuten', keyword, 'rakuten');
+                bindProductToLayout([], 'tbYahooShopping', keyword, 'yahoo-shopping');
+                bindProductToLayout(findItemsByKeywords(JSON.parse(data)), 'tbEbay', keyword, 'ebay');
                 onChangeRadioBtn();
             });
         }
 
         //Rakuten search
-        function rakutenSearchProductByKeyword(keyWord) {
+        function rakutenSearchProductByKeyword(keyword) {
             //I dont know but rakuten say this! :-p
             if (keyWord.length > 1) {
                 //Send ajax to server to search product
-                $.get("RakutenProductSearch/"+ keyWord,function(data,status){
-                    bindProductToLayout([], 'tbAmazon');
-                    bindProductToLayout([], 'tbEbay');
-                    bindProductToLayout([], 'tbYahooAution');
-                    bindProductToLayout(data, 'tbRakuten');
-                    bindProductToLayout([], 'tbYahooShopping');
+                $.get("RakutenProductSearch/"+ keyword,function(data,status){
+                    bindProductToLayout([], 'tbAmazon', keyword, 'amazon');
+                    bindProductToLayout([], 'tbEbay', keyword, 'ebay');
+                    bindProductToLayout([], 'tbYahooAution', keyword,'yahoo-auction');
+                    bindProductToLayout(data, 'tbRakuten', keyword, 'rakuten');
+                    bindProductToLayout([], 'tbYahooShopping', keyword, 'yahoo-shopping');
                     onChangeRadioBtn();
                 });
             }
         };
 
         //Yahoo search shopping
-        function yahooShoppingSearchProductByKeyword(keyWord){
+        function yahooShoppingSearchProductByKeyword(keyword){
             //Send ajax to server to search product
-            $.get("YahooProductSearchV2/"+keyWord,function(data,status){
-                bindProductToLayout([], 'tbAmazon');
-                bindProductToLayout([], 'tbEbay');
-                bindProductToLayout([], 'tbRakuten');
-                bindProductToLayout([], 'tbYahooAution');
-                bindProductToLayout(data.extraData, 'tbYahooShopping');
+            $.get("YahooProductSearchV2/"+keyword,function(data,status){
+                bindProductToLayout([], 'tbAmazon', keyword, 'amazon');
+                bindProductToLayout([], 'tbEbay', keyword, 'ebay');
+                bindProductToLayout([], 'tbRakuten', keyword, 'rakuten');
+                bindProductToLayout([], 'tbYahooAution', keyword,'yahoo-auction');
+                bindProductToLayout(data.extraData, 'tbYahooShopping', keyword, 'yahoo-shopping');
                 onChangeRadioBtn();
             });
         }
 
         //Yahoo search aution
-        function yahooSearchProductByKeyword(keyWord){
+        function yahooSearchProductByKeyword(keyword){
             //Send ajax to server to search product
-            $.get("YahooProductAuctionSearch/"+keyWord,function(data,status){
-                bindProductToLayout([], 'tbAmazon');
-                bindProductToLayout([], 'tbEbay');
-                bindProductToLayout([], 'tbRakuten');
-                bindProductToLayout([], 'tbYahooShopping');
-                bindProductToLayout(convertAutionData(data.extraData || []), 'tbYahooAution');
+            $.get("YahooProductAuctionSearch/"+keyword,function(data,status){
+                bindProductToLayout([], 'tbAmazon', keyword, 'amazon');
+                bindProductToLayout([], 'tbEbay', keyword, 'ebay');
+                bindProductToLayout([], 'tbRakuten', keyword, 'rakuten');
+                bindProductToLayout(data.extraData, 'tbYahooShopping', keyword, 'yahoo-shopping');
+                bindProductToLayout(convertAutionData(data.extraData || []), 'tbYahooAution',keyword,'yahoo-auction');
                 onChangeRadioBtn();
             });
         }

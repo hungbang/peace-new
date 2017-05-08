@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmr" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html lang="en-us" ng-app="product_shopping_search">
 <jsp:include page="../pages/common/header.jsp" />
@@ -333,46 +334,44 @@
                 //SearchAmazonProduct
                 var token = $("meta[name='_csrf']").attr("content");
                 var header = $("meta[name='_csrf_header']").attr("content");
-
+                $("#search-by-asin").val("");
                 $.ajax({
-                    type : "POST",
+                    type : "GET",
                     contentType : "application/json",
-                    url : "SearchAmazonProductXml",
-                    data: JSON.stringify({
-                        searchData:$("#search-by-keyword").val(),
-                        isAsinSearch:false,
-                        page:1
-                    }),
+                    url : "searchAsin/"+$("#search-by-keyword").val(),
+
                     beforeSend:function(xhr){
                         xhr.setRequestHeader(header, token);
                     },
                     dataType : 'json',
-                    timeout : 100000,
+                    timeout : 300000,
                     success : function(data) {
-                        if(data.status==="OK"){
-                            data.extraData.lstProductSearch.forEach(function(product,index){
-                                var template = "<tr data-index='"+index+"'><td class='col col-1'><image width='64' height='64'src='"+product.imageUrl+"' /></td>" +
-                                    "<td class='is-visible'><p>"+product.name +"</p></td>"+
-                                    "<td class='is-hidden'>"+product.price+"</td>"+
-                                    "<td class='is-hidden'>"+product.stock +"</td>"+
-                                    "<td class='is-hidden add-to-ebay'><a href='"+product.link +"'>Add to ebay</a></td>"+
+
+                        if(data.lstProductSearch.length > 0) {
+                            $("#searchBody").empty();
+                            data.lstProductSearch.forEach(function (product, index) {
+                                var template = "<tr data-index='" + index + "'><td class='col col-1'><image width='64' height='64'src='" + product.imageUrl + "' /></td>" +
+                                    "<td class='is-visible'><a href='" + product.link + "'><p>" + product.name + "</p></a></td>" +
+                                    "<td class='is-hidden'>" + product.price + "</td>" +
+                                    "<td class='is-hidden'>" + product.stock + "</td>" +
+                                    "<td class='is-hidden add-to-ebay'><a href='" + product.link + "'><fmr:message key="gotoebay" /> </a></td>" +
                                     "</tr>";
                                 $("#searchBody").append($(template));
                             });
-                            $(".add-to-ebay").on("click","a",function(evt){
+                            $(".add-to-ebay").on("click", "a", function (evt) {
                                 evt.preventDefault();
                                 //ng-click='addToEbay($event,'amazon',product.index)'
                                 var index = $(this).parent().parent().attr("data-index");
                                 var keyword = $("#search-by-keyword").val();
-                                window.location.href = "SendToSell/amazon/"+ index+"/"+keyword;
+                                window.location.href = "SendToSell/asin/" + index + "/" + keyword;
                             });
                         }else{
-                            alert(data.cause);
+                            console.log("List Result Empty.");
                         }
                     },
                     error : function(e) {
                         console.log("ERROR: ", e);
-                        alert('data.msg');
+                        alert(e.statusText);
                     },
                     done : function(e) {
                         console.log("DONE");
@@ -388,6 +387,7 @@
                 //SearchAmazonProduct
                 var token = $("meta[name='_csrf']").attr("content");
                 var header = $("meta[name='_csrf_header']").attr("content");
+                $("#search-by-keyword").val("");
                 $.ajax({
                     type : "get",
                     url : "searchAsinRelate/"+$("#search-by-asin").val(),
@@ -396,7 +396,7 @@
                         "Content-Type": "application/json; charset=utf8"
                     },
 
-                    timeout : 100000,
+                    timeout : 300000,
                     success : function(data) {
                         if(data.lstProductSearch.length >0){
                             $("#searchBody").empty();
@@ -407,7 +407,7 @@
                                     "<td class='is-visible'><a href='"+product.link +"'><p>"+product.name +"</p></a></td>"+
                                     "<td class='is-hidden'>"+product.price+"</td>"+
                                     "<td class='is-hidden'>"+product.stock +"</td>"+
-                                    "<td class='is-hidden add-to-ebay'><a href='"+product.link +"'>Add to ebay</a></td>"+
+                                    "<td class='is-hidden add-to-ebay'><a href='"+product.link +"'><fmr:message key="gotoebay" /></a></td>"+
                                     "</tr>";
                                 $("#searchBody").append($(template));
                             });
@@ -415,16 +415,16 @@
                                 evt.preventDefault();
                                 //ng-click='addToEbay($event,'amazon',product.index)'
                                 var index = $(this).parent().parent().attr("data-index");
-                                var keyword = $("#search-by-keyword").val();
-                                window.location.href = "SendToSell/amazon/"+ index+"/"+keyword;
+                                var keyword = $("#search-by-asin").val();
+                                window.location.href = "SendToSell/asinRelate/"+ index+"/"+keyword;
                             });
                         }else{
-                            alert(data.cause);
-                        }
+                                console.log("List Result Empty.");
+                            }
                     },
                     error : function(e) {
                         console.log("ERROR: ", e);
-                        alert(e);
+                        alert(e.statusText);
                     },
                     done : function(e) {
                         console.log("DONE");

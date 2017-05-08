@@ -292,22 +292,22 @@
 </script>
 
 <!-- Your GOOGLE ANALYTICS CODE Below -->
-<script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push([ '_setAccount', 'UA-XXXXXXXX-X' ]);
-    _gaq.push([ '_trackPageview' ]);
+<%--<script type="text/javascript">--%>
+    <%--var _gaq = _gaq || [];--%>
+    <%--_gaq.push([ '_setAccount', 'UA-XXXXXXXX-X' ]);--%>
+    <%--_gaq.push([ '_trackPageview' ]);--%>
 
-    (function() {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl'
-                : 'http://www')
-            + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    })();
-</script>
+    <%--(function() {--%>
+        <%--var ga = document.createElement('script');--%>
+        <%--ga.type = 'text/javascript';--%>
+        <%--ga.async = true;--%>
+        <%--ga.src = ('https:' == document.location.protocol ? 'https://ssl'--%>
+                <%--: 'http://www')--%>
+            <%--+ '.google-analytics.com/ga.js';--%>
+        <%--var s = document.getElementsByTagName('script')[0];--%>
+        <%--s.parentNode.insertBefore(ga, s);--%>
+    <%--})();--%>
+<%--</script>--%>
 <!--Replace angular-->
 <script type="text/javascript">
     $(function () {
@@ -369,15 +369,15 @@
                                 //ng-click='addToEbay($event,'amazon',product.index)'
                                 var index = $(this).parent().parent().attr("data-index");
                                 var keyword = $("#search-by-keyword").val();
-                                window.location.href = "SendToSell/amazon/" + index + "/" + keyword;
+                                window.location.href = "SendToSell/asin/" + index + "/" + keyword;
                             });
                         }else{
-
+                            console.log("List Result Empty.");
                         }
                     },
                     error : function(e) {
                         console.log("ERROR: ", e);
-                        alert('data.msg');
+                        alert(e.statusText);
                     },
                     done : function(e) {
                         console.log("DONE");
@@ -422,15 +422,15 @@
                                 //ng-click='addToEbay($event,'amazon',product.index)'
                                 var index = $(this).parent().parent().attr("data-index");
                                 var keyword = $("#search-by-asin").val();
-                                window.location.href = "SendToSell/amazon/"+ index+"/"+keyword;
+                                window.location.href = "SendToSell/asinRelate/"+ index+"/"+keyword;
                             });
                         }else{
-                            alert(data.cause);
-                        }
+                                console.log("List Result Empty.");
+                            }
                     },
                     error : function(e) {
                         console.log("ERROR: ", e);
-                        alert(e);
+                        alert(e.statusText);
                     },
                     done : function(e) {
                         console.log("DONE");

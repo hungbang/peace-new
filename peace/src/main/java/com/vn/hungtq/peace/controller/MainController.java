@@ -773,7 +773,9 @@ public class MainController {
                         .getRequestURL();
                 AmazonSearchResult amzSearchResult = APISearchUtils.processAmazonSearchASINResult(amazonSearchURL);
                 List<AmazonProductSearch> lstProductSearch = amzSearchResult.getLstProductSearch();
-                AmazonProductSearch amazonProductSearch = lstProductSearch.get(Integer.valueOf(itemId));
+                AmazonProductSearch amazonProductSearch = null;
+                if(!lstProductSearch.isEmpty())
+                     amazonProductSearch = lstProductSearch.get(Integer.valueOf(itemId));
                 if (amazonProductSearch != null) {
                     EbayProductToAdd ebayProductToAdd = new EbayProductToAdd.Builder().title(amazonProductSearch.getName())
                             .imageUrl(amazonProductSearch.getImageUrl())
@@ -798,7 +800,10 @@ public class MainController {
                         .getRequestURL();
                 AmazonSearchResult amzSearchResult = APISearchUtils.processAmazonSearchASINResult(amazonSearchURL);
                 List<AmazonProductSearch> lstProductSearch = amzSearchResult.getLstProductSearch();
-                AmazonProductSearch amazonProductSearch = lstProductSearch.get(Integer.valueOf(itemId));
+                AmazonProductSearch amazonProductSearch = null;
+                if(!lstProductSearch.isEmpty())
+                    amazonProductSearch = lstProductSearch.get(Integer.valueOf(itemId));
+
                 if (amazonProductSearch != null) {
                     EbayProductToAdd ebayProductToAdd = new EbayProductToAdd.Builder().title(amazonProductSearch.getName())
                             .imageUrl(amazonProductSearch.getImageUrl())

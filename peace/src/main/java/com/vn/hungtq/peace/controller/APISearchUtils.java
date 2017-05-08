@@ -76,6 +76,7 @@ public class APISearchUtils {
         AmazonSearchResult amzSearchResult = new AmazonSearchResult();
         List<AmazonProductSearch> lstAmazSearch = new ArrayList<>();
         try {
+            Thread.sleep(20000);
             String response = CommonUtils.getHTMLContent(amazonSearchURL, Tuple.make("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"),
                     Tuple.make("Accept-Encoding", "gzip, deflate, sdch"),
                     Tuple.make("Accept-Language", "vi-VN,vi;q=0.8,fr-FR;q=0.6,fr;q=0.4,en-US;q=0.2,en;q=0.2,ro;q=0.2,und;q=0.2"),
@@ -133,6 +134,7 @@ public class APISearchUtils {
         AmazonSearchResult amzSearchResult = new AmazonSearchResult();
         List<AmazonProductSearch> lstAmazSearch = new ArrayList<>();
         try {
+            Thread.sleep(20000);
             String response = CommonUtils.getHTMLContent(requestUrl, Tuple.make("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"),
                     Tuple.make("Accept-Encoding", "gzip, deflate, sdch"),
                     Tuple.make("Accept-Language", "vi-VN,vi;q=0.8,fr-FR;q=0.6,fr;q=0.4,en-US;q=0.2,en;q=0.2,ro;q=0.2,und;q=0.2"),

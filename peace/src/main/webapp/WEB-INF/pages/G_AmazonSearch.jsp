@@ -350,7 +350,7 @@
                         xhr.setRequestHeader(header, token);
                     },
                     dataType : 'json',
-                    timeout : 100000,
+                    timeout : 300000,
                     success : function(data) {
 
                         if(data.lstProductSearch.length > 0) {
@@ -402,7 +402,7 @@
                         "Content-Type": "application/json; charset=utf8"
                     },
 
-                    timeout : 100000,
+                    timeout : 300000,
                     success : function(data) {
                         if(data.lstProductSearch.length >0){
                             $("#searchBody").empty();

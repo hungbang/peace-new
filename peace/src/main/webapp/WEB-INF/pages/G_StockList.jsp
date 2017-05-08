@@ -94,12 +94,6 @@
 				margin-bottom: 10px;
 			}
 
-			.jarviswidget>header {
-    height: 50px;
-    padding: 0;
-    padding-left: 15px;
-    line-height: 40px;
-}
 
 		</style> 
 
@@ -143,7 +137,7 @@
                 <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
                      data-widget-editbutton="false">
                     <header>
-                        <h1>在庫チェック：在庫一覧</h1>
+                        <h2>在庫チェック：在庫一覧</h2>
                     </header>
                     <div>
                         <div class="jarviswidget-editbox"></div>
@@ -290,22 +284,22 @@
 	</script>
 
 	<!-- Your GOOGLE ANALYTICS CODE Below -->
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push([ '_setAccount', 'UA-XXXXXXXX-X' ]);
-		_gaq.push([ '_trackPageview' ]);
+	<%--<script type="text/javascript">--%>
+		<%--var _gaq = _gaq || [];--%>
+		<%--_gaq.push([ '_setAccount', 'UA-XXXXXXXX-X' ]);--%>
+		<%--_gaq.push([ '_trackPageview' ]);--%>
 
-		(function() {
-			var ga = document.createElement('script');
-			ga.type = 'text/javascript';
-			ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl'
-					: 'http://www')
-					+ '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0];
-			s.parentNode.insertBefore(ga, s);
-		})();
-	</script>
+		<%--(function() {--%>
+			<%--var ga = document.createElement('script');--%>
+			<%--ga.type = 'text/javascript';--%>
+			<%--ga.async = true;--%>
+			<%--ga.src = ('https:' == document.location.protocol ? 'https://ssl'--%>
+					<%--: 'http://www')--%>
+					<%--+ '.google-analytics.com/ga.js';--%>
+			<%--var s = document.getElementsByTagName('script')[0];--%>
+			<%--s.parentNode.insertBefore(ga, s);--%>
+		<%--})();--%>
+	<%--</script>--%>
 
 	<!--Replace angularjs-->
 	<script type="text/javascript">

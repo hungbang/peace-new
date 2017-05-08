@@ -46,7 +46,7 @@
             <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
                  data-widget-editbutton="false">
                 <header>
-                    <h1>リサーチ：ASIN</h1>
+                    <h2>リサーチ：ASIN</h2>
                 </header>
                 <div>
                     <div class="jarviswidget-editbox"></div>
@@ -260,12 +260,6 @@
             padding-bottom: 5px;
             padding-top: 0px;
         }
-    }
-    .jarviswidget>header {
-        height: 50px;
-        padding: 0;
-        padding-left: 20px;
-        line-height: 40px;
     }
     /* Required field END */
 </style>

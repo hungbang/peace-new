@@ -980,14 +980,15 @@ public class MainController {
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> seachAll(@PathVariable("keyword") String keyword){
 		logger.info("====value key word: "+ keyword);
-		String amazonSearchURL = CommonUtils.buildAmazonServiceUrl(keyword, amazonServiceInfo);
-		AmazonSearchResult amzSearchResult = processAmazonSearchResult(amazonSearchURL);
+//		String amazonSearchURL = CommonUtils.buildAmazonServiceUrl(keyword, amazonServiceInfo);
+//		AmazonSearchResult amzSearchResult = processAmazonSearchResult(amazonSearchURL);
+		String amazonResultByKeyword = APISearchUtils.amazonSearchKeyWord(keyword);
 		String ebayResult = getEbaySearchProductResult(keyword);
 		AjaxResponseResult<List<YahooProductSearch>> ajaxResponseResult = processYahooSearchV2(keyword);
 		AjaxResponseResult<List<YahooProductAuctionSearch>> yahooAuctionResult = processYahooAuctionSearch(keyword);
 		List<ProductSearch> rakutenResult = processRakutenSearch(keyword);
 		Map<String, Object> objectMap = new HashedMap();
-		objectMap.put("amazon", amzSearchResult);
+		objectMap.put("amazon", amazonResultByKeyword);
 		objectMap.put("ebay", ebayResult);
 		objectMap.put("yahoo", ajaxResponseResult);
 		objectMap.put("yahooAuction", yahooAuctionResult);

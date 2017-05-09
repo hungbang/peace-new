@@ -10,9 +10,12 @@ pipelines:
     - step:
         script: # Modify the commands below to build your repository.
           - mvn --version # -B batch mode makes Maven less verbose
-          - apt-get update
-          - apt-get install -y openjfx
           - mvn install:install-file -Dfile=peace/src/main/webapp/WEB-INF/lib/ebaysdkcore.jar -DgroupId=com.ebay.sdk -DartifactId=core -Dversion=987 -Dpackaging=jar -DgeneratePom=true
           - mvn install:install-file -Dfile=peace/src/main/webapp/WEB-INF/lib/ebaycalls.jar -DgroupId=com.ebay.sdk -DartifactId=api -Dversion=987 -Dpackaging=jar -DgeneratePom=true
           - mvn install:install-file -Dfile=peace/src/main/webapp/WEB-INF/lib/helper.jar -DgroupId=com.ebay.sdk -DartifactId=helper -Dversion=987 -Dpackaging=jar -DgeneratePom=true
           - mvn -f peace/pom.xml clean install
+          - cp /opt/atlassian/pipelines/agent/build/peace/target/peace.war /opt/atlassian/pipelines/agent/build/peace/target/ROOT.war
+          - apt-get update
+          #- apt-get install -y openjfx
+          - apt-get -qq install ncftp
+          - ncftpput -v -u "root" -p "Potetoman1!" -R "150.95.156.25" /opt/tomcat/webapps /opt/atlassian/pipelines/agent/build/peace/target/ROOT.war

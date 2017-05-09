@@ -6,6 +6,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <html lang="en-us" ng-app="product_shopping_search">
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
 <head>
 	<style>
 		#productSearchBtn {
@@ -53,7 +55,7 @@
 			<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
 				 data-widget-editbutton="false">
 				<header>
-					<h2>キーワード</h2>
+					<h2><fmt:message key="ebay.location" /></h2>
 				</header>
 				<div>
 					<div class="jarviswidget-editbox"></div>
@@ -62,18 +64,18 @@
 						<!-- widget div-->
 						<div class="row" ng-controller="productSearchController">
 							<div class="widget-body ">
-								<form class="smart-form">
+								<form:form action="saveEbayLocation" class="smart-form">
 									<fieldset>
 										<div class="row">
 											<section class="col col-6">
-												<label class="label">Location</label> <label class="input" style="float:left">
+												<%--<label class="label">Location</label> <label class="input" style="float:left">--%>
 												<!-- <input type="text" id="productSearch" ng-change="searchProduct()" style="
 										   margin-right: 15px;
 										   margin-bottom: 10px;
 										   " ng-model="searchModel" class="input" maxlength="80"> -->
 											</label>
 
-												<input id="city" name="city" style="
+												<input id="city" name="location" value="${location}" style="
 										   margin-right: 15px;
 										   margin-bottom: 10px;
 										   " ng-model="searchModel" class="form-control" maxlength="80" autocomplete="off" data-country="jp">
@@ -84,7 +86,7 @@
 											</section>
 										</div>
 									</fieldset>
-								</form>
+								</form:form>
 							</div>
 
 						</div>
@@ -237,10 +239,27 @@
         //Function bind search product to layout
 
         $("#productSearchBtn").on("click",function(){
-            $("#searchBody").empty();
-            var keyword = $("#productSearch").val();
-            searchProduct(keyword);
-        })
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+            $.ajax({
+                url: 'saveEbayLocation',
+                type: 'POST',
+                data: {location: $('#city').val()},
+                beforeSend:function(xhr){
+                    xhr.setRequestHeader(header, token);
+                },
+            })
+                .done(function(data) {
+                    alert('Save Success.');
+                })
+                .fail(function(e) {
+                    console.log(e);
+                })
+                .always(function() {
+                    console.log("complete");
+                });
+
+        });
 
         // search all
 
@@ -248,7 +267,6 @@
 </script>
 
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&language=jp&key=AIzaSyCZxqZz8DahO0GAKLcPEYWUkS8IDQhadc4"></script>
-<script src="//<a href="http://www.jqueryscript.net/tags.php?/map/">map</a>s.googleapis.com/maps/api/js?libraries=places"></script>
 
 <script>
 $('input#city').cityAutocomplete('AIzaSyCZxqZz8DahO0GAKLcPEYWUkS8IDQhadc4');

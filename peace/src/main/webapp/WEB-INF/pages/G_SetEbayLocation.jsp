@@ -250,7 +250,7 @@
                 },
             })
                 .done(function(data) {
-                    alert('Save Success.');
+                    alert('成功を保存します。');
                 })
                 .fail(function(e) {
                     console.log(e);

@@ -459,6 +459,10 @@
                             </section>
 
                             <section class="col-xs-10 col-md-10 fix-margin-left" style="margin-bottom: 10px;">
+                                <label>重量（例：0.5）</label>
+                                <br>
+                                <input type="text" class="form-control" id="txt_item_weight" style="display:inline-block; width:250px;"> kg
+                                <br>
                                 <button type="button" onclick='toggleTableCost()' class="btn btn-success" id="btnShowShippingCost">送料表示</button>
                                 <button type="button" class="btn btn-success" id="btnEditShippingCost">送料編集する</button>
                             </section>

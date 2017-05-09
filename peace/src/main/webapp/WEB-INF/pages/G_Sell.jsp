@@ -493,7 +493,7 @@
                                             </th>
                                         </tr>
                                         </thead>
-                                        <tbody class="searchBody">
+                                        <tbody id="tbShippingCostBody">
 
                                         </tbody>
                                     </table>
@@ -527,7 +527,7 @@
                                             </th>
                                         </tr>
                                         </thead>
-                                        <tbody class="searchBody">
+                                        <tbody id="tbShippingDurationBody">
 
                                         </tbody>
                                     </table>
@@ -1530,11 +1530,33 @@
     });
 
 
-    function renderTable () {
+    function renderTable (data) {
+        var testdata = {
+            method: 'test method',
+            asia: 'test asia',
+            northAf: 'test north',
+            eu: 'test eu',
+            southAf: 'test South'
+        }
+        var str ='<tr>'+
+            '<td  class="center" width="20%">'+testdata.method+
+            '</td>'+
+            '<td class="center"  width="20%">'+testdata.asia+
+            '</td>'+
+            '<td  class="center" width="20%">'+testdata.northAf+
+            '</td>'+
+            '<td  class="center" width="20%">'+testdata.eu+
+            '</td>'+
+            '<td  class="center" width="20%">'+testdata.southAf+
+            '</td>'+'</tr>';
+        console.log(str)
+        $('#tbShippingDurationBody').append($(str));
+        $('#tbShippingCostBody').append($(str));
 
     }
 
     function toggleTableCost () {
+        renderTable();
         $('#tbShippingCost').css("display") == 'none' ? $('#tbShippingCost').slideDown() : $('#tbShippingCost').slideUp() ;
         $('#tbShippingDuration').css("display") == 'none' ? $('#tbShippingDuration').slideDown() : $('#tbShippingDuration').slideUp() ;
         $('#lbShippingCost').css("display") == 'none' ? $('#lbShippingCost').slideDown() : $('#lbShippingCost').slideUp() ;

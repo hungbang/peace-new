@@ -10,5 +10,6 @@ pipelines:
     - step:
         script: # Modify the commands below to build your repository.
           - mvn --version # -B batch mode makes Maven less verbose
-          - mvn -f peace/pom.xml
+          - apt-get update
+          - apt-get install -y openjfx
           - mvn clean install

@@ -12,4 +12,4 @@ pipelines:
           - mvn --version # -B batch mode makes Maven less verbose
           - apt-get update
           - apt-get install -y openjfx
-          - mvn clean install
+          - mvn -f peace/pom.xml clean install

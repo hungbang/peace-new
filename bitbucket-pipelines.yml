@@ -10,4 +10,5 @@ pipelines:
     - step:
         script: # Modify the commands below to build your repository.
           - mvn --version # -B batch mode makes Maven less verbose
+          - mvn -f peace/peace/pom.xml
           - mvn clean install

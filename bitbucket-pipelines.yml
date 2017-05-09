@@ -12,4 +12,7 @@ pipelines:
           - mvn --version # -B batch mode makes Maven less verbose
           - apt-get update
           - apt-get install -y openjfx
+          - mvn install:install-file -Dfile=ebaysdkcore.jar -DgroupId=com.ebay.sdk -DartifactId=core -Dversion=987 -Dpackaging=jar -DgeneratePom=true
+          - mvn install:install-file -Dfile=ebaycalls.jar -DgroupId=com.ebay.sdk -DartifactId=api -Dversion=987 -Dpackaging=jar -DgeneratePom=true
+          - mvn install:install-file -Dfile=helper.jar -DgroupId=com.ebay.sdk -DartifactId=helper -Dversion=987 -Dpackaging=jar -DgeneratePom=true
           - mvn -f peace/pom.xml clean install

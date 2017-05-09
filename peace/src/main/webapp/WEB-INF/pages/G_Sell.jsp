@@ -141,23 +141,28 @@
     }
 
     button#btnPreview {
-        background-color: #009966;
-        color: white;
     }
 
     button#btnAddEbayItem {
-        background-color: #009965;
-        color: white;
     }
-    
+
     .jarviswidget>div  {
         padding: 0px;
         padding-top: 10px;
         padding-left: 10px;
     }
-    
+
     .fix-margin-left {
         margin-left: -13px;
+    }
+
+    .center {
+        text-align: center;
+        vertical-align: middle !important;
+    }
+
+    #tbShippingCost, #tbShippingDuration, #lbShippingDuration, #lbShippingCost {
+        display: none;
     }
     /* Required field END */
     <!--
@@ -201,300 +206,376 @@
     align-items: center;
     margin-top: 15px; padding-bottom: 100px;
 " >
-            <div class="row" style="width: 100%">
-                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
-                     data-widget-editbutton="false" style="border-top-color: #ccc;
+        <div class="row" style="width: 100%">
+            <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
+                 data-widget-editbutton="false" style="border-top-color: #ccc;
     border-top-width: 1px;
     border-top-style: solid;">
-                    <div>
-                        <div class="jarviswidget-editbox"></div>
-                            <section id="widget-grid" class="row" style="margin-left: 8px;">
+                <div>
+                    <div class="jarviswidget-editbox"></div>
+                    <section id="widget-grid" class="row" style="margin-left: 8px;">
 
-            <!-- widget content -->
-            <!-- end widget content -->
-            <!-- row -->
-            <form class="smart-form" style="">
-                <!-- The product title part -->
-                <section class="col-xs-10 col-md-10">
-                    <label class="">商品タイトル（英語）</label>
-                    <label class="input ">
-                        <input type="text" class="input" id="product_title"
-                               value="<c:if test ="${ebayProductAdd !=null}"> ${ebayProductAdd.title}</c:if>"
-                               maxlength="80">
-                    </label>
-                    <div class="note">
-                        <p id="titleSub">0 characters (max. 80 letters)</p>
-                        <a href="#" id="translate"> <i class="fa fa-hand-o-right" aria-hidden="true"></i>
-                            <span> <fmt:message key="translate"/> </span>
-                        </a>
-                    </div>
-                </section>
+                        <!-- widget content -->
+                        <!-- end widget content -->
+                        <!-- row -->
+                        <form class="smart-form" style="">
+                            <!-- The product title part -->
+                            <section class="col-xs-10 col-md-10">
+                                <label class="">商品タイトル（英語）</label>
+                                <label class="input ">
+                                    <input type="text" class="input" id="product_title"
+                                           value="<c:if test ="${ebayProductAdd !=null}"> ${ebayProductAdd.title}</c:if>"
+                                           maxlength="80">
+                                </label>
+                                <div class="note">
+                                    <p id="titleSub">0 characters (max. 80 letters)</p>
+                                    <a href="#" id="translate"> <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                                        <span> <fmt:message key="translate"/> </span>
+                                    </a>
+                                </div>
+                            </section>
 
-                <!-- The detail part -->
-                <section class="col-xs-10 col-md-10">
-                    <label class="">商品説明（英語）</label>
-                    <textarea id="ckEditorForDescription">
+                            <!-- The detail part -->
+                            <section class="col-xs-10 col-md-10">
+                                <label class="">商品説明（英語）</label>
+                                <textarea id="ckEditorForDescription">
                                 <c:if test="${ebayProductAdd !=null}">
                                     <%--                                    ${ebayProductAdd.viewItemUrl} --%>
                                 </c:if>
                             </textarea>
-                </section>
+                            </section>
 
-                <!-- The sel_item_country part -->
-                <section class="col-xs-10 col-md-10">
-                    <label class="">出品国</label>
-                    <label class="input ">
-                        <select class="form-control" id="sel_item_country" style="width:auto;">
-                            <option value="US">United States</option>
-                            <option value="AU">Australia</option>
-                            <option value="GB">United Kingdom</option>
-                            <option value="CA">Canada</option>
-                            <option value="MTRS">eBay Motors</option>
-                        </select>
-                    </label>
-                </section>
-                <!-- End sel_item_country part -->
+                            <!-- The sel_item_country part -->
+                            <section class="col-xs-10 col-md-10">
+                                <label class="">出品国</label>
+                                <label class="input ">
+                                    <select class="form-control" id="sel_item_country" style="width:auto;">
+                                        <option value="US">United States</option>
+                                        <option value="AU">Australia</option>
+                                        <option value="GB">United Kingdom</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="MTRS">eBay Motors</option>
+                                    </select>
+                                </label>
+                            </section>
+                            <!-- End sel_item_country part -->
 
-                <!-- The category part -->
-                <section class="col-xs-10 col-md-10">
+                            <!-- The category part -->
+                            <section class="col-xs-10 col-md-10">
 
 
 
-                    <label class="">カテゴリー</label>
-                    <div id="category" class="tab-content" style="padding-left: 10px">
-                        <div class="" style="100%">
-                            <div class='col-md-6'>
-                                <div class="panel-body">
-                                    <div id="pickList" style="
+                                <label class="">カテゴリー</label>
+                                <div id="category" class="tab-content" style="padding-left: 10px">
+                                    <div class="" style="100%">
+                                        <div class='col-md-6'>
+                                            <div class="panel-body">
+                                                <div id="pickList" style="
     margin-left: 5px;
 "></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1"> </div>
+                                        <button type="button" class="btn btn-success col-md-2" data-toggle="modal" data-target="#myModal"><fmt:message key="sell.category.search" /></button>
+                                    </div>
                                 </div>
-                            </div>
-                        <div class="col-md-1"> </div>
-                            <button type="button" class="btn btn-info col-md-2" data-toggle="modal" data-target="#myModal"><fmt:message key="sell.category.search" /></button>
-                        </div>
-                    </div>
-                    <input type="hidden" id="categoryId"/>
-                </section>
+                                <input type="hidden" id="categoryId"/>
+                            </section>
 
 
-                <!-- The condition part -->
-                <section class="col-xs-10 col-md-10">
-                    <label class="">状態</label>
-                    <label class="input ">
-                        <select id="itemCondition" name="itemCondition">
-                            <option value="-1">選択して下さい</option>
-                            <option value="1000">New</option>
-                            <option value="3000">Used</option>
-                        </select>
-                    </label>
-                </section>
-                <!-- End condition part -->
+                            <!-- The condition part -->
+                            <section class="col-xs-10 col-md-10">
+                                <label class="">状態</label>
+                                <label class="input ">
+                                    <select id="itemCondition" name="itemCondition">
+                                        <option value="-1">選択して下さい</option>
+                                        <option value="1000">New</option>
+                                        <option value="3000">Used</option>
+                                    </select>
+                                </label>
+                            </section>
+                            <!-- End condition part -->
 
-                <!-- The UPC part -->
-                <section class="col-xs-10 col-md-10">
-                    <label class="">UPC（JANコードなど）</label>
-                    <!--                            <label class="input ">  -->
-                    <!--                                <select id="upc" name="upc"> -->
-                    <!--                                    <option value="-1">選択して下さい</option> -->
-                    <!--                                    <option value="1000">New</option> -->
-                    <!--                                    <option value="3000">Used</option> -->
-                    <!--                                </select> -->
-                    <!--                            </label>  -->
-                </section>
-                <!-- End UPC part -->
+                            <!-- The UPC part -->
+                            <section class="col-xs-10 col-md-10">
+                                <label class="">UPC（JANコードなど）</label>
+                                <!--                            <label class="input ">  -->
+                                <!--                                <select id="upc" name="upc"> -->
+                                <!--                                    <option value="-1">選択して下さい</option> -->
+                                <!--                                    <option value="1000">New</option> -->
+                                <!--                                    <option value="3000">Used</option> -->
+                                <!--                                </select> -->
+                                <!--                            </label>  -->
+                            </section>
+                            <!-- End UPC part -->
 
-                <!-- The Item Specifics part -->
-                <section class="col-xs-10 col-md-10">
-                    <label class="">Item Specifics</label>
-                    <section class="input" id="panel_item_specifics">
+                            <!-- The Item Specifics part -->
+                            <section class="col-xs-10 col-md-10">
+                                <label class="">Item Specifics</label>
+                                <section class="input" id="panel_item_specifics">
+
+                                </section>
+                            </section>
+
+                            <!-- The Ebay Store part -->
+                            <section class="col-xs-10 col-md-10">
+                                <label class="">eBay Store カテゴリー</label>
+                                <label class="input col-xs-6 col-md-4">
+                                    <select class="form-control" style="width: 95%" id="itemCondition" name="itemCondition">
+                                        <option value="-1">選択して下さい</option>
+                                    </select>
+                                </label>
+                                <label class="input col-xs-6 col-md-4">
+                                    <select class="form-control" style="width: 95%" id="itemCondition" name="itemCondition">
+                                        <option value="-1">選択して下さい</option>
+                                    </select>
+                                </label>
+                            </section>
+                            <!-- End Ebay part -->
+
+                            <!-- The image URL  part -->
+                            <section class="col-xs-10 col-md-10">
+                                <label class="">タイトル用画像URL </label>
+                                <textarea id="imageUrl" style="width: 100%" rows="5"></textarea>
+                            </section>
+                            <!-- End image URL  part -->
+
+                            <!-- The Product image URL for product description  part -->
+                            <section class="col-xs-10 col-md-10">
+                                <label class="">商品説明用画像URL </label>
+                                <textarea id="imageDescription" style="width: 100%" rows="5"></textarea>
+                            </section>
+                            <!-- End Product image URL for product description  part -->
+
+                            <!-- The YouTube URL   part -->
+                            <section class="col-xs-10 col-md-10">
+                                <label class="">YouTube URL </label>
+                                <textarea id="youtubeUrl" style="width: 100%" rows="5"></textarea>
+                            </section>
+                            <!-- End YouTube URL -->
+
+                            <!-- The listing type   part -->
+                            <form name="radioForm" class="col-xs-10 col-md-10 fix-margin-left">
+                                <label class="col-xs-6 col-md-3">
+                                    <input type="radio" name="rad_listing_type" value="CHINESE">
+                                    オークション
+                                </label>
+                                <label class="col-xs-6 col-md-3">
+                                    <input type="radio" name="rad_listing_type" value="FIXED_PRICE_ITEM" checked="">
+                                    即決
+                                </label>
+                            </form>
+
+                            <!-- End listing type URL -->
+
+                            <!-- The start price part -->
+
+                            <section class="col-xs-10 col-md-10 fix-margin-left">
+                                <label class="">開始価格</label>
+                                <br>
+                                <input type="text" class="form-control" id="txt_start_price"
+                                       style="width:250px; display:inline-block;">
+                            </section>
+                            <!-- End start price part -->
+
+                            <!-- The buy it now part -->
+                            <section id="panel_chinese" class="col-xs-10 col-md-10 fix-margin-left">
+                                <label>Buy It Now 価格</label>
+                                <br>
+                                <input type="text" class="form-control" id="txt_buyitnow_priceA"
+                                       style="width:250px; display:inline-block;">
+                                <br>
+                                <!-- End buy it now part -->
+
+                                <!-- The listing duration part -->
+                                <label class="label fix-margin-left">出品日数</label>
+                                <select class="form-control fix-margin-left" id="sel_listing_durationA" style="width:250px; margin-left: 0px;">
+                                    <option value="Days_1">1日</option>
+                                    <option value="Days_3">3日</option>
+                                    <option value="Days_5">5日</option>
+                                    <option value="Days_7">7日</option>
+                                    <option value="Days_10">10日</option>
+                                </select>
+                                <!-- End listing duration part -->
+
+                                <!-- The chk schedule datetime part -->
+                                <label class="">
+                                    <input type="checkbox" id="chk_schedule_datetime">
+                                    出品日時指定
+                                </label>
+                            </section>
+
+                            <!-- The chk schedule datetime part - right radio  -->
+                            <section id="panel_fixedPrice" class="col-xs-10 col-md-10 fix-margin-left">
+                                <label>Buy It Now 価格</label>
+                                <input type="text" class="form-control" id="txt_buyitnow_priceB" style="width:250px;">
+                                <br>
+                                <label>
+                                    <input type="checkbox" id="chk_best_offer">
+                                    Best Offer 価格
+                                </label>
+                                <br>
+                                <input type="text" class="form-control" id="txt_best_offer_accept_price"
+                                       style="width:250px; display:inline-block;">
+                                これ以上の額は自動的に受け付ける
+                                <br>
+                                <input type="text" class="form-control" id="txt_best_offer_minimum_price"
+                                       style="width:250px; display:inline-block;">
+                                これ以下の額は自動的に拒否する
+                                <br>
+                                <br>
+                                <div><label>出品数</label></div>
+                                <select class="form-control" id="sel_quantity" style="width:250px; display:inline-block;">
+                                    <option value="1" selected="">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                <br>
+                                <div><label>出品日数</label></div>
+                                <select class="form-control" id="sel_listing_durationB" style="width:250px; display:inline-block;">
+                                    <option value="Days_5">5日</option>
+                                    <option value="Days_7">7日</option>
+                                    <option value="Days_10" selected="">10日</option>
+                                    <option value="Days_30">30日</option>
+                                    <option value="GTC">売れるまで</option>
+                                </select>
+                                <br>
+                            </section>
+                            <!-- The chk chk_shipping_free part -->
+                            <section class="col-xs-10 col-md-10 fix-margin-left">
+                                <label>
+                                    <input type="checkbox" id="chk_shipping_free">
+                                    送料無料
+                                </label>
+                            </section>
+
+                            <section class="col-xs-10 col-md-10 fix-margin-left" style="margin-bottom: 10px;">
+                                <button type="button" onclick='toggleTableCost()' class="btn btn-success" id="btnShowShippingCost">送料表示</button>
+                                <button type="button" class="btn btn-success" id="btnEditShippingCost">送料編集する</button>
+                            </section>
+                            <section id='vTableShipping'>
+                                <section class="col col-lg-10 col-xs-10 col-md-10 fix-margin-left">
+                                    <label id="lbShippingCost" class="">Shipping Cost</label>
+                                    <table
+                                            id="tbShippingCost"
+                                            class="table table-bordered table-striped responsive-utilities">
+                                        <thead>
+                                        <tr>
+                                            <th  class="center" width="20%">Shipping
+                                                Method
+                                                <span class="glyphicon sort-icon"  ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                            <th class="center"  width="20%">Asia
+                                                <span class="glyphicon sort-icon"  ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                            <th  class="center" width="20%">North America
+                                                Central America
+                                                Middle East
+                                                AU, NZ
+                                                <span class="glyphicon sort-icon" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                            <th  class="center" width="20%">Europe
+                                                Russia
+                                                <span class="glyphicon sort-icon" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                            <th  class="center" width="20%">South America
+                                                Africa
+                                                <span class="glyphicon sort-icon" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="tbShippingCostBody">
+
+                                        </tbody>
+                                    </table>
+                                </section>
+                                <section class="col col-lg-10 col-xs-10 col-md-10 fix-margin-left">
+                                    <label id="lbShippingDuration" class="">Shipping Duration</label>
+                                    <table
+                                            id="tbShippingDuration"
+                                            class="table table-bordered table-striped responsive-utilities">
+                                        <thead>
+                                        <tr>
+                                            <th  class="center" width="20%">Shipping
+                                                Method
+                                                <span class="glyphicon sort-icon"  ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                            <th class="center"  width="20%">Asia
+                                                <span class="glyphicon sort-icon"  ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                            <th  class="center" width="20%">North America
+                                                Central America
+                                                Middle East
+                                                AU, NZ
+                                            </th>
+                                            <th  class="center" width="20%">Europe
+                                                Russia
+                                                <span class="glyphicon sort-icon" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                            <th  class="center" width="20%">South America
+                                                Africa
+                                                <span class="glyphicon sort-icon" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="tbShippingDurationBody">
+
+                                        </tbody>
+                                    </table>
+                                </section>
+
+                            </section>
+                            <!-- The txt_sku part -->
+                            <section class="col-xs-10 col-md-10 fix-margin-left">
+                                <label class="">SKU</label>
+                                <input type="text" class="form-control" id="txt_sku">
+                            </section>
+
+                            <section class="col-xs-10 col-md-10 fix-margin-left">
+                                <label>
+                                    <input type="checkbox" id="chk_private_listing">
+                                    Private Listing
+                                </label>
+                            </section>
+
+                            <!-- The txt_sku part -->
+                            <section class="col-xs-10 col-md-10 fix-margin-left">
+                                <label class="">在庫URL</label>
+                                <input type="text" class="form-control" id="txt_stockurl" maxlength="80">
+                            </section>
+
+                            <!-- The footer part -->
+                            <footer class="col-xs-10 col-md-10 fix-margin-left" style="margin-bottom: 10px;">
+                                <button type="submit" class="btn btn-success" id="btnAddEbayItem">出品する</button>
+                                <button type="button" class="btn btn-success" id="btnPreview">プレビューの確認</button>
+                            </footer>
+                        </form>
+                        <!-- end row -->
+
+                        <!-- row -->
+
+
+                        <!-- end row -->
 
                     </section>
-                </section>
-
-                <!-- The Ebay Store part -->
-                <section class="col-xs-10 col-md-10">
-                    <label class="">eBay Store カテゴリー</label>
-                    <label class="input col-xs-6 col-md-4">
-                        <select class="form-control" style="width: 95%" id="itemCondition" name="itemCondition">
-                            <option value="-1">選択して下さい</option>
-                        </select>
-                    </label>
-                    <label class="input col-xs-6 col-md-4">
-                        <select class="form-control" style="width: 95%" id="itemCondition" name="itemCondition">
-                            <option value="-1">選択して下さい</option>
-                        </select>
-                    </label>
-                </section>
-                <!-- End Ebay part -->
-
-                <!-- The image URL  part -->
-                <section class="col-xs-10 col-md-10">
-                    <label class="">タイトル用画像URL </label>
-                    <textarea id="imageUrl" style="width: 100%" rows="5"></textarea>
-                </section>
-                <!-- End image URL  part -->
-
-                <!-- The Product image URL for product description  part -->
-                <section class="col-xs-10 col-md-10">
-                    <label class="">商品説明用画像URL </label>
-                    <textarea id="imageDescription" style="width: 100%" rows="5"></textarea>
-                </section>
-                <!-- End Product image URL for product description  part -->
-
-                <!-- The YouTube URL   part -->
-                <section class="col-xs-10 col-md-10">
-                    <label class="">YouTube URL </label>
-                    <textarea id="youtubeUrl" style="width: 100%" rows="5"></textarea>
-                </section>
-                <!-- End YouTube URL -->
-
-                <!-- The listing type   part -->
-                <form name="radioForm" class="col-xs-10 col-md-10 fix-margin-left">
-                    <label class="col-xs-6 col-md-3">
-                        <input type="radio" name="rad_listing_type" value="CHINESE">
-                        オークション
-                    </label>
-                    <label class="col-xs-6 col-md-3">
-                        <input type="radio" name="rad_listing_type" value="FIXED_PRICE_ITEM" checked="">
-                        即決
-                    </label>
-                </form>
-
-                <!-- End listing type URL -->
-
-                <!-- The start price part -->
-
-                <section class="col-xs-10 col-md-10 fix-margin-left">
-                    <label class="">開始価格</label>
-                    <br>
-                    <input type="text" class="form-control" id="txt_start_price"
-                           style="width:250px; display:inline-block;">
-                </section>
-                <!-- End start price part -->
-
-                <!-- The buy it now part -->
-                <section id="panel_chinese" class="col-xs-10 col-md-10 fix-margin-left">
-                    <label>Buy It Now 価格</label>
-                    <br>
-                    <input type="text" class="form-control" id="txt_buyitnow_priceA"
-                           style="width:250px; display:inline-block;">
-                    <br>
-                    <!-- End buy it now part -->
-
-                    <!-- The listing duration part -->
-                    <label class="label fix-margin-left">出品日数</label>
-                    <select class="form-control fix-margin-left" id="sel_listing_durationA" style="width:250px;">
-                        <option value="Days_1">1日</option>
-                        <option value="Days_3">3日</option>
-                        <option value="Days_5">5日</option>
-                        <option value="Days_7">7日</option>
-                        <option value="Days_10">10日</option>
-                    </select>
-                    <!-- End listing duration part -->
-
-                    <!-- The chk schedule datetime part -->
-                    <label class="fix-margin-left">
-                        <input type="checkbox" id="chk_schedule_datetime">
-                        出品日時指定
-                    </label>
-                </section>
-
-                <!-- The chk schedule datetime part - right radio  -->
-                <section id="panel_fixedPrice" class="col-xs-10 col-md-10 fix-margin-left">
-                    <label>Buy It Now 価格</label>
-                    <input type="text" class="form-control" id="txt_buyitnow_priceB" style="width:250px;">
-                    <br>
-                    <label>
-                        <input type="checkbox" id="chk_best_offer">
-                        Best Offer 価格
-                    </label>
-                    <br>
-                    <input type="text" class="form-control" id="txt_best_offer_accept_price"
-                           style="width:250px; display:inline-block;">
-                    これ以上の額は自動的に受け付ける
-                    <br>
-                    <input type="text" class="form-control" id="txt_best_offer_minimum_price"
-                           style="width:250px; display:inline-block;">
-                    これ以下の額は自動的に拒否する
-                    <br>
-                    <br>
-                    <div><label>出品数</label></div>
-                    <select class="form-control" id="sel_quantity" style="width:250px; display:inline-block;">
-                        <option value="1" selected="">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                    </select>
-                    <br>
-                    <div><label>出品日数</label></div>
-                    <select class="form-control" id="sel_listing_durationB" style="width:250px; display:inline-block;">
-                        <option value="Days_5">5日</option>
-                        <option value="Days_7">7日</option>
-                        <option value="Days_10" selected="">10日</option>
-                        <option value="Days_30">30日</option>
-                        <option value="GTC">売れるまで</option>
-                    </select>
-                    <br>
-                </section>
-                <!-- The chk chk_shipping_free part -->
-                <section class="col-xs-10 col-md-10 fix-margin-left">
-                    <label>
-                        <input type="checkbox" id="chk_shipping_free">
-                        送料無料
-                    </label>
-                </section>
-
-                <!-- The txt_sku part -->
-                <section class="col-xs-10 col-md-10 fix-margin-left">
-                    <label class="">SKU</label>
-                    <input type="text" class="form-control" id="txt_sku">
-                </section>
-
-                <section class="col-xs-10 col-md-10 fix-margin-left">
-                    <label>
-                        <input type="checkbox" id="chk_private_listing">
-                        Private Listing
-                    </label>
-                </section>
-
-                <!-- The txt_sku part -->
-                <section class="col-xs-10 col-md-10 fix-margin-left">
-                    <label class="">在庫URL</label>
-                    <input type="text" class="form-control" id="txt_stockurl" maxlength="80">
-                </section>
-
-                <!-- The footer part -->
-                <footer class="col-xs-10 col-md-10 fix-margin-left" style="margin-bottom: 10px;">
-                    <button type="submit" class="btn btn-primary" id="btnAddEbayItem">出品する</button>
-                    <button type="button" class="btn btn-default" id="btnPreview">プレビューの確認</button>
-                </footer>
-            </form>
-            <!-- end row -->
-
-            <!-- row -->
-
-
-            <!-- end row -->
-
-        </section>
-                    </div>
                 </div>
             </div>
-    
-        
-            </div>
         </div>
+
+
     </div>
-    <!-- END MAIN CONTENT -->
+</div>
+</div>
+<!-- END MAIN CONTENT -->
 
 </div>
 <!-- Modal -->
@@ -551,7 +632,7 @@
         }
 
         function toggleDiv(idOrClass) {
-            $(idOrClass).css("display") == 'none' ? $(idOrClass).fadeIn(200) : $(idOrClass).fadeOut(100);
+            $(idOrClass).css("display") == 'none' ? $(idOrClass).fadeIn() : $(idOrClass).fadeOut();
         }
 
         $('.required-icon').tooltip({
@@ -1446,23 +1527,57 @@
             $('#category_name').prop("disabled", false);
             $('#btnCancel').prop('disabled', false);
         })
-        });
+    });
+
+
+    function renderTable (data) {
+        var testdata = {
+            method: 'test method',
+            asia: 'test asia',
+            northAf: 'test north',
+            eu: 'test eu',
+            southAf: 'test South'
+        }
+        var str ='<tr>'+
+            '<td  class="center" width="20%">'+testdata.method+
+            '</td>'+
+            '<td class="center"  width="20%">'+testdata.asia+
+            '</td>'+
+            '<td  class="center" width="20%">'+testdata.northAf+
+            '</td>'+
+            '<td  class="center" width="20%">'+testdata.eu+
+            '</td>'+
+            '<td  class="center" width="20%">'+testdata.southAf+
+            '</td>'+'</tr>';
+        console.log(str)
+        $('#tbShippingDurationBody').append($(str));
+        $('#tbShippingCostBody').append($(str));
+
+    }
+
+    function toggleTableCost () {
+        renderTable();
+        $('#tbShippingCost').css("display") == 'none' ? $('#tbShippingCost').slideDown() : $('#tbShippingCost').slideUp() ;
+        $('#tbShippingDuration').css("display") == 'none' ? $('#tbShippingDuration').slideDown() : $('#tbShippingDuration').slideUp() ;
+        $('#lbShippingCost').css("display") == 'none' ? $('#lbShippingCost').slideDown() : $('#lbShippingCost').slideUp() ;
+        $('#lbShippingDuration').css("display") == 'none' ? $('#lbShippingDuration').slideDown() : $('#lbShippingDuration').slideUp() ;
+    }
 
 </script>
 <!-- Your GOOGLE ANALYTICS CODE Below -->
 <%--<script type="text/javascript">--%>
-    <%--var _gaq = _gaq || [];--%>
-    <%--_gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);--%>
-    <%--_gaq.push(['_trackPageview']);--%>
+<%--var _gaq = _gaq || [];--%>
+<%--_gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);--%>
+<%--_gaq.push(['_trackPageview']);--%>
 
-    <%--(function() {--%>
-        <%--var ga = document.createElement('script');--%>
-        <%--ga.type = 'text/javascript';--%>
-        <%--ga.async = true;--%>
-        <%--ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';--%>
-        <%--var s = document.getElementsByTagName('script')[0];--%>
-        <%--s.parentNode.insertBefore(ga, s);--%>
-    <%--})();--%>
+<%--(function() {--%>
+<%--var ga = document.createElement('script');--%>
+<%--ga.type = 'text/javascript';--%>
+<%--ga.async = true;--%>
+<%--ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';--%>
+<%--var s = document.getElementsByTagName('script')[0];--%>
+<%--s.parentNode.insertBefore(ga, s);--%>
+<%--})();--%>
 
 <%--</script>--%>
 

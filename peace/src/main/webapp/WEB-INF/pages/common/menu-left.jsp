@@ -87,11 +87,9 @@
 					<li>
 						<a href="#"> <span class="menu-item-parent">eBay設定</span></a>
 						<ul>
-							<!--  
-								<li >
-									<a href="ListTemplate">Listing template</a>
-								</li>
-							-->
+							<li >
+								<a href="${contextPath}/SetEbayLocation">出品ロケーション</a>
+							</li>
 							<li >
 								<a href="${contextPath}/CustomTemplate">カスタム出品テンプレート</a>
 							</li>

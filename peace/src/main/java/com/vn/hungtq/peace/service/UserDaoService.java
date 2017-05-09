@@ -20,4 +20,6 @@ public interface UserDaoService {
 	boolean isPasswordCorrect(int userId ,String rawPassword);
 	
 	void updateUser(User user);
+
+	void updateLocation(User user);
 }

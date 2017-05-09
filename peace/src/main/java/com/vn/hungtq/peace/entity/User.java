@@ -38,6 +38,7 @@ public class User implements java.io.Serializable {
 	private String firstName;
 	private String lastName;
 	private Date createDate;
+	private String location;
 
 	public User() {
 	}
@@ -159,5 +160,14 @@ public class User implements java.io.Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	@Column(name = "ebay_location", nullable = true)
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 }

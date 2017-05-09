@@ -134,7 +134,7 @@
 											<fieldset>
 												<section class="row"> 
 													<div class="note col col-lg-10">
-														<a href="<c:url value='/DownloadTemplate'/>" download>
+														<a href='${contextPath}/DownloadTemplate' download>
 															<i class="fa fa-hand-o-right" aria-hidden="true"></i>
 															<span>サンプルテンプレートダウンロード</span>
 														</a>

@@ -47,16 +47,24 @@
 			<!-- END RIBBON -->
 
 			<!-- MAIN CONTENT -->
-			<div id="content">
-				
-				<!-- widget grid -->
-				<section id="widget-grid" class="" ng-controller="listSellController">
-					<div class="container">
-						<div class="row">
-							<h1>Item list: under exhibition </h1>
-						</div> 
-						<div class="row"> 
-							<label>
+
+    <div class="col-lg-12" style=" display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px; padding-bottom: 100px;
+" >
+            <div class="row" style="width: 100%;">
+                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
+                     data-widget-editbutton="false">
+                    <header>
+												<h2>Item list: under exhibition </h2>
+                    </header>
+                    <div>
+                        <div class="jarviswidget-editbox"></div>
+                        <section id="widget-grid" class="" ng-controller="listSellController">
+						
+						<div class="row" style="width: 100%;"> 
+							<label style="padding-left: 13px;">
 								<span>Lastest</span>
 								<input type="number" id="number-of-item" value="0" style="width: 600px;" class="input-sm"/> 
 							</label> 
@@ -133,12 +141,17 @@
 						    </dir-pagination-controls>
 						    -->
 				        </div>
-			         </div> 	
-					</div>					
+			         </div>			
 				</section>
-				<!-- end widget grid -->
+                    </div>
+                </div>
+            </div>
+	
+        
+            </div>
+        </div>
+    </div>
 
-			</div>
 			<!-- END MAIN CONTENT -->
 
 		</div>
@@ -706,31 +719,31 @@
 		<script type="text/javascript">
             $(function(){
                 function loadListSell() {
-                    $.get("GetListProduct/1",function (data,status) {
-                        if(data.status==="FAILED"){
-                            alert(data.cause)
-                            window.location.href ="SetEbayLogin";
-                        }else{
-                            var  listSell = data.extraData;
-                            var targetTag = $("#table-sell").find("tbody");
-                            for(var sell in listSell){
-                                //TODO code here
-                                var appendTag  = "<tr><td><label class='checkbox'><input value='1' type='checkbox'><i></i></label></td>"+
-                                    "<td>"+sell.title+"</td>"+
-                                    "<td>"+sell.endTime+"</td>"+
-                                    "<td>"+sell.listPrice+"</td>"+
-                                    "<td>"+sell.currency+"</td>"+
-                                    "<td>"+sell.purchaser+"</td>"+
-                                    "<td>"+sell.edit+"</td>"+
-                                    "<td>"+sell.end+"</td>"+
-                                    "<td>"+
-                                    "<button class='btn btn-default'> Edit </button>"+
-                                    "</td>"+
-                                    "</tr>";
-                                targetTag.append($(appendTag));
-                            }
-                        }
-                    });
+                    // $.get("GetListProduct/1",function (data,status) {
+                    //     if(data.status==="FAILED"){
+                    //         alert(data.cause)
+                    //         // window.location.href ="SetEbayLogin";
+                    //     }else{
+                    //         var  listSell = data.extraData;
+                    //         var targetTag = $("#table-sell").find("tbody");
+                    //         for(var sell in listSell){
+                    //             //TODO code here
+                    //             var appendTag  = "<tr><td><label class='checkbox'><input value='1' type='checkbox'><i></i></label></td>"+
+                    //                 "<td>"+sell.title+"</td>"+
+                    //                 "<td>"+sell.endTime+"</td>"+
+                    //                 "<td>"+sell.listPrice+"</td>"+
+                    //                 "<td>"+sell.currency+"</td>"+
+                    //                 "<td>"+sell.purchaser+"</td>"+
+                    //                 "<td>"+sell.edit+"</td>"+
+                    //                 "<td>"+sell.end+"</td>"+
+                    //                 "<td>"+
+                    //                 "<button class='btn btn-default'> Edit </button>"+
+                    //                 "</td>"+
+                    //                 "</tr>";
+                    //             targetTag.append($(appendTag));
+                    //         }
+                    //     }
+                    // });
                 }
 
                 $("#btn-download-lastest").on("click",function(evt){
@@ -803,21 +816,21 @@
 		</script>
 		 -->
 		<!-- Your GOOGLE ANALYTICS CODE Below -->
-		<script type="text/javascript">
-			var _gaq = _gaq || [];
-			_gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
-			_gaq.push(['_trackPageview']);
+		<%--<script type="text/javascript">--%>
+			<%--var _gaq = _gaq || [];--%>
+			<%--_gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);--%>
+			<%--_gaq.push(['_trackPageview']);--%>
 
-			(function() {
-				var ga = document.createElement('script');
-				ga.type = 'text/javascript';
-				ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-				var s = document.getElementsByTagName('script')[0];
-				s.parentNode.insertBefore(ga, s);
-			})();
+			<%--(function() {--%>
+				<%--var ga = document.createElement('script');--%>
+				<%--ga.type = 'text/javascript';--%>
+				<%--ga.async = true;--%>
+				<%--ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';--%>
+				<%--var s = document.getElementsByTagName('script')[0];--%>
+				<%--s.parentNode.insertBefore(ga, s);--%>
+			<%--})();--%>
 
-		</script>
+		<%--</script>--%>
 
 	</body>
 

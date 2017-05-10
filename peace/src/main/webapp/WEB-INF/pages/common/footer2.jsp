@@ -52,3 +52,5 @@
 		<!-- Full Calendar -->
 		<script src="${pageContext.request.contextPath}/resources/js/plugin/moment/moment.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/js/plugin/fullcalendar/jquery.fullcalendar.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/searchautocomplete/jquery.city-autocomplete.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/searchautocomplete/jquery.city-autocomplete.min.js"></script>

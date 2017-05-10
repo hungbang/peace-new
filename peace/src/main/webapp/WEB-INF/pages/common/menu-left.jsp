@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <aside id="left-panel">
-
+	<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 			<!-- User info -->
 			<div class="login-info">
 				<span class="dropdown"> <!-- User image size is adjusted inside CSS, it should stay as it --> 
@@ -17,11 +19,11 @@
 					</a> 
 					<ul class="dropdown-menu" role="menu">
 						<li>
-							<a href="SetAccount" title="Account"><i class="fa fa-fw fa-user"></i> My Account</a>
+							<a href="${contextPath}/SetAccount" title="Account"><i class="fa fa-fw fa-user"></i> My Account</a>
 						</li>
 						<li class="divider"></li>
 						<li>
-							<a href="login.html" title="Logout" data-action="userLogout" data-logout-msg="Test"><i class="fa fa-fw fa-sign-out"></i>ログアウト</a>
+							<a href="/logout" title="Logout" data-action="userLogout" data-logout-msg="Test"><i class="fa fa-fw fa-sign-out"></i>ログアウト</a>
 						</li>
 					</ul>
 				</span>
@@ -38,16 +40,16 @@
 
 				<ul>
 					<li class="active">
-						<a href="#" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">ホーム</span></a>
+						<a href="${contextPath}/" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">ホーム</span></a>
 					</li>
 					<li class="top-menu-invisible">
 						<a href="#"> <span class="menu-item-parent">eBay出品</span></a>
 						<ul>
 							<li class="">
-								<a href="Sell" title=""><i class=""></i> <span class="menu-item-parent">商品出品</span></a>
+								<a href='${contextPath}/Sell' title=""><i class=""></i> <span class="menu-item-parent">商品出品</span></a>
 							</li>
 							<li class="">
-								<a href="SellDetail" title=""><i class=""></i> <span class="menu-item-parent">eBay出品用</span></a>
+								<a href='${contextPath}/SellDetail' title=""><i class=""></i> <span class="menu-item-parent">eBay出品用</span></a>
 							</li>
 <!-- 							<li > -->
 <!-- 								<a href="#"><i class=""></i>カテゴリー検索</a> -->
@@ -58,16 +60,16 @@
 						<a href="#"> <span class="menu-item-parent">eBay商品一覧</span></a>
 						<ul>
 							<li class="">
-								<a href="ListSell" title=""> <span class="menu-item-parent">出品中</span></a>
+								<a href="${contextPath}/ListSell" title=""> <span class="menu-item-parent">出品中</span></a>
 							</li>
 							<li class="">
-								<a href="ListUnsold" title=""><span class="menu-item-parent">出品終了</span></a>
+								<a href="${contextPath}/ListUnsold" title=""><span class="menu-item-parent">出品終了</span></a>
 							</li>
 							<li>
-								<a href="ListSold">販売済み</a>
+								<a href="${contextPath}/ListSold">販売済み</a>
 							</li>
 							<li>
-								<a href="ListError">エラー</a>
+								<a href="${contextPath}/ListError">エラー</a>
 							</li>
 						</ul>
 					</li>
@@ -75,41 +77,39 @@
 						<a href="#"> <span class="menu-item-parent">リサーチ</span></a>
 						<ul>
 							<li class="" >
-								<a href="ListResearchAll"> <span class="menu-item-parent">まとめてリサーチ</span></a>
+								<a href="${contextPath}/ListResearchAll"> <span class="menu-item-parent">キーワード</span></a>
 							</li>
 							<li class="" >
-								<a href="AmazonSearch"> <span class="menu-item-parent">amazon.co.jp</span></a>
+								<a href="${contextPath}/AmazonSearch"> <span class="menu-item-parent">ASIN</span></a>
 							</li>
 						</ul>
 					</li>
 					<li>
 						<a href="#"> <span class="menu-item-parent">eBay設定</span></a>
 						<ul>
-							<!--  
-								<li >
-									<a href="ListTemplate">Listing template</a>
-								</li>
-							-->
 							<li >
-								<a href="CustomTemplate">カスタム出品テンプレート</a>
+								<a href="${contextPath}/SetEbayLocation">出品ロケーション</a>
+							</li>
+							<li >
+								<a href="${contextPath}/CustomTemplate">カスタム出品テンプレート</a>
 							</li>
 							<li>
-								<a href="SetItemInfo">商品説明情報</a>
+								<a href="${contextPath}/SetItemInfo">商品説明情報</a>
 							</li>
 							<li>
-								<a href="SetShip">発送方法</a>
+								<a href="${contextPath}/SetShip">発送方法</a>
 							</li>
 							<li>
-								<a href="TransportSetting">送料編集</a>
+								<a href="${contextPath}/TransportSetting">送料編集</a>
 							</li>
 							<li>
-								<a href="NotShippingCountrySetting">発送しない国</a>
+								<a href="${contextPath}/NotShippingCountrySetting">発送しない国</a>
 							</li>
 							<li>
-								<a href="SetBuyer">Buyer Requirement</a>
+								<a href="${contextPath}/SetBuyer">Buyer Requirement</a>
 							</li>
 							<li>
-								<a href="SetEbayLogin">eBayログイン</a>
+								<a href="${contextPath}/SetEbayLogin">eBayログイン</a>
 							</li>
 						</ul>
 					</li>
@@ -117,21 +117,21 @@
 						<a href="#"> <span class="menu-item-parent">在庫チェック</span></a>
 						<ul>
 							<li>
-								<a href="StockRegistor">新規登録</a>
+								<a href="${contextPath}/StockRegistor">新規登録</a>
 							</li>
 							<li>
-								<a href="StockList">在庫一覧</a>
+								<a href="${contextPath}/StockList">在庫一覧</a>
 							</li>
 						</ul>
 					</li>
 					<li>
-						<a href="SetAccount"> <span class="menu-item-parent">アカウント</span></a>						
+						<a href="${contextPath}/SetAccount"> <span class="menu-item-parent">アカウント</span></a>
 					</li>	
 					<li>
-						<a href="Manual"><span class="menu-item-parent">マニュアル</span></a>
+						<a href="${contextPath}/Manual"><span class="menu-item-parent">マニュアル</span></a>
 					</li>
 					<li>
-						<a href="ContactUs"> <span class="menu-item-parent">お問い合わせ</span></a>
+						<a href="${contextPath}/ContactUs"> <span class="menu-item-parent">お問い合わせ</span></a>
 					</li>
 				</ul>
 			</nav>

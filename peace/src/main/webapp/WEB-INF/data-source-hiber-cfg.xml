@@ -8,7 +8,8 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations"> 
 			<list>
-				<value>classpath:database.properties</value> 
+				<value>classpath:database-${spring.profiles.active}.properties</value>
+				<value>classpath:message-${spring.profiles.active}.properties</value>
 				<value>classpath:gmail_configuration.properties</value>  
 				<value>classpath:contact_email_configuration.properties</value>  
 				<value>classpath:amazonservice_configuration.properties</value>  
@@ -28,6 +29,7 @@
 	<bean id="yahooServiceInfo" class="com.vn.hungtq.peace.common.YahooServiceInfo">
 		<property name="appid" value="${yahoo.appid}"/>
 		<property name="serviceUrl" value="${yahoo.service.url}"/>
+		<property name="serviceAuctionUrl" value="${yahoo.auction.service.url}"/>
 	</bean>
 	
 	<!-- Rakuten service infomation -->
@@ -105,8 +107,9 @@
 				<value>com.vn.hungtq.peace.entity.AreaSettingInfo</value>
 				<value>com.vn.hungtq.peace.entity.TimeUnitMapping</value>
 				<value>com.vn.hungtq.peace.entity.ItemInfomation</value> 
-				<value>com.vn.hungtq.peace.entity.AccountSetting</value> 
-				<value>com.vn.hungtq.peace.entity.StockRegistorEntity</value> 
+				<value>com.vn.hungtq.peace.entity.AccountSetting</value>
+				<value>com.vn.hungtq.peace.entity.StockRegistorEntity</value>
+				<value>com.vn.hungtq.peace.entity.EbayToken</value>
 			</list>
 		</property>
 

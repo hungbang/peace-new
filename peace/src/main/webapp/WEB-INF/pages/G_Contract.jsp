@@ -8,77 +8,92 @@
 	<jsp:include page="../pages/common/header.jsp"/>
 	<meta name="_csrf" content="${_csrf.token}"/>
  	<meta name="_csrf_header" content="${_csrf.headerName}"/>
-	<body class="fixed-page-footer">  
+	<body class="fixed-page-footer">
 		<jsp:include page="../pages/common/menu-top.jsp"/>
 		<jsp:include page="../pages/common/menu-left.jsp"/>
 	    <style>
-			input, textarea, button { margin-top:10px }
-
-			/* Required field START */
-
-			.required-field-block {
-				position: relative;   
+			.main {
+				clear: both;
+				padding: 15px;
+				font-size: 108%;
 			}
 
-			.required-field-block .required-icon {
-				display: inline-block;
+			table {
+				margin: 0 0 10px;
+				width: 100%;
+				font-size: 108%;
+				table-layout: fixed;
+			}
+
+			table th {
+				width: 25%;
+				padding: 5px 10px;
+				border: 1px solid #ccc;
+				background: #FFFFCC; /* #eee; */
+				text-align: left;
 				vertical-align: middle;
-				margin: -0.25em 0.25em 0em;
-				background-color: #E8E8E8;
-				border-color: #E8E8E8;
-				padding: 0.5em 0.8em;
-				color: rgba(0, 0, 0, 0.65);
-				text-transform: uppercase;
-				font-weight: normal;
-				border-radius: 0.325em;
-				-webkit-box-sizing: border-box;
-				-moz-box-sizing: border-box;
-				-ms-box-sizing: border-box;
-				box-sizing: border-box;
-				-webkit-transition: background 0.1s linear;
-				-moz-transition: background 0.1s linear;
-				transition: background 0.1s linear;
-				font-size: 75%;
-			}
-				
-			.required-field-block .required-icon {
-				background-color: transparent;
-				position: absolute;
-				top: 0em;
-				right: 0em;
-				z-index: 10;
-				margin: 0em;
-				width: 30px;
-				height: 30px;
-				padding: 0em;
-				text-align: center;
-				-webkit-transition: color 0.2s ease;
-				-moz-transition: color 0.2s ease;
-				transition: color 0.2s ease;
 			}
 
-			.required-field-block .required-icon:after {
-				position: absolute;
-				content: "";
-				right: 1px;
-				top: 1px;
-				z-index: -1;
-				width: 0em;
-				height: 0em;
-				border-top: 0em solid transparent;
-				border-right: 30px solid transparent;
-				border-bottom: 30px solid transparent;
-				border-left: 0em solid transparent;
-				border-right-color: inherit;
-				-webkit-transition: border-color 0.2s ease;
-				-moz-transition: border-color 0.2s ease;
-				transition: border-color 0.2s ease;
+			table td {
+				padding: 10px;
+				border: 1px solid #ccc;
 			}
 
-			.required-field-block .required-icon .text {
-				color: #B80000;
-				font-size: 26px;
-				margin: -3px 0 0 12px;
+			.inputText {
+				width: 97%;
+				padding: 3px;
+				font-size: 130%;
+			}
+
+			.inputSelect {
+				padding: 3px;
+				font-size: 130%;
+				max-width: 97%;
+			}
+
+			.inputText.inputTextShort {
+				width: 45%;
+			}
+
+			.inputText.inputTextShortest {
+				width: 20%;
+			}
+
+			textarea {
+				width: 70%;
+				height: 150px;
+				padding: 3px;
+			}
+
+			/*.formBtn {*/
+				/*font-size: 140%;*/
+				/*padding: 4px;*/
+				/*padding-left: 8px;*/
+				/*padding-right: 8px;*/
+				/*width: 150px;*/
+				/*-webkit-border-radius: 6px;*/
+				/*-webkit-box-shadow: 0 2px 2px #CCC;*/
+				/*border-radius: 6px;*/
+				/*box-shadow: 0 2px 2px #CCC;*/
+				/*font-weight: bold;*/
+				/*background-color: rgba(88, 88, 88, 0.31);*/
+			/*}*/
+
+			.center-text {
+				text-align: right;
+			}
+
+			.error {
+				color: #FF0000;
+			}
+
+			span.require {
+				color: red;
+				font-weight: bold;
+			}
+
+			.jarviswidget-color-blueDark>header{
+				padding-left: 2.5%;
 			}
 			/* Required field END */
 
@@ -122,53 +137,48 @@
 
 					<!-- widget div-->
 					<div class="row">
-						<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3" style="width:60%; margin-left: 10px"
+						<div class="jarviswidget-color-blueDark" id="wid-id-3" style="width:60%; margin-left: 10px"
 							data-widget-editbutton="false">
 							<header> 
 								<h2><span class="widget-icon"> <i class="fa fa-table"></i></span>  イーストライク問い合わせフォーム</h2>
 							</header>
 							<div>
-								<div class="jarviswidget-editbox"></div>
 								<div class="widget-body ">
-									<form class="smart-form col col-10" ng-model="itemInfomationModel">
+									<form class="col col-10" ng-model="itemInfomationModel">
 									<input type="hidden" id="item_infomation_id" value="{{itemInfomationModel.itemId}}"/>
-									<fieldset>
-										<section class="row" style="margin-bottom: 10px;">
-											<label style="font-size: x-large;" class="label col col-4">お名前</label>
-											<label class="col col-8" style="padding-top: 7px;">									
-												<input type="text" id="contact_name" class="col col-12 input-lg" style="width:100%">
-											</label>
-										</section>
-										<section class="row" style="margin-bottom: 10px;">
-											<label style="font-size: x-large;" class="label col col-4">メールアドレス</label>
-											<label class="col col-8" style="padding-top: 7px;">									
-												<input type="text" id="contact_email" class="col col-12 input-lg" style="width:100%">
-											</label>
-										</section>
-										<section class="row" style="margin-bottom: 10px;">
-											<label style="font-size: x-large;" class="label col col-4">携帯電話</label>
-											<label class="col col-8" style="padding-top: 7px;">									
-												<input type="text" id="contact_tel" class="col col-12 input-lg" style="width:100%">
-											</label>
-										</section>
-										<section class="row" style="margin-bottom: 10px;">
-												<p style="font-size:medium;"  class="label col col-4">出品時のエラーの場合、出品カテゴリー、商品URL、発送方法、送料設定、4点を必ず合わせてご記載ください。</p>
-											<label class="textarea col col-8" style="padding-top: 7px;"> 									
-												<textarea rows="5" name="comment" id="contact_list_url" placeholder=""></textarea> 
-											</label>
-										</section>
-										<section class="row" style="margin-bottom: 2px;">
-											<label style="font-size:medium;" class="label col col-4" style="text-align: -webkit-auto">お問い合わせ内容をできるだけ、詳しくご記載ください。（48時間以内に上記ご記載頂いているメールアドレスにご返事させて頂きます）</label>
-											<label class="textarea col col-8" style="padding-top: 7px;"> 									
-												<textarea rows="5" name="comment" id="contact_describle" placeholder="" ></textarea> 
-											</label>
-										</section>
-									</fieldset>
-									<footer class="">
-										<button type="submit" id="save_contact" class="btn btn-primary">
-											送信
-										</button>
-									</footer>
+										<fieldset>
+											<table class="formTable">
+												<tbody>
+												<tr><th><label for="contact_name">お名前 <span class="require">※</span></label></th>
+													<td>
+														<input type="text" id="contact_name" size="30" value="" class="inputText inputTextShort" />
+													</td></tr>
+												<tr><th><label for="contact_email">メールアドレス <span class="require">※</span></label></th>
+													<td>
+														<input type="text" id="contact_email" size="60" istyle="3" mode="alphabet" value="" class="inputText inputTextLong" />
+													</td></tr>
+												<tr><th><label for="contact_tel">TEL <span class="require">※</span></label></th>
+													<td>
+														<input type="text" id="contact_tel" size="20" value="" class="inputText inputTextShort" />
+													</td></tr>
+												<tr><th><label for="touroku_free1">出品時のエラーの場合、出品カテゴリー、商品URL、発送方法、送料設定、4点を必ず合わせてご記載ください。 </label></th>
+													<td>
+														<textarea name="comment" id="contact_list_url" cols="35" rows="7" class="inputText" /></textarea>
+													</td></tr>
+												<tr><th><label for="touroku_free2">お問い合わせ内容をできるだけ、詳しくご記載ください。（48時間以内に上記ご記載頂いているメールアドレスにご返事させて頂きます） <span class="require">※</span></label></th>
+													<td>
+														<textarea name="comment" id="contact_describle" cols="35" rows="7" class="inputText" /></textarea>
+													</td></tr>
+												</tbody>
+											</table>
+											<p class="center-text">
+												<input type="hidden" name="no" value="300342" />
+												<input type="hidden" name="action" value="kakunin" />
+												<input type="submit" name="submit" value="送信" class="btn btn-primary" id="save_contact" />
+											</p>
+										</fieldset>
+										<%--<footer class="">--%>
+									<%--</footer>--%>
 									</form>
 								</div>
 							</div>

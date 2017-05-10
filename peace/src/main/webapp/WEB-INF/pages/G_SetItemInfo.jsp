@@ -165,11 +165,12 @@
 											</label>
 										</section>
 									</fieldset>
-									<footer class="row">
-										<button type="submit" class="btn btn-primary" ng-cloak id="btnSave" ng-click="saveItemInfomation($event)">
+										<div class="row" style="padding: 25px;">
+											<div class="col-md-10"></div>
+										<button type="submit" class="btn btn-primary col-md-2" ng-cloak id="btnSave" ng-click="saveItemInfomation($event)">
 											Save
 										</button>
-									</footer>
+										</div>
 									</form>
 								</div>
 							</div>
@@ -297,21 +298,21 @@
 		</script>
 
 		<!-- Your GOOGLE ANALYTICS CODE Below -->
-		<script type="text/javascript">
-			var _gaq = _gaq || [];
-				_gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
-				_gaq.push(['_trackPageview']);
-			
-			(function() {
-				var ga = document.createElement('script');
-				ga.type = 'text/javascript';
-				ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-				var s = document.getElementsByTagName('script')[0];
-				s.parentNode.insertBefore(ga, s);
-			})();
+		<%--<script type="text/javascript">--%>
+			<%--var _gaq = _gaq || [];--%>
+				<%--_gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);--%>
+				<%--_gaq.push(['_trackPageview']);--%>
+			<%----%>
+			<%--(function() {--%>
+				<%--var ga = document.createElement('script');--%>
+				<%--ga.type = 'text/javascript';--%>
+				<%--ga.async = true;--%>
+				<%--ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';--%>
+				<%--var s = document.getElementsByTagName('script')[0];--%>
+				<%--s.parentNode.insertBefore(ga, s);--%>
+			<%--})();--%>
 
-		</script>
+		<%--</script>--%>
 
 	</body>
 

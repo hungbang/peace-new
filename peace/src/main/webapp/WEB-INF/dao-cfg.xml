@@ -3,13 +3,16 @@
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation="http://www.springframework.org/schema/beans
  http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
- 
- 
+
+
+    <bean id="ebayTokenDao" class="com.vn.hungtq.peace.dao.impl.EbayTokenDaoImpl">
+        <property name="sessionFactory" ref="mySessionFactory" />
+    </bean>
  
  <bean id="userDaoService" class="com.vn.hungtq.peace.service.impl.UserDaoServiceImpl">
      <property name="sessionFactory" ref="mySessionFactory" />
  </bean>
- 
+
  <bean id="contactDaoService" class="com.vn.hungtq.peace.service.impl.ContactDAOImpl">
      <property name="sessionFactory" ref="mySessionFactory" />
  </bean>

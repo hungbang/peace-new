@@ -38,6 +38,7 @@ public class User implements java.io.Serializable {
 	private String firstName;
 	private String lastName;
 	private Date createDate;
+	private String location;
 
 	public User() {
 	}
@@ -103,9 +104,9 @@ public class User implements java.io.Serializable {
 	private Set<UserRole> userRoles = new HashSet<UserRole>();
 	
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "APP_USER_USER_ROLE", 
-             joinColumns = { @JoinColumn(name = "USER_ID") }, 
-             inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })
+	@JoinTable(name = "app_user_user_role",
+             joinColumns = { @JoinColumn(name = "user_id") },
+             inverseJoinColumns = { @JoinColumn(name = "role_id") })
 	public Set<UserRole> getUserRoles() {
 		return userRoles;
 	}
@@ -159,5 +160,14 @@ public class User implements java.io.Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	@Column(name = "ebay_location", nullable = true)
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 }

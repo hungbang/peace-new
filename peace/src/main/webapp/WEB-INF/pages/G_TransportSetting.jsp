@@ -159,7 +159,7 @@
 													  	<td class="">{{userAreaModel.shippingMethodName}}</td>
 													  	<td class="" ng-repeat="areaTimeUnitMapping in userAreaModel.listOfAreaTimeUnitMapping">
 													  		<section id="area-time-unit-mapping-{{areaTimeUnitMapping.recordId}}">
-																<p><input type="number" class="input" value="areaTimeUnitMapping.timeShipping" ng-model="areaTimeUnitMapping.timeShipping" >円 </p> {{areaTimeUnitMapping.placeHolder}}
+																<p><input type="text" class="input" value="areaTimeUnitMapping.timeShipping" ng-model="areaTimeUnitMapping.timeShipping" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>円 </p> {{areaTimeUnitMapping.placeHolder = changeExchangeRate(areaTimeUnitMapping.timeShipping)}}
 															</section>
 													  	</td>
 													  </tr>
@@ -169,7 +169,7 @@
 												</div>
 										</fieldset>
 										<footer>
-											<button ng-click="saveTransportSetting()" class="btn btn-primary">Save</button>
+											<button ng-click="saveTransportSetting()" class="btn btn-primary" data-ng-disabled="checkTransportType()">Save</button>
 										</footer>
 									</div>
 								</div>
@@ -262,7 +262,8 @@
 		<script type="text/javascript">
 	 		var transportSettingApp = angular.module("transport-setting-app",[]);
 	 		transportSettingApp.controller("transportController",function($scope,$http){
-	 			$scope.transportType ={};
+	 			$scope.transportType = 0;
+                $scope.tableModelData_1 ;
 	 			var token = $("meta[name='_csrf']").attr("content");
 			    var header = $("meta[name='_csrf_header']").attr("content"); 
 				$scope.config = {
@@ -280,6 +281,7 @@
 						 //Extract data from ajax response
 						 var shippingSettingModel = data.extraData; 
 						 var tableModelData = shippingSettingModel.lstAreaSettingDto;
+                         $scope.tableModelData_1 = $.extend(true, {}, tableModelData);
 						 
 						 //Assign for $scope model data
 						 $scope.columnHeaders = ["重量","アジア","オセアニア・北米・中米・中近東","ヨーロッパ","南米・アフリカ"];
@@ -291,34 +293,62 @@
 	 			};
 	 			
 	 			$scope.saveTransportSetting =function(){
-					var dataPost = $scope.areaTableModelData;
+                    var dataPost = $scope.getRecordChange($scope.areaTableModelData, $scope.tableModelData_1);
 					$http.post("SaveUserAreaSetting",JSON.stringify(dataPost),$scope.config)
-						 .success(function(data, status, headers,config) {  
-							  console.log(data);
+						 .success(function(data, status, headers,config) {
+                             alert("Save successfully");
 						 })
 						 .error(function(data, status, headers,config) {
 							  console.log(data);
 						});
 				}
+
+                $scope.changeExchangeRate = function(money) {
+                    var exchange = 1 / 113;
+                    money = Math.round( money * exchange * 10 ) / 10;
+                    return money;
+                }
+
+                $scope.checkTransportType = function() {
+                    if ($scope.transportType === 0) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                }
+
+                $scope.getRecordChange = function (object_1, object_2){
+                    var lstChange=[];
+                    $.each(object_1,function(index, value){
+                        if(object_1[index].listOfAreaTimeUnitMapping[0].timeShipping != object_2[index].listOfAreaTimeUnitMapping[0].timeShipping
+                            ||object_1[index].listOfAreaTimeUnitMapping[1].timeShipping != object_2[index].listOfAreaTimeUnitMapping[1].timeShipping
+                            ||object_1[index].listOfAreaTimeUnitMapping[2].timeShipping != object_2[index].listOfAreaTimeUnitMapping[2].timeShipping
+                            ||object_1[index].listOfAreaTimeUnitMapping[3].timeShipping != object_2[index].listOfAreaTimeUnitMapping[3].timeShipping){
+                            lstChange.push(object_1[index]);
+                        }
+                    });
+                    return lstChange;
+                }
 	 		});
 		</script>
 
 		<!-- Your GOOGLE ANALYTICS CODE Below -->
-		<script type="text/javascript">
-			var _gaq = _gaq || [];
-				_gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
-				_gaq.push(['_trackPageview']);
-			
-			(function() {
-				var ga = document.createElement('script');
-				ga.type = 'text/javascript';
-				ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-				var s = document.getElementsByTagName('script')[0];
-				s.parentNode.insertBefore(ga, s);
-			})();
+		<%--<script type="text/javascript">--%>
+			<%--var _gaq = _gaq || [];--%>
+				<%--_gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);--%>
+				<%--_gaq.push(['_trackPageview']);--%>
+			<%----%>
+			<%--(function() {--%>
+				<%--var ga = document.createElement('script');--%>
+				<%--ga.type = 'text/javascript';--%>
+				<%--ga.async = true;--%>
+				<%--ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';--%>
+				<%--var s = document.getElementsByTagName('script')[0];--%>
+				<%--s.parentNode.insertBefore(ga, s);--%>
+			<%--})();--%>
 
-		</script>
+		<%--</script>--%>
 
 	</body>
 

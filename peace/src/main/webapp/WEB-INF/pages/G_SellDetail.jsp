@@ -176,17 +176,19 @@ label {
 					<div id="myTabContent1" class="tab-content" >
 						
 							<div class="tab-pane fade in active" id="s1">
-								<fieldset>
+								<fieldset style="padding-bottom: 20px;">
 								<section class="col-xs-10 col-md-10"> 
-									<label class="label">商品タイトル（英語）</label> 
+									<label class="">商品タイトル（英語）</label> 
 									 
-										<input type="text" class="input" id="product_title"   maxlength="80" style="width: 100%">
+										<input type="text" class="input" id="product_title"   maxlength="80" style="width: 100%padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 5px;">
 									
 								</section> 
 								
 								<!-- The detail part -->
 								<section class="col-xs-10 col-md-10"> 
-									<label class="label">商品説明（英語）</label>   
+									<label class="">商品説明（英語）</label>   
 									<textarea id="ckEditorForDescription">
 										<c:if test ="${ebayProductAdd !=null}"> 
 		<%-- 									${ebayProductAdd.viewItemUrl} --%>
@@ -195,26 +197,26 @@ label {
 								</section>
 									<!-- The image URL  part -->
 									<section class="col-xs-10 col-md-10"> 
-										<label class="label">タイトル用画像URL </label> 
+										<label class="">タイトル用画像URL </label> 
 										<textarea id="imageUrl" style="width: 100%" rows="5"></textarea> 
 									</section>
 									<!-- End image URL  part -->
 									
 									<!-- The Product image URL for product description  part -->
 									<section class="col-xs-10 col-md-10"> 
-										<label class="label">商品説明用画像URL </label> 
+										<label class="">商品説明用画像URL </label> 
 										<textarea id="imageDescription" style="width: 100%" rows="5"></textarea> 
 									</section>
 									<section class="col-xs-10 col-md-10" style="margin-bottom: 10px"> 
-										<label class="label">商品説明用画像URL </label> 
-										<textarea id="imageDescription" style="width: 100%" rows="5"></textarea> 
+										<label class="">商品説明用画像URL </label> 
+										<textarea id="imageDescription" style="width: 100%" rows="5"></textarea>
 									</section>
 								</fieldset>
 							</div>
 							<div class="tab-pane fade" id="s2">
 								<fieldset>
-									<div class="row">
-										<section class="col col-">
+									<div class="row" style="padding-left: 20px;">
+										<section class="col col-md-12" >
 											<label class="input">
 												<input class="input" style="width: 800px" type="text" id="title"/>
 											</label>
@@ -226,8 +228,8 @@ label {
 											</div>
 										</section>
 									</div>
-									<div class="row" style="margin-bottom: 10px">
-										<section class="col col-">
+									<div class="row" style="margin-bottom: 10px; padding-left: 20px;">
+										<section class="col col-md-12">
 											<label class="input" >
 												<textarea id="description" style="width: 800px" rows="10"></textarea> 
 											</label>
@@ -250,25 +252,26 @@ label {
 			<!-- END MAIN CONTENT -->
 
 		</div>
-		<jsp:include page="../pages/common/footer.jsp"/>
-		<!--================================================== -->	
-		<jsp:include page="../pages/common/footer2.jsp"/> 
-	
+
 		<script src="${pageContext.request.contextPath}/resources/js/third-party/jquery/jquery.js"></script>
-	    <script src="${pageContext.request.contextPath}/resources/js/third-party/jquery/jquery.cookie.js"></script>
-	
-	    <script src="${pageContext.request.contextPath}/resources/js/lib/beautify.js"></script>
-	    <script src="${pageContext.request.contextPath}/resources/js/lib/beautify-css.js"></script>
-	    <script src="${pageContext.request.contextPath}/resources/js/lib/beautify-html.js"></script>
-	    <script src="${pageContext.request.contextPath}/resources/js/lib/unpackers/javascriptobfuscator_unpacker.js"></script>
-	    <script src="${pageContext.request.contextPath}/resources/js/lib/unpackers/urlencode_unpacker.js"></script>
-	    <script src="${pageContext.request.contextPath}/resources/js/lib/unpackers/p_a_c_k_e_r_unpacker.js"></script>
-	    <script src="${pageContext.request.contextPath}/resources/js/lib/unpackers/myobfuscate_unpacker.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/third-party/jquery/jquery.cookie.js"></script>
+
+		<script src="${pageContext.request.contextPath}/resources/js/lib/beautify.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/lib/beautify-css.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/lib/beautify-html.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/lib/unpackers/javascriptobfuscator_unpacker.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/lib/unpackers/urlencode_unpacker.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/lib/unpackers/p_a_c_k_e_r_unpacker.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/lib/unpackers/myobfuscate_unpacker.js"></script>
 		<!-- EMBED CKEDITOR(napt2017) -->
 		<script src="${pageContext.request.contextPath}/resources/js/plugin/ckeditor/ckeditor.js"></script>
+
+		<jsp:include page="../pages/common/footer.jsp"/>
+		<!--================================================== -->
+		<jsp:include page="../pages/common/footer2.jsp"/>
 		<script type="text/javascript">
-			$(function(){  
-				CKEDITOR.replace("ckEditorForDescription"); 
+			$(function(){
+				CKEDITOR.replace("ckEditorForDescription");
 			});
 	        var the = {
 	                use_codemirror: (!window.location.href.match(/without-codemirror/)),
@@ -354,31 +357,31 @@ label {
 
 		            the.beautify_in_progress = false;
 		        }
-				
+
 		        function looks_like_html(source) {
 		            // <foo> - looks like html
 		            var trimmed = source.replace(/^[ \t\n\r]+/, '');
 		            return trimmed && (trimmed.substring(0, 1) === '<');
 		        }
 		</script>
-		
-	
-		<!-- Your GOOGLE ANALYTICS CODE Below -->
-		<script type="text/javascript">
-			var _gaq = _gaq || [];
-				_gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
-				_gaq.push(['_trackPageview']);
-			
-			(function() {
-				var ga = document.createElement('script');
-				ga.type = 'text/javascript';
-				ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-				var s = document.getElementsByTagName('script')[0];
-				s.parentNode.insertBefore(ga, s);
-			})();
 
-		</script>
+
+		<!-- Your GOOGLE ANALYTICS CODE Below -->
+		<%--<script type="text/javascript">--%>
+			<%--var _gaq = _gaq || [];--%>
+				<%--_gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);--%>
+				<%--_gaq.push(['_trackPageview']);--%>
+
+			<%--(function() {--%>
+				<%--var ga = document.createElement('script');--%>
+				<%--ga.type = 'text/javascript';--%>
+				<%--ga.async = true;--%>
+				<%--ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';--%>
+				<%--var s = document.getElementsByTagName('script')[0];--%>
+				<%--s.parentNode.insertBefore(ga, s);--%>
+			<%--})();--%>
+
+		<%--</script>--%>
 		<script type="text/javascript">
 			function loadTemplate() {
 				var title = $("#product_title").val();
@@ -399,7 +402,7 @@ label {
 	            });
 				var token = $("meta[name='_csrf']").attr("content");
 			    var header = $("meta[name='_csrf_header']").attr("content");
-			    
+
 				$.ajax({
 					type : "POST",
 					contentType : "application/json",

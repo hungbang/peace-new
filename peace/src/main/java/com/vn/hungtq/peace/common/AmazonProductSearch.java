@@ -6,24 +6,27 @@ import java.util.Map;
 /**
  * Created by napt2017 on 3/24/2017.
  */
-public final class AmazonProductSearch {
-    private final String name;
-    private final String price;
-    private final String imageUrl;
-    private final String link;
-    private final String sin;
-    private final Map<String,String> productAttribute;
-    private final int index;
+public class AmazonProductSearch {
+    private  String name;
+    private  String price;
+    private  String imageUrl;
+    private  String link;
+    private  String sin;
+    private  Map<String,String> productAttribute;
+    private  int index;
+    private String stock;
 
+
+    public AmazonProductSearch(){}
 
     public AmazonProductSearch(String name, String price,String link ,String imageUrl,String sin,int index) {
-        this.name = name;
-        this.price = price;
-        this.imageUrl = imageUrl;
-        this.link = link;
-        this.sin = sin;
-        this.index = index;
-        this.productAttribute = new HashMap<String, String>();
+        this.setName(name);
+        this.setPrice(price);
+        this.setImageUrl(imageUrl);
+        this.setLink(link);
+        this.setSin(sin);
+        this.setIndex(index);
+        this.setProductAttribute(new HashMap<String, String>());
     }
 
     public String getSin() {
@@ -35,7 +38,7 @@ public final class AmazonProductSearch {
     }
 
     public void addProductAttribute(String key, String value){
-        this.productAttribute.put(key,value);
+        this.getProductAttribute().put(key,value);
     }
 
     public Map<String,String> getProductAttribute(){
@@ -56,5 +59,41 @@ public final class AmazonProductSearch {
 
     public int getIndex() {
         return index;
+    }
+
+    public String getStock() {
+        return stock;
+    }
+
+    public void setStock(String stock) {
+        this.stock = stock;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public void setSin(String sin) {
+        this.sin = sin;
+    }
+
+    public void setProductAttribute(Map<String, String> productAttribute) {
+        this.productAttribute = productAttribute;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 }

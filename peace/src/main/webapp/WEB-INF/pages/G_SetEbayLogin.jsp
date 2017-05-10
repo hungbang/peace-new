@@ -28,23 +28,45 @@
 			<!-- END RIBBON -->
 
 			<!-- MAIN CONTENT -->
-			<div id="content">
+			
+    <div class="col-lg-12" style=" display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    margin-top: 15px; padding-bottom: 100px;
+		" >
+		            <div class="row col-md-12" width="100%">
+		                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
+		                     data-widget-editbutton="false">
+		                    <header>
+		                       <h2><b>eBay 設定 : eBayログイン</b></h2>
+		                    </header>
+		                    <div>
+		                        <div class="jarviswidget-editbox"></div>
+		                        <div>
 				<!-- widget grid -->
-				<section id="widget-grid" class="">
-					<h1><b>eBay 設定 : eBayログイン</b></h1>
-					<hr/>
-					
-					<h2><b>STEP 1.</b> <a class="btn btn-success" href="${urlEbayLogin}" target="_blank">eBay認証</a></h2>
-					<p>※別画面が開きますので、[Sign in] ＞ [I agree] と進み、eBay認証を完了させて下さい。 
-　　「Thank You」の画面まで行ったらその画面を閉じ、下の「完了」ボタンを押して下さい。
-					</p>
-					<h2><b>STEP 2.</b> <button id="ebayLoginComplete" class="btn btn-success">完了！</button></h2>
-					
-						
-				</section>
-				<!-- end widget grid -->
+														<section id="widget-grid" class="">
+															
+															
+															<h2><b>STEP 1.</b> <a class="btn btn-success" href="${urlEbayLogin}" target="_blank">eBay認証</a></h2>
+															<p>※別画面が開きますので、[Sign in] ＞ [I agree] と進み、eBay認証を完了させて下さい。 
+										　　「Thank You」の画面まで行ったらその画面を閉じ、下の「完了」ボタンを押して下さい。
+															</p>
+															<h2><b>STEP 2.</b> <button id="ebayLoginComplete" class="btn btn-success">完了！</button></h2>
+															
+																
+														</section>
+														<!-- end widget grid -->
 
-			</div>
+													</div>
+		                    </div>
+		                </div>
+		            </div>
+			
+		        
+		            </div>
+		        </div>
+    </div>
+			
 			<!-- END MAIN CONTENT -->
 
 		</div>
@@ -72,7 +94,7 @@
 				$.ajax({
 					type : "POST",
 					contentType : "application/json",
-					url : "/GetEbayToken",
+					url : "GetEbayToken",
 					data: token,
 			        beforeSend:function(xhr){
 			             xhr.setRequestHeader(header, token);
@@ -81,12 +103,24 @@
 					timeout : 100000,
 					success : function(data) {
 						console.log("SUCCESS: ", data);
-						alert('data.msg');
+						if(data.status == "FAILED"){
+						    alert(data.msg);
+                            $(location).attr('href', 'SetEbayLogin');
+						}
+
+						if(data.status == "REQ_ERROR"){
+                            alert(data.msg);
+						}
+
+						if(data.status == "OK"){
+						    alert(data.msg);
+						}
+
 // 						display(data);
 					},
 					error : function(e) {
 						console.log("ERROR: ", e);
-						alert('data.msg');
+						alert(e.msg);
 // 						display(e);
 					},
 					done : function(e) {
@@ -110,22 +144,21 @@
 		</script>
 
 		<!-- Your GOOGLE ANALYTICS CODE Below -->
-		<script type="text/javascript">
-			var _gaq = _gaq || [];
-			_gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
-			_gaq.push(['_trackPageview']);
+		<%--<script type="text/javascript">--%>
+			<%--var _gaq = _gaq || [];--%>
+			<%--_gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);--%>
+			<%--_gaq.push(['_trackPageview']);--%>
 
-			(function() {
-				var ga = document.createElement('script');
-				ga.type = 'text/javascript';
-				ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-				var s = document.getElementsByTagName('script')[0];
-				s.parentNode.insertBefore(ga, s);
-			})();
+			<%--(function() {--%>
+				<%--var ga = document.createElement('script');--%>
+				<%--ga.type = 'text/javascript';--%>
+				<%--ga.async = true;--%>
+				<%--ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';--%>
+				<%--var s = document.getElementsByTagName('script')[0];--%>
+				<%--s.parentNode.insertBefore(ga, s);--%>
+			<%--})();--%>
 
-		</script>
+		<%--</script>--%>
 
 	</body>
-
 </html>

@@ -265,7 +265,7 @@
 
             function renderTemplateItem (data) {
                 console.log(data)
-                var item = '<section class="col col-2 col-sm-2" style=" padding-bottom: 50px;" >'+
+                var item = '<section class="col col-4 col-sm-4" style=" padding-bottom: 50px;" >'+
                     '<label class="radio"  >'+
                     '<input type="radio" onclick="onSelectRadio(this)" value="'+data.templateId+'" class="selected_template" name="radio-inline">'+
                     '<i></i><span class="title">'+data.title+'</span></label>'+

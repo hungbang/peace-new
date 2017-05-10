@@ -19,5 +19,5 @@ pipelines:
           #- apt-get install -y openjfx
           #- apt-get -qq install ncftp
           #- ncftpput -v -u "root" -p "Potetoman1!" -R 150.95.156.25 /opt/tomcat/webapps /opt/atlassian/pipelines/agent/build/peace/target/ROOT.war
-          - apt-get install openssh-server
+          #- apt-get install openssh-server
           - scp /opt/atlassian/pipelines/agent/build/peace/target/peace.war root@150.95.156.25:/opt/tomcat/webapps

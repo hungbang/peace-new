@@ -9,13 +9,23 @@ pipelines:
   default:
     - step:
         script: # Modify the commands below to build your repository.
-          - mvn --version # -B batch mode makes Maven less verbose
-          - mvn install:install-file -Dfile=peace/src/main/webapp/WEB-INF/lib/ebaysdkcore.jar -DgroupId=com.ebay.sdk -DartifactId=core -Dversion=987 -Dpackaging=jar -DgeneratePom=true
-          - mvn install:install-file -Dfile=peace/src/main/webapp/WEB-INF/lib/ebaycalls.jar -DgroupId=com.ebay.sdk -DartifactId=api -Dversion=987 -Dpackaging=jar -DgeneratePom=true
-          - mvn install:install-file -Dfile=peace/src/main/webapp/WEB-INF/lib/helper.jar -DgroupId=com.ebay.sdk -DartifactId=helper -Dversion=987 -Dpackaging=jar -DgeneratePom=true
-          - mvn -f peace/pom.xml clean install
-          #- cp /opt/atlassian/pipelines/agent/build/peace/target/peace.war /opt/atlassian/pipelines/agent/build/peace/target/ROOT.war
-          #- apt-get update
-          #- apt-get install -y openjfx
-          #- apt-get -qq install ncftp
-          #- ncftpput -v -u "root" -p "Potetoman1!" -R 150.95.156.25 /opt/tomcat/webapps /opt/atlassian/pipelines/agent/build/peace/target/ROOT.war
+          -  echo "This script runs only on commit to the all branch."
+  branches:
+    Sprint1:
+      - step:
+          script:
+            - echo "This script runs only on commit to the Sprint1 branch."
+            - mvn --version # -B batch mode makes Maven less verbose
+            - mvn install:install-file -Dfile=peace/src/main/webapp/WEB-INF/lib/ebaysdkcore.jar -DgroupId=com.ebay.sdk -DartifactId=core -Dversion=987 -Dpackaging=jar -DgeneratePom=true
+            - mvn install:install-file -Dfile=peace/src/main/webapp/WEB-INF/lib/ebaycalls.jar -DgroupId=com.ebay.sdk -DartifactId=api -Dversion=987 -Dpackaging=jar -DgeneratePom=true
+            - mvn install:install-file -Dfile=peace/src/main/webapp/WEB-INF/lib/helper.jar -DgroupId=com.ebay.sdk -DartifactId=helper -Dversion=987 -Dpackaging=jar -DgeneratePom=true
+            - mvn -f peace/pom.xml clean install
+           #- cp /opt/atlassian/pipelines/agent/build/peace/target/peace.war /opt/atlassian/pipelines/agent/build/peace/target/ROOT.war
+            - apt-get update
+           #- apt-get install -y openjfx
+           #- apt-get -qq install ncftp
+           #- ncftpput -v -u "root" -p "Potetoman1!" -R 150.95.156.25 /opt/tomcat/webapps /opt/atlassian/pipelines/agent/build/peace/target/ROOT.war
+           #- apt-get install openssh-server
+            - scp /opt/atlassian/pipelines/agent/build/peace/target/peace.war root@150.95.156.25:/opt/tomcat/webapps
+            
+  

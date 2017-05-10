@@ -7,8 +7,9 @@ import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors; 
 
-import javax.servlet.http.HttpServletRequest; 
+import javax.servlet.http.HttpServletRequest;
 
+import com.vn.hungtq.peace.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,20 +25,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.vn.hungtq.peace.common.AjaxResponseResult;
 import com.vn.hungtq.peace.common.CommonUtils;
 import com.vn.hungtq.peace.common.Tuple;
-import com.vn.hungtq.peace.dto.AreaSettingInfoDto;
-import com.vn.hungtq.peace.dto.AreaSettingTableDto;
-import com.vn.hungtq.peace.dto.AreaTimeUnitMappingDto;
-import com.vn.hungtq.peace.dto.CountryGroupDto;
-import com.vn.hungtq.peace.dto.CountryDto;
-import com.vn.hungtq.peace.dto.EbayDeliveryMethodDto;
-import com.vn.hungtq.peace.dto.EbayShippingAreaDto;
-import com.vn.hungtq.peace.dto.EbayShippingFeeDto;
-import com.vn.hungtq.peace.dto.EbayShippingMethodDto;
-import com.vn.hungtq.peace.dto.NotShippingCountryConfigurationDto;
-import com.vn.hungtq.peace.dto.NotShippingCountryDto;
-import com.vn.hungtq.peace.dto.ReturnWarrantyMethodDto;
-import com.vn.hungtq.peace.dto.ShippingAreaWithMethodDto;
-import com.vn.hungtq.peace.dto.UserDto;
 import com.vn.hungtq.peace.entity.AreaSettingInfo;
 import com.vn.hungtq.peace.entity.Country;
 import com.vn.hungtq.peace.entity.CountryGroup; 
@@ -532,6 +519,22 @@ public class EbayShippingSettingController {
 		
 		//Ret
 		return responseResult;
+	}
+
+	@RequestMapping(value="/LoadLayoutAreaSettingByWeight/{areaId}/{weight}",method =RequestMethod.GET)
+	public @ResponseBody List<CostShippingDto> loadLayoutAreaSettingByWeight(@PathVariable("areaId") int areaId, @PathVariable("weight") int weight, HttpServletRequest request){
+		authentication = SecurityContextHolder.getContext().getAuthentication();
+		List<CostShippingDto> lstDataShipping = new ArrayList<CostShippingDto>() ;
+
+		//Get user id
+		int userId = CommonUtils.getUserFromSession((User)authentication.getPrincipal(), userService).getId();
+		boolean isExist = areaSettingInfoDaoService.isExistAreaSettingInfoOfUser(userId,areaId);
+		if(isExist){
+
+			lstDataShipping = areaSettingInfoDaoService.getShippingArea(areaId, weight);
+		}
+
+		return lstDataShipping;
 	}
 	
 	@RequestMapping("/NotShippingCountrySetting")

@@ -1535,6 +1535,10 @@
 
 
     function renderTable (data) {
+        $('#tbShippingDurationBody').empty();
+        $('#tbShippingCostBody').empty();
+        var str = "";
+        var str1 = "";
         var testdata = {
             method: 'test method',
             asia: 'test asia',
@@ -1542,30 +1546,55 @@
             eu: 'test eu',
             southAf: 'test South'
         }
-        var str ='<tr>'+
-            '<td  class="center" width="20%">'+testdata.method+
-            '</td>'+
-            '<td class="center"  width="20%">'+testdata.asia+
-            '</td>'+
-            '<td  class="center" width="20%">'+testdata.northAf+
-            '</td>'+
-            '<td  class="center" width="20%">'+testdata.eu+
-            '</td>'+
-            '<td  class="center" width="20%">'+testdata.southAf+
-            '</td>'+'</tr>';
-        console.log(str)
-        $('#tbShippingDurationBody').append($(str));
+
+        if (data.length > 0){
+            str ='<tr>'+
+                '<td  class="center" width="20%">'+"EMS"+
+                '</td>'+
+                '<td class="center"  width="20%">'+data[0].placeHolder+
+                '</td>'+
+                '<td  class="center" width="20%">'+data[1].placeHolder+
+                '</td>'+
+                '<td  class="center" width="20%">'+data[2].placeHolder+
+                '</td>'+
+                '<td  class="center" width="20%">'+data[3].placeHolder+
+                '</td>'+'</tr>';
+            str1 ='<tr>'+
+                '<td  class="center" width="20%">'+"EMS"+
+                '</td>'+
+                '<td class="center"  width="20%">'+data[0].timeShipping+
+                '</td>'+
+                '<td  class="center" width="20%">'+data[1].timeShipping+
+                '</td>'+
+                '<td  class="center" width="20%">'+data[2].timeShipping+
+                '</td>'+
+                '<td  class="center" width="20%">'+data[3].timeShipping+
+                '</td>'+'</tr>';
+        }
+        $('#tbShippingDurationBody').append($(str1));
         $('#tbShippingCostBody').append($(str));
 
     }
 
     function toggleTableCost () {
-        renderTable();
+        loadTransportConfig();
         $('#tbShippingCost').css("display") == 'none' ? $('#tbShippingCost').slideDown() : $('#tbShippingCost').slideUp() ;
         $('#tbShippingDuration').css("display") == 'none' ? $('#tbShippingDuration').slideDown() : $('#tbShippingDuration').slideUp() ;
         $('#lbShippingCost').css("display") == 'none' ? $('#lbShippingCost').slideDown() : $('#lbShippingCost').slideUp() ;
         $('#lbShippingDuration').css("display") == 'none' ? $('#lbShippingDuration').slideDown() : $('#lbShippingDuration').slideUp() ;
     }
+
+    function loadTransportConfig(){
+        var areaId = "6";
+        var weight = $("#txt_item_weight").val();
+        $.get("LoadLayoutAreaSettingByWeight/"+areaId+"/"+weight)
+            .success(function(data) {
+                renderTable(data);
+            })
+            .error(function(data, status, headers,config) {
+                console.log(data);
+            });
+    };
 
 </script>
 <!-- Your GOOGLE ANALYTICS CODE Below -->

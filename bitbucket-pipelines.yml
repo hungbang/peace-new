@@ -10,7 +10,6 @@ pipelines:
     - step:
         script: # Modify the commands below to build your repository.
           -  echo "This script runs only on commit to the all branch."
-pipeline assigned in 'branches'.":
   branches:
     Sprint1:
       - step:

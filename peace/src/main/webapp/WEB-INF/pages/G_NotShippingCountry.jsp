@@ -171,7 +171,8 @@
 										</fieldset>
 										<div class="col-md-12">
 											<div class="col-md-10"></div>
-											<button ng-click="saveNotShippingCountry()" class="btn btn-primary col-md-2">Save</button>
+											<button ng-click="saveNotShippingCountry()" style="float: right;" class="btn btn-primary">セーブ
+											</button>
 										</div>
 									</div>
 								</div>

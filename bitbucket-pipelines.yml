@@ -15,6 +15,10 @@ pipelines:
       - step:
           script:
             - echo "This script runs only on commit to the Sprint1 branch."
+    build:
+      - step:
+          script:
+            - echo "This script runs only on commit to the Build branch."
             - mvn --version # -B batch mode makes Maven less verbose
             - mvn install:install-file -Dfile=peace/src/main/webapp/WEB-INF/lib/ebaysdkcore.jar -DgroupId=com.ebay.sdk -DartifactId=core -Dversion=987 -Dpackaging=jar -DgeneratePom=true
             - mvn install:install-file -Dfile=peace/src/main/webapp/WEB-INF/lib/ebaycalls.jar -DgroupId=com.ebay.sdk -DartifactId=api -Dversion=987 -Dpackaging=jar -DgeneratePom=true

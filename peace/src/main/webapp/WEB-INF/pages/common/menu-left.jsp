@@ -106,7 +106,7 @@
 								<a href="${contextPath}/NotShippingCountrySetting">発送しない国</a>
 							</li>
 							<li>
-								<a href="${contextPath}/SetBuyer">Buyer Requirement</a>
+								<a href="${contextPath}/SetBuyer">買い手の要件</a>
 							</li>
 							<li>
 								<a href="${contextPath}/SetEbayLogin">eBayログイン</a>
@@ -124,7 +124,7 @@
 							</li>
 							<li>
 								<a href="${contextPath}/StockRegistorAmazon">新規登録（Amazon)</a>
-							</li>
+							</li>q
 							<li>
 								<a href="${contextPath}/StockListAmazon">在庫一覧（Amazon）</a>
 							</li>

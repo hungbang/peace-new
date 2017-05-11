@@ -64,7 +64,7 @@
 
 						<div >
 
-							<label style="padding-left: 10px;">
+							<label style="padding-left: 13px;">
 								<span>lastest</span>
 								<input type="number" value="0" id="number-of-item" style="width: 600px;" class="input-sm"/> 
 							</label>

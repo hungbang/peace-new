@@ -100,3 +100,7 @@ table td.nowrap {
 .note {
 	font-size: 14px
 }
+
+.jarviswidget>header>h2 {
+	margin-left: 13px;
+}

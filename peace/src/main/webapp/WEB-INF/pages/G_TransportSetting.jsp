@@ -142,7 +142,7 @@
 													<option value="13">FedEX</option>
 												</select>
 											</legend>
-											<div class="row" style="background-color:white; padding-right: 40px;">
+											<div class="row" style="background-color:white; padding-right: 30px;">
 												<table class="table table-bordered table-striped responsive-utilities" style="margin-left:15px;"> 
 													<thead>
 													  <tr >
@@ -164,13 +164,15 @@
 													  	</td>
 													  </tr>
 													</tbody>
+
 													<!-- END TBODY -->
 												</table> 
 												</div>
 										</fieldset>
-										<footer>
-											<button ng-click="saveTransportSetting()" class="btn btn-primary" data-ng-disabled="checkTransportType()">Save</button>
-										</footer>
+										<div class="row" style="margin-left: 15px; margin-right: 15px;">
+											<button style="float: right;" ng-click="saveTransportSetting()" class="btn btn-primary" data-ng-disabled="checkTransportType()">セーブ
+											</button>
+										</div>
 									</div>
 								</div>
 							</div>

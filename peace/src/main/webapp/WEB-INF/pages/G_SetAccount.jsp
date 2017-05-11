@@ -139,7 +139,7 @@
 				<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
 					 data-widget-editbutton="false">
 					<header>
-						<h2><span class="widget-icon"> <i class="fa fa-table"></i></span>  Infomation</h2>
+						<h2><span class="widget-icon"> <i class="fa fa-table"></i></span>  情報</h2>
 					</header>
 					<div>
 						<div class="jarviswidget-editbox"></div>
@@ -163,7 +163,7 @@
 																	  style="width: 100%" id="re-new-pass">
 									</label> </section>
 									<section class="row smart-form"> <label
-											class="label col col-6">Inventory check result mail distribution setting
+											class="col col-6">在庫確認結果メール配信設定
 									</label>
 										<div class="col col-6">
 											<label class=""> <input type="radio"
@@ -180,7 +180,7 @@
 								</fieldset>
 								<div class='row' style="padding: 10px 29px 5px 30px;">
 									<div class="col-md-10" ></div>
-									<button id="btnSaveAccountConfig" class="col-md-2 col-sm-12 col-xs-12 btn btn-success">Save</button>
+									<button id="btnSaveAccountConfig" class="col-md-2 col-sm-12 col-xs-12 btn btn-success">保存</button>
 								</div>
 							</div>
 						</div>
@@ -191,7 +191,7 @@
 				<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
 					 data-widget-editbutton="false">
 					<header>
-						<h2><span class="widget-icon"> <i class="fa fa-table"></i></span>   Setting Amazon</h2>
+						<h2><span class="widget-icon"> <i class="fa fa-table"></i></span>Amazonを設定する</h2>
 					</header>
 					<div>
 						<div class="jarviswidget-editbox"></div>
@@ -199,12 +199,13 @@
 							<div class="row smart-form">
 								<fieldset>
 									<section class="row smart-form"> <label
-											class="label col col-6">Access Key</label> <label
+											class="label col col-6">アクセスキー
+									</label> <label
 											class="col col-6"> <input type="text" class="form-control" style="width: 100%"
 																	  id="access-key">
 									</label> </section>
 									<section class="row smart-form"> <label
-											class="label col col-6">Secret Key</label> <label
+											class="label col col-6">秘密鍵</label> <label
 											class="col col-6"> <input type="text" class="form-control" style="width: 100%"
 																	  id="secret-key">
 									</label> </section>
@@ -215,7 +216,7 @@
 								</fieldset>
 								<div class='row' style="padding: 10px 29px 5px 30px;">
 									<div class="col-md-10" ></div>
-									<button id="btnSaveAmazonConfig" class="col-md-2 col-sm-12 col-xs-12 btn btn-success">Save</button>
+									<button id="btnSaveAmazonConfig" class="col-md-2 col-sm-12 col-xs-12 btn btn-success">保存</button>
 								</div>
 							</div>
 						</div>
@@ -227,7 +228,7 @@
 				<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
 					 data-widget-editbutton="false">
 					<header>
-						<h2><span class="widget-icon"> <i class="fa fa-table"></i></span>   Paypal Setting</h2>
+						<h2><span class="widget-icon"> <i class="fa fa-table"></i></span>Paypalの設定</h2>
 					</header>
 					<div>
 						<div class="jarviswidget-editbox"></div>
@@ -235,7 +236,7 @@
 							<div class="row smart-form">
 								<fieldset>
 									<section class="row smart-form"> <label
-											class="label col col-6">PayPal Email</label>
+											class="label col col-6">PayPalのメール</label>
 										<label class="col col-6">
 											<input type="text" class="form-control" style="width: 100%"   id="paypal-email">
 										</label>
@@ -243,14 +244,14 @@
 									<section class="row ">
 										<label class="col col-md-12 col-sm-12 col-xs-12 flex">
 											<p> <input type="checkbox" id="cbIsImmediateStettlement"
-													   name="checkbox" checked="checked" style="margin-right: 10px;font-size: 200% !important;">Require immediate payment when buyer uses Buy It Now /
-												Buy It Now Buyer needs to pay immediately</p>
+													   name="checkbox" checked="checked" style="margin-right: 10px;font-size: 200% !important;">バイヤーがBuy It Now /
+												それを今購入する購入者はすぐに支払う必要があります</p>
 										</label>
 									</section>
 								</fieldset>
 								<div class='row' style="padding: 10px 29px 5px 30px;">
 									<div class="col-md-10" ></div>
-									<button id="btnSavePaypalConfig" class="col-md-2 col-sm-12 col-xs-12 btn btn-success">Save</button>
+									<button id="btnSavePaypalConfig" class="col-md-2 col-sm-12 col-xs-12 btn btn-success">保存</button>
 								</div>
 							</div>
 						</div>
@@ -259,7 +260,7 @@
 			</div>
 		</div>
 		<div class='row' style="padding: 10px 29px 5px 30px;">
-			<button id="btnSaveConfig" ng-click="saveAccountSetting($event)" class="col-md-2 col-sm-12 col-xs-12 btn btn-primary">Save</button>
+			<button id="btnSaveConfig" ng-click="saveAccountSetting($event)" class="col-md-2 col-sm-12 col-xs-12 btn btn-primary">保存</button>
 		</div>
 
 	</div>

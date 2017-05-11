@@ -122,6 +122,12 @@
 							<li>
 								<a href="${contextPath}/StockList">在庫一覧</a>
 							</li>
+							<li>
+								<a href="${contextPath}/StockRegistorAmazon">新規登録（Amazon)</a>
+							</li>
+							<li>
+								<a href="${contextPath}/StockListAmazon">在庫一覧（Amazon）</a>
+							</li>
 						</ul>
 					</li>
 					<li>

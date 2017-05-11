@@ -949,12 +949,4 @@
 		<%--})();--%>
 	<%--</script> --%>
 </body>
-<style type="text/css">
-	.jarviswidget>header {
-    height: 50px;
-    padding: 0;
-    padding-left: 10px;
-    line-height: 40px;
-}
-</style>>
 </html>

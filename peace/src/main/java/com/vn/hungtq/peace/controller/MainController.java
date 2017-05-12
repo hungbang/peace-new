@@ -12,6 +12,7 @@ import com.vn.hungtq.peace.service.AccountSettingDaoService;
 import com.vn.hungtq.peace.service.StockRegistorDaoService;
 import com.vn.hungtq.peace.service.UserDaoService;
 import org.apache.commons.collections.map.HashedMap;
+import org.json.simple.parser.ParseException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -706,7 +707,7 @@ public class MainController {
     }
 
     @RequestMapping("SendToSell/{searchSite}/{itemIndex}/{keyWord}")
-    public ModelAndView sendToSell(@PathVariable("searchSite") String searchSite, @PathVariable("itemIndex") String itemId, @PathVariable("keyWord") String keyWord, ModelMap model) {
+    public ModelAndView sendToSell(@PathVariable("searchSite") String searchSite, @PathVariable("itemIndex") String itemId, @PathVariable("keyWord") String keyWord, ModelMap model) throws ParseException {
         switch (searchSite) {
             case "yahoo": {
                 AjaxResponseResult<List<YahooProductSearch>> responseResult = yahooSearchProductByKeywordV2(keyWord);
@@ -745,10 +746,12 @@ public class MainController {
             }
             break;
             case "amazon": {
-                String amazonSearchURL = CommonUtils.buildAmazonServiceUrl(keyWord, amazonServiceInfo);
-                AmazonSearchResult amzSearchResult = processAmazonSearchResult(amazonSearchURL);
+//                String amazonSearchURL = CommonUtils.buildAmazonServiceUrl(keyWord, amazonServiceInfo);
+//                AmazonSearchResult amzSearchResult = processAmazonSearchResult(amazonSearchURL);
+                String resultAmazonSearch = APISearchUtils.amazonSearchKeyWord(keyWord);
+                AmazonSearchResult amzSearchResult = APISearchUtils.processAmazonSearchKeywordResult(resultAmazonSearch);
                 List<AmazonProductSearch> lstProductSearch = amzSearchResult.getLstProductSearch();
-                AmazonProductSearch amazonProductSearch = lstProductSearch.get(Integer.valueOf(itemId));
+                AmazonProductSearch amazonProductSearch = lstProductSearch.stream().filter(x -> itemId.equalsIgnoreCase(x.getSin())).findAny().orElse(null);
                 if (amazonProductSearch != null) {
                     EbayProductToAdd ebayProductToAdd = new EbayProductToAdd();
                     ebayProductToAdd.setTitle(amazonProductSearch.getName());
@@ -890,6 +893,7 @@ public class MainController {
         return responseResult;
     }
 
+//    @Cacheable(value = "amazonSearchKeyword")
     private AmazonSearchResult processAmazonSearchResult(String amazonSearchURL) {
         String response = CommonUtils.getHTMLContent(amazonSearchURL, Tuple.make("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"),
                 Tuple.make("Accept-Encoding", "gzip, deflate, sdch"),
@@ -1071,8 +1075,6 @@ public class MainController {
     @ResponseBody
     public ResponseEntity<Map<String, Object>> seachAll(@PathVariable("keyword") String keyword) {
         logger.info("====value key word: " + keyword);
-//		String amazonSearchURL = CommonUtils.buildAmazonServiceUrl(keyword, amazonServiceInfo);
-//		AmazonSearchResult amzSearchResult = processAmazonSearchResult(amazonSearchURL);
         String amazonResultByKeyword = APISearchUtils.amazonSearchKeyWord(keyword);
         String ebayResult = getEbaySearchProductResult(keyword);
         AjaxResponseResult<List<YahooProductSearch>> ajaxResponseResult = processYahooSearchV2(keyword);

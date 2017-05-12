@@ -1,9 +1,11 @@
 package com.vn.hungtq.peace.service.impl;
 
+import com.vn.hungtq.peace.controller.APISearchUtils;
 import com.vn.hungtq.peace.dao.EbayTokenDao;
 import com.vn.hungtq.peace.entity.EbayToken;
 import com.vn.hungtq.peace.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -35,5 +37,12 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public EbayToken findByUser(Integer user) {
         return ebayTokenDao.findByUser(user);
+    }
+
+    @Override
+    @Cacheable(value = "amazonSearchKeyword")
+    public String callAmazonAPIByKeyword(String keyword) {
+        String result = APISearchUtils.amazonSearchKeyWord(keyword);
+        return result;
     }
 }

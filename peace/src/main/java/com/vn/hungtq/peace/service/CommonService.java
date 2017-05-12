@@ -14,4 +14,6 @@ public interface CommonService {
     EbayToken findByToken(String usertoken);
 
     EbayToken findByUser(Integer user);
+
+    String callAmazonAPIByKeyword(String keyword);
 }

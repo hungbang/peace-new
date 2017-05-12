@@ -9,6 +9,7 @@ import com.vn.hungtq.peace.entity.AccountSetting;
 import com.vn.hungtq.peace.entity.StockRegistorEntity;
 import com.vn.hungtq.peace.entity.User;
 import com.vn.hungtq.peace.service.AccountSettingDaoService;
+import com.vn.hungtq.peace.service.CommonService;
 import com.vn.hungtq.peace.service.StockRegistorDaoService;
 import com.vn.hungtq.peace.service.UserDaoService;
 import org.apache.commons.collections.map.HashedMap;
@@ -90,6 +91,9 @@ public class MainController {
 
     @Autowired
     StockRegistorDaoService stockRegistorDaoService;
+
+    @Autowired
+    CommonService commonService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String welcome(Locale locale, ModelMap model) {
@@ -746,9 +750,7 @@ public class MainController {
             }
             break;
             case "amazon": {
-//                String amazonSearchURL = CommonUtils.buildAmazonServiceUrl(keyWord, amazonServiceInfo);
-//                AmazonSearchResult amzSearchResult = processAmazonSearchResult(amazonSearchURL);
-                String resultAmazonSearch = APISearchUtils.amazonSearchKeyWord(keyWord);
+                String resultAmazonSearch = commonService.callAmazonAPIByKeyword(keyWord);
                 AmazonSearchResult amzSearchResult = APISearchUtils.processAmazonSearchKeywordResult(resultAmazonSearch);
                 List<AmazonProductSearch> lstProductSearch = amzSearchResult.getLstProductSearch();
                 AmazonProductSearch amazonProductSearch = lstProductSearch.stream().filter(x -> itemId.equalsIgnoreCase(x.getSin())).findAny().orElse(null);
@@ -1075,7 +1077,7 @@ public class MainController {
     @ResponseBody
     public ResponseEntity<Map<String, Object>> seachAll(@PathVariable("keyword") String keyword) {
         logger.info("====value key word: " + keyword);
-        String amazonResultByKeyword = APISearchUtils.amazonSearchKeyWord(keyword);
+        String amazonResultByKeyword = commonService.callAmazonAPIByKeyword(keyword);
         String ebayResult = getEbaySearchProductResult(keyword);
         AjaxResponseResult<List<YahooProductSearch>> ajaxResponseResult = processYahooSearchV2(keyword);
         AjaxResponseResult<List<YahooProductAuctionSearch>> yahooAuctionResult = processYahooAuctionSearch(keyword);

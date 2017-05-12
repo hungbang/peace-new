@@ -54,7 +54,7 @@
                         <div class="jarviswidget-editbox"></div>
                         <div class="widget-body ">
                         	<section id="widget-grid" class="" ng-controller="listErrorController">
-					<div  style="padding-left: 8px; padding-right: 8px;">
+						<div>
 						
 						<div class="dataTables_wrapper form-inline dt-bootstrap no-footer"> 
 				            <table 	id="table-sell" 

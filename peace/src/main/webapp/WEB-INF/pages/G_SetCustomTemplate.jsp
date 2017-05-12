@@ -158,7 +158,7 @@
 										<div class="col col-lg-10">
 											<div class="input input-file">
 																	<span class="button">
-																		<input id="templateUploadFile" type="file" ng-model="uploadFileModel" name="file2" onchange="angular.element(this).scope().handingEventFileUpload()">Browse
+																		<input id="templateUploadFile" type="file" ng-model="uploadFileModel" name="file2" onchange="angular.element(this).scope().handingEventFileUpload()">ブラウズ
 																	</span>
 												<input type="text" placeholder="テンプレートアップロードファイルを選択する">
 											</div>
@@ -168,7 +168,7 @@
 										<div class="col col-lg-10">
 											<div class="input input-file">
 																<span class="button">
-																	<input id="templateUploadImage" type="file" ng-model="uploadImageModel" name="file2" onchange="angular.element(this).scope().handingEventImageUpload()">Browse
+																	<input id="templateUploadImage" type="file" ng-model="uploadImageModel" name="file2" onchange="angular.element(this).scope().handingEventImageUpload()">ブラウズ
 																</span>
 												<input type="text" placeholder="カスタムテンプレートのアップロード">
 											</div>
@@ -180,7 +180,7 @@
 										<div class="col col-lg-10">
 											<div class="btn-group">
 												<button type="button" ng-click="ajaxUploadTemplate()" class="btn btn-primary btn-sm">アップロード</button>
-												<button type="button" class="btn btn-default btn-sm" ng-click="clearUserTemplateForm()">Clear</button>
+												<button type="button" class="btn btn-default btn-sm" ng-click="clearUserTemplateForm()">クリア</button>
 											</div>
 										</div>
 									</section>
@@ -200,7 +200,7 @@
 					<div>
 						<div class="jarviswidget-editbox"></div>
 						<div class="widget-body ">
-							<div id='vSelectTemplate' class="inline-group" style="padding-top: 30px; padding-bottom: 30px;">
+							<div id='vSelectTemplate' class="inline-group row" style="padding-top: 30px; padding-bottom: 30px;vse padding-left: 20px;">
 
 							</div>
 						</div>

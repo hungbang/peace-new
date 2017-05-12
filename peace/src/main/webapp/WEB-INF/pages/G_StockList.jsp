@@ -229,7 +229,7 @@
 									<div class="col-md-8"></div>
 									
 									<button type="submit" style="float: right;" id="btnReset" class="btn btn-primary col-md-1" >
-										Reset
+										リセット
 									</button>
 									<button style="margin-right: 10px; margin-left: 10px; float: right;" type="submit" id="btnDelete"  class="btn btn-primary col-md-1" >
 										削除

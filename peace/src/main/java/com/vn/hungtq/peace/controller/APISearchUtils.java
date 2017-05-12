@@ -2,6 +2,10 @@ package com.vn.hungtq.peace.controller;
 
 import com.vn.hungtq.peace.common.*;
 import org.apache.commons.collections.map.HashedMap;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -9,6 +13,7 @@ import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.*;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -47,7 +52,7 @@ public class APISearchUtils {
     private String responseGroup;
     private String itemID;
     private String operation;
-    private Map<String,String> mapConfig = new HashedMap();
+    private Map<String, String> mapConfig = new HashedMap();
 
     public APISearchUtils(Builder builder) {
         responseGroup = builder.responseGroup;
@@ -55,7 +60,7 @@ public class APISearchUtils {
         operation = builder.operation;
     }
 
-
+    @Cacheable(value = "amazonSearchKeyword", key = "#keyword")
     public static String amazonSearchKeyWord(String keyword) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -207,24 +212,57 @@ public class APISearchUtils {
         this.itemID = itemID;
     }
 
+    public static AmazonSearchResult processAmazonSearchKeywordResult(String resultAmazonSearch) throws ParseException {
+        System.out.println(resultAmazonSearch);
+        AmazonSearchResult resultObj = new AmazonSearchResult();
+        List<AmazonProductSearch> productSearches = new ArrayList<>();
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(resultAmazonSearch);
+        Set<Map.Entry<String, Object>> entry = json.entrySet();
+        Iterator<Map.Entry<String, Object>> iterator = entry.iterator();
+        if (iterator.hasNext()) {
+            Map.Entry<String, Object> map = iterator.next();
+            if ("result".equalsIgnoreCase(map.getKey())) {
+                JSONArray jsonArray = (JSONArray) map.getValue();
+                if (!jsonArray.isEmpty()) {
+                    jsonArray.forEach(x -> {
+                        AmazonProductSearch productSearch = new AmazonProductSearch();
+                        JSONArray detailSearch = (JSONArray) x;
+                        productSearch.setSin(detailSearch.get(5) != null ? String.valueOf(detailSearch.get(5)).replace("</br>", "") : "");
+                        productSearch.setImageUrl(detailSearch.get(1) != null ? String.valueOf(detailSearch.get(1)).replace("</br>", "") : "");
+                        productSearch.setName(detailSearch.get(2) != null ? String.valueOf(detailSearch.get(2)).replace("</br>", ""): "");
+                        productSearch.setLink(detailSearch.get(0) != null ? String.valueOf(detailSearch.get(0)).replace("</br>", ""): "");
+                        productSearch.setPrice(detailSearch.get(3) != null ? String.valueOf(detailSearch.get(3)).replace("</br>", "") : "");
+                        productSearch.setStock(detailSearch.get(4) != null ? String.valueOf(detailSearch.get(4)).replace("</br>", "") : "");
+                        productSearches.add(productSearch);
+                    });
+                    resultObj.setLstProductSearch(productSearches);
+                }
+            }
+        }
+        return resultObj;
+    }
+
 
     public static class Builder {
         private String responseGroup;
         private String itemID;
         private String operation;
-        private Map<String,String> mapConfig = new HashedMap();
+        private Map<String, String> mapConfig = new HashedMap();
 
         public Builder() {
         }
 
-        public Builder mapConfig(Map<String,String> val) {
+        public Builder mapConfig(Map<String, String> val) {
             mapConfig = val;
             return this;
         }
+
         public Builder responseGroup(String val) {
             responseGroup = val;
             return this;
         }
+
         public Builder operation(String val) {
             operation = val;
             return this;
@@ -243,13 +281,13 @@ public class APISearchUtils {
                 request = helper.sign(mapConfig);
             } catch (UnsupportedEncodingException e) {
 //                e.printStackTrace();
-                logger.error("UnsupportedEncodingException: "+ e.getMessage());
+                logger.error("UnsupportedEncodingException: " + e.getMessage());
             } catch (NoSuchAlgorithmException e) {
 //                e.printStackTrace();
-                logger.error("NoSuchAlgorithmException: "+ e.getMessage());
+                logger.error("NoSuchAlgorithmException: " + e.getMessage());
             } catch (InvalidKeyException e) {
 //                e.printStackTrace();
-                logger.error("InvalidKeyException: "+ e.getMessage());
+                logger.error("InvalidKeyException: " + e.getMessage());
             }
             return request;
         }
